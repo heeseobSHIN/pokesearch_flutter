@@ -75,6 +75,9 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                           TextFormField(
+                            obscureText: true,
+                            enableSuggestions: false,
+                            autocorrect: false,
                             decoration: InputDecoration(
                               hintText: "Password",
                               hintStyle: TextStyle(
@@ -94,7 +97,27 @@ class _HomeState extends State<Home> {
                               ],
                             ),
                           ),
-                          textBtn(Colors.black12, context, '도감 보기', 2),
+                          Text(
+                            '로그인하면 친구기능',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(border: Border.all()),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    '로그인 없이 시작',
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                  textBtn(Colors.black12, context, '도감 보기', 2),
+                                  textBtn(Colors.black12, context, '마이페이지', 3),
+                                  textBtn(Colors.black12, context, '도감 디테일', 4),
+                                ],
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),

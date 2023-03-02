@@ -1,9 +1,13 @@
-// ignore_for_file: file_names, prefer_const_constructors
+// ignore_for_file: file_names, prefer_const_constructors, duplicate_import
 
 import 'package:flutter/material.dart';
+import 'package:pokesearch/list.dart';
+import 'package:pokesearch/listdetail.dart';
+import 'package:pokesearch/mypage.dart';
 import 'package:pokesearch/signup.dart';
 
 import 'home.dart';
+import 'list.dart';
 
 ElevatedButton ball(Color fisrt, Color second, double imageWidth,
     double imageHeight, String imagePath) {
@@ -64,6 +68,9 @@ ElevatedButton ball(Color fisrt, Color second, double imageWidth,
 List<Widget> pages = [
   Home(),
   Signup(),
+  PoketList(),
+  MyPage(),
+  Listdetail(),
 ];
 
 ElevatedButton textBtn(Color fisrtColor, BuildContext voidcontext,
