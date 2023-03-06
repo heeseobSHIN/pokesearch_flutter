@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unused_import, avoid_print, prefer_const_constructors_in_immutables, unused_element, dead_code, prefer_interpolation_to_compose_strings, annotate_overrides, prefer_typing_uninitialized_variables, unused_local_variable
+// ignore_for_file: prefer_const_constructors, unused_import, avoid_print, prefer_const_constructors_in_immutables, unused_element, dead_code, prefer_interpolation_to_compose_strings, annotate_overrides, prefer_typing_uninitialized_variables, unused_local_variable, sized_box_for_whitespace
 // import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -52,42 +52,70 @@ class _PoketListState extends State<PoketList> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        title: Text('검색'),
-        elevation: 0,
-        leading: Icon(Icons.search),
-      ),
-      body: FutureBuilder<PokeApi>(
-        future: futureAlbum,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return (ListView.builder(
-                itemCount: snapshot.data!.results.length,
-                scrollDirection: Axis.vertical,
-                itemBuilder: (context, index) {
-                  dynamic pokename = snapshot.data!.results[index]["name"];
-                  dynamic pokedetail = snapshot.data!.results[index]["url"];
-                  return Card(
-                    child: ListTile(
-                      //   title: Text('일러'),
-                      leading: Text("사진"),
-                      trailing: Text('타입아이콘'),
-                      title: Center(
-                        child: Text(
-                          pokename.toString(),
-                        ),
-                      ),
-                    ),
-                  );
-                }));
-            //return Text(snapshot.data!.results[0].toString());
-          } else if (snapshot.hasError) {
-            return Text('${snapshot.error}');
-          }
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height * 0.1,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                ),
+                child: Center(
+                  child: TextField(
+                    decoration: InputDecoration(
+                        hintText: '   search pokemon to name',
+                        prefixIcon: Icon(Icons.search),
+                        prefixIconColor: Colors.white,
+                        filled: true,
+                        fillColor: Color.fromARGB(255, 41, 40, 44),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40.0),
+                            borderSide: BorderSide.none)),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.9,
+                child: FutureBuilder<PokeApi>(
+                  future: futureAlbum,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return (ListView.builder(
+                          itemCount: snapshot.data!.results.length,
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (context, index) {
+                            dynamic pokename =
+                                snapshot.data!.results[index]["name"];
+                            dynamic pokedetail =
+                                snapshot.data!.results[index]["url"];
+                            return Card(
+                              child: ListTile(
+                                //   title: Text('일러'),
+                                leading: Text("사진"),
+                                trailing: Text('타입아이콘'),
+                                title: Center(
+                                  child: Text(
+                                    pokename.toString(),
+                                  ),
+                                ),
+                              ),
+                            );
+                          }));
+                      //return Text(snapshot.data!.results[0].toString());
+                    } else if (snapshot.hasError) {
+                      return Text('${snapshot.error}');
+                    }
 
-          // By default, show a loading spinner.
-          return const CircularProgressIndicator();
-        },
+                    // By default, show a loading spinner.
+                    return Center(child: CircularProgressIndicator());
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
