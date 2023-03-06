@@ -7,6 +7,8 @@ import 'dart:convert';
 
 import 'package:pokesearch/listdetail.dart';
 
+var nexturl;
+
 class PokeApi {
   var results;
 
@@ -109,6 +111,7 @@ class _PoketListState extends State<PoketList> {
                                 snapshot.data!.results[index]["name"];
                             dynamic pokedetail =
                                 snapshot.data!.results[index]["url"];
+
                             return Card(
                               child: ListTile(
                                 //   title: Text('일러'),
@@ -116,6 +119,8 @@ class _PoketListState extends State<PoketList> {
                                     Text("도감번호 : " + (index + 1).toString()),
                                 trailing: IconButton(
                                   onPressed: () {
+                                    nexturl = pokedetail;
+                                    print(nexturl);
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(

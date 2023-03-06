@@ -1,31 +1,37 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_constructors_in_immutables, prefer_typing_uninitialized_variables, annotate_overrides, prefer_interpolation_to_compose_strings
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_constructors_in_immutables, prefer_typing_uninitialized_variables, annotate_overrides, prefer_interpolation_to_compose_strings, unused_import, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
+import 'list.dart';
 
 class PokeApi {
   var types;
   var name;
+  var abilities;
+  var poImage;
 
   PokeApi({
     required this.types,
     required this.name,
+    required this.abilities,
+    required this.poImage,
   });
 
   factory PokeApi.fromJson(Map<String, dynamic> json) {
     return PokeApi(
       types: json['types'],
       name: json['name'],
+      abilities: json['abilities'],
+      poImage: json['sprites'],
     );
   }
 }
 
 Future<PokeApi> fetchAlbum() async {
   // 포켓몬 주소
-  final response =
-      await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/1/'));
+  var response = await http.get(Uri.parse(nexturl));
 
   if (response.statusCode == 200) {
     return PokeApi.fromJson(jsonDecode(response.body));
@@ -35,8 +41,6 @@ Future<PokeApi> fetchAlbum() async {
 }
 
 class Listdetail extends StatefulWidget {
-  Listdetail({super.key});
-
   @override
   State<Listdetail> createState() => _ListdetailState();
 }
@@ -51,6 +55,8 @@ class _ListdetailState extends State<Listdetail> {
     // futurepage = nextpage();
   }
 
+// "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/1.png"),
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -61,27 +67,107 @@ class _ListdetailState extends State<Listdetail> {
           scrollDirection: Axis.vertical,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 20.0),
+              padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
               child: SizedBox(
                 width: 300,
                 height: 200,
                 child: PageView(
                   children: [
                     Container(
-                        child: Image(
-                      image: NetworkImage(
-                          "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/1.png"),
-                    )),
-                    Container(
-                      child: Icon(
-                        Icons.square,
-                        size: 150,
+                      child: SizedBox(
+                        child: FutureBuilder<PokeApi>(
+                          future: futureAlbum,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return Center(
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 50,
+                                    ),
+                                    Image(
+                                        image: NetworkImage(snapshot
+                                            .data!
+                                            .poImage["other"]["home"]
+                                                ["front_default"]
+                                            .toString())),
+                                  ],
+                                ),
+                              );
+                              //return Text(snapshot.data!.types[0].toString());
+                            } else if (snapshot.hasError) {
+                              return Text('${snapshot.error}');
+                            }
+
+                            // By default, show a loading spinner.
+                            return Center(child: CircularProgressIndicator());
+                          },
+                        ),
                       ),
                     ),
                     Container(
-                      child: Icon(
-                        Icons.square,
-                        size: 150,
+                      child: SizedBox(
+                        child: FutureBuilder<PokeApi>(
+                          future: futureAlbum,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return Center(
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 50,
+                                    ),
+                                    Image(
+                                        image: NetworkImage(snapshot
+                                            .data!
+                                            .poImage["other"]["home"]
+                                                ["front_shiny"]
+                                            .toString())),
+                                  ],
+                                ),
+                              );
+                              //return Text(snapshot.data!.types[0].toString());
+                            } else if (snapshot.hasError) {
+                              return Text('${snapshot.error}');
+                            }
+
+                            // By default, show a loading spinner.
+                            return Center(child: CircularProgressIndicator());
+                          },
+                        ),
+                      ),
+                    ),
+                    Container(
+                      child: SizedBox(
+                        child: FutureBuilder<PokeApi>(
+                          future: futureAlbum,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return Center(
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 50,
+                                    ),
+                                    Image(
+                                        image: NetworkImage(snapshot
+                                            .data!
+                                            .poImage["other"]
+                                                ["official-artwork"]
+                                                ["front_default"]
+                                            .toString())),
+                                  ],
+                                ),
+                              );
+                              //return Text(snapshot.data!.types[0].toString());
+                            } else if (snapshot.hasError) {
+                              return Text('${snapshot.error}');
+                            }
+
+                            // By default, show a loading spinner.
+                            return Center(child: CircularProgressIndicator());
+                          },
+                        ),
                       ),
                     ),
                   ],
@@ -103,7 +189,7 @@ class _ListdetailState extends State<Listdetail> {
                           border: Border.all(),
                         ),
                         child: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.1,
+                          height: MediaQuery.of(context).size.height * 0.07,
                           child: FutureBuilder<PokeApi>(
                             future: futureAlbum,
                             builder: (context, snapshot) {
@@ -114,6 +200,7 @@ class _ListdetailState extends State<Listdetail> {
                                       SizedBox(
                                         width: 50,
                                       ),
+                                      Text("이름 : "),
                                       Text(snapshot.data!.name.toString()),
                                     ],
                                   ),
@@ -136,19 +223,19 @@ class _ListdetailState extends State<Listdetail> {
                         decoration: BoxDecoration(
                           border: Border.all(),
                         ),
-                        child: ListTile(
-                          leading: Text('도감번호'),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(),
-                        ),
-                        child: ListTile(
-                          leading: Text('발자국, 성별,'),
+                        child: SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.07,
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 50,
+                              ),
+                              Text("도감 번호 : "),
+                              Text(nexturl
+                                  .substring(34, nexturl.lastIndexOf("/"))
+                                  .toString()),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -159,7 +246,7 @@ class _ListdetailState extends State<Listdetail> {
                           border: Border.all(),
                         ),
                         child: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.1,
+                          height: MediaQuery.of(context).size.height * 0.07,
                           child: FutureBuilder<PokeApi>(
                             future: futureAlbum,
                             builder: (context, snapshot) {
@@ -170,19 +257,114 @@ class _ListdetailState extends State<Listdetail> {
                                       SizedBox(
                                         width: 50,
                                       ),
-                                      Text('타입 1 : '),
+                                      Text('특성1 : '),
                                       Text(
-                                        snapshot.data!.types[0]["type"]["name"]
+                                        snapshot.data!
+                                                .abilities[0]["ability"]["name"]
                                                 .toString() +
                                             "   ,  ",
                                       ),
-                                      Text('타입 2 : '),
-                                      Text(
-                                        snapshot.data!.types[1]["type"]["name"]
-                                            .toString(),
-                                      ),
+                                      Text('특성2 : '),
+
+                                      (() {
+                                        if (snapshot.data!.abilities.length !=
+                                            null) {
+                                          return Text(snapshot.data!
+                                              .abilities[1]["ability"]["name"]
+                                              .toString());
+                                        } else {
+                                          return Row(
+                                            children: [
+                                              SizedBox(
+                                                width: 50,
+                                              ),
+                                              Text('단일 특성 : '),
+                                              Text(
+                                                snapshot
+                                                        .data!
+                                                        .abilities[0]["ability"]
+                                                            ["name"]
+                                                        .toString() +
+                                                    "   ,  ",
+                                              ),
+                                            ],
+                                          );
+                                        }
+                                      })(),
+
+                                      // if (snapshot.data!.abilities.length >= 2){
+                                      // return Text(snapshot
+                                      //     .data!.abilities[1]["ability"]["name"]
+                                      //     .toString());}
+                                      //     else {
+                                      //       return Text();
+                                      //     };
                                     ],
                                   ),
+                                );
+                                //return Text(snapshot.data!.types[0].toString());
+                              } else if (snapshot.hasError) {
+                                return Text('${snapshot.error}');
+                              }
+
+                              // By default, show a loading spinner.
+                              return Center(child: CircularProgressIndicator());
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(),
+                        ),
+                        child: SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.07,
+                          child: FutureBuilder<PokeApi>(
+                            future: futureAlbum,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return Center(
+                                  child: (() {
+                                    if (snapshot.data!.types.length == 2) {
+                                      return Row(
+                                        children: [
+                                          SizedBox(
+                                            width: 50,
+                                          ),
+                                          Text('타입1 : '),
+                                          Text(
+                                            snapshot.data!
+                                                    .types[0]["type"]["name"]
+                                                    .toString() +
+                                                "   ,  ",
+                                          ),
+                                          Text('타입2 : '),
+                                          Text(
+                                            snapshot
+                                                .data!.types[1]["type"]["name"]
+                                                .toString(),
+                                          ),
+                                        ],
+                                      );
+                                    } else {
+                                      return Row(
+                                        children: [
+                                          SizedBox(
+                                            width: 50,
+                                          ),
+                                          Text('단일 타입 : '),
+                                          Text(
+                                            snapshot
+                                                .data!.types[0]["type"]["name"]
+                                                .toString(),
+                                          ),
+                                        ],
+                                      );
+                                    }
+                                  })(),
                                 );
                                 //return Text(snapshot.data!.types[0].toString());
                               } else if (snapshot.hasError) {

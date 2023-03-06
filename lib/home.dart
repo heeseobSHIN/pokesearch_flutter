@@ -21,6 +21,7 @@ class _HomeState extends State<Home> {
                   fit: BoxFit.cover,
                   image: NetworkImage(
                       'https://mblogthumb-phinf.pstatic.net/MjAxOTEwMTdfNTgg/MDAxNTcxMjkwOTcxMDU1.ibryD5-KYl0IKqig9z8hc4sVBv7goLQjR66uwl5ZrFYg.C8aBQUgGIHzEOpflm3oD1t9QJ92Sqyi9ZnOEpSbzl1Mg.JPEG.new_springg/KakaoTalk_20191017_132508309.jpg?type=w800'),
+                  // 'https://marketplace.canva.com/EAEsTl8c0D0/1/0/900w/canva-%EC%B2%AD%EB%A1%9D%EC%83%89-%EB%85%B8%ED%8A%B8%EB%B6%81-%EB%AF%B8%EB%8B%88%EB%A9%80%EB%A6%AC%EC%8A%A4%ED%8A%B8-%EB%82%99%EC%84%9C-%EC%83%9D%EC%82%B0%EC%84%B1-%EC%9D%B8%EC%9A%A9%EB%AC%B8-%EB%AC%B8%EA%B5%AC-%ED%9C%B4%EB%8C%80%ED%8F%B0-%EB%B0%B0%EA%B2%BD%ED%99%94%EB%A9%B4-bQaq0hCkOhE.jpg'),
                   colorFilter:
                       ColorFilter.mode(Colors.black12, BlendMode.darken),
                 ),
@@ -112,7 +113,13 @@ class _HomeState extends State<Home> {
                                     style: TextStyle(color: Colors.black),
                                   ),
                                   textBtn(Colors.black12, context, '도감 보기', 2),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
                                   textBtn(Colors.black12, context, '마이페이지', 3),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
                                   textBtn(Colors.black12, context, '도감 디테일', 4),
                                 ],
                               ),
