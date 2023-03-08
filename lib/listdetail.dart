@@ -147,14 +147,11 @@ class _ListdetailState extends State<Listdetail> {
                                 child: Row(
                                   children: [
                                     SizedBox(
-                                      width: 50,
+                                      width: 70,
                                     ),
                                     Image(
                                         image: NetworkImage(snapshot
-                                            .data!
-                                            .poImage["other"]
-                                                ["official-artwork"]
-                                                ["front_default"]
+                                            .data!.poImage["back_default"]
                                             .toString())),
                                   ],
                                 ),
@@ -257,28 +254,13 @@ class _ListdetailState extends State<Listdetail> {
                                       SizedBox(
                                         width: 50,
                                       ),
-                                      Text('특성1 : '),
-                                      Text(
-                                        snapshot.data!
-                                                .abilities[0]["ability"]["name"]
-                                                .toString() +
-                                            "   ,  ",
-                                      ),
-                                      Text('특성2 : '),
 
                                       (() {
-                                        if (snapshot.data!.abilities.length !=
-                                            null) {
-                                          return Text(snapshot.data!
-                                              .abilities[1]["ability"]["name"]
-                                              .toString());
-                                        } else {
+                                        if (snapshot.data!.abilities.length ==
+                                            2) {
                                           return Row(
                                             children: [
-                                              SizedBox(
-                                                width: 50,
-                                              ),
-                                              Text('단일 특성 : '),
+                                              Text('특성1 : '),
                                               Text(
                                                 snapshot
                                                         .data!
@@ -287,6 +269,23 @@ class _ListdetailState extends State<Listdetail> {
                                                         .toString() +
                                                     "   ,  ",
                                               ),
+                                              Text('특성2 : '),
+                                              Text(snapshot
+                                                  .data!
+                                                  .abilities[1]["ability"]
+                                                      ["name"]
+                                                  .toString()),
+                                            ],
+                                          );
+                                        } else {
+                                          return Row(
+                                            children: [
+                                              Text('단일 특성 : '),
+                                              Text(snapshot
+                                                  .data!
+                                                  .abilities[0]["ability"]
+                                                      ["name"]
+                                                  .toString()),
                                             ],
                                           );
                                         }

@@ -25,8 +25,8 @@ class PokeApi {
 
 Future<PokeApi> fetchAlbum() async {
   // 포켓몬 주소
-  final response =
-      await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/?limit=150'));
+  final response = await http
+      .get(Uri.parse('https://pokeapi.co/api/v2/pokemon/?limit=1281'));
 
   if (response.statusCode == 200) {
     return PokeApi.fromJson(jsonDecode(response.body));
