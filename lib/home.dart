@@ -120,7 +120,6 @@ class _HomeState extends State<Home> {
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  textBtn(Colors.black12, context, '도감 디테일', 4),
                                 ],
                               ),
                             ),

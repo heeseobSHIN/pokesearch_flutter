@@ -5,26 +5,39 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 import 'list.dart';
+import 'geturl.dart';
 
 class PokeApi {
   var types;
-  var name;
+  var enName;
+  var anoName;
+  var genera;
   var abilities;
   var poImage;
+  var pokedexnumbers;
+  var entries;
 
   PokeApi({
     required this.types,
-    required this.name,
+    required this.enName,
+    required this.anoName,
     required this.abilities,
     required this.poImage,
+    required this.genera,
+    required this.pokedexnumbers,
+    required this.entries,
   });
 
   factory PokeApi.fromJson(Map<String, dynamic> json) {
     return PokeApi(
       types: json['types'],
-      name: json['name'],
+      enName: json['name'],
       abilities: json['abilities'],
       poImage: json['sprites'],
+      anoName: json['names'],
+      genera: json['genera'],
+      pokedexnumbers: json['pokedex_numbers'],
+      entries: json['flavor_text_entries'],
     );
   }
 }
@@ -40,6 +53,17 @@ Future<PokeApi> fetchAlbum() async {
   }
 }
 
+Future<PokeApi> anoName() async {
+  // 포켓몬 주소
+  var response = await http.get(Uri.parse(detailDecx));
+
+  if (response.statusCode == 200) {
+    return PokeApi.fromJson(jsonDecode(response.body));
+  } else {
+    throw Exception('Failed to load pokeApi');
+  }
+}
+
 class Listdetail extends StatefulWidget {
   @override
   State<Listdetail> createState() => _ListdetailState();
@@ -47,12 +71,13 @@ class Listdetail extends StatefulWidget {
 
 class _ListdetailState extends State<Listdetail> {
   late Future<PokeApi> futureAlbum;
+  late Future<PokeApi> anoname;
 
   @override
   void initState() {
     super.initState();
     futureAlbum = fetchAlbum();
-    // futurepage = nextpage();
+    anoname = anoName();
   }
 
 // "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/1.png"),
@@ -150,9 +175,13 @@ class _ListdetailState extends State<Listdetail> {
                                       width: 70,
                                     ),
                                     Image(
-                                        image: NetworkImage(snapshot
-                                            .data!.poImage["back_default"]
-                                            .toString())),
+                                      image: NetworkImage(snapshot
+                                          .data!.poImage["front_default"]
+                                          .toString()),
+                                      width: 200,
+                                      height: 200,
+                                      fit: BoxFit.fill,
+                                    ),
                                   ],
                                 ),
                               );
@@ -176,6 +205,7 @@ class _ListdetailState extends State<Listdetail> {
               child: Container(
                 decoration: BoxDecoration(
                   border: Border.all(),
+                  color: Colors.white12,
                 ),
                 child: Column(
                   children: [
@@ -186,9 +216,9 @@ class _ListdetailState extends State<Listdetail> {
                           border: Border.all(),
                         ),
                         child: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.07,
+                          height: MediaQuery.of(context).size.height * 0.1,
                           child: FutureBuilder<PokeApi>(
-                            future: futureAlbum,
+                            future: anoname,
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 return Center(
@@ -197,8 +227,20 @@ class _ListdetailState extends State<Listdetail> {
                                       SizedBox(
                                         width: 50,
                                       ),
-                                      Text("이름 : "),
-                                      Text(snapshot.data!.name.toString()),
+                                      Text("이름 :         "),
+                                      Column(
+                                        children: [
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                              snapshot.data!.enName.toString()),
+                                          Text(snapshot.data!.anoName[0]["name"]
+                                              .toString()),
+                                          Text(snapshot.data!.anoName[2]["name"]
+                                              .toString()),
+                                        ],
+                                      ),
                                     ],
                                   ),
                                 );
@@ -222,16 +264,31 @@ class _ListdetailState extends State<Listdetail> {
                         ),
                         child: SizedBox(
                           height: MediaQuery.of(context).size.height * 0.07,
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 50,
-                              ),
-                              Text("도감 번호 : "),
-                              Text(nexturl
-                                  .substring(34, nexturl.lastIndexOf("/"))
-                                  .toString()),
-                            ],
+                          child: FutureBuilder<PokeApi>(
+                            future: anoname,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return Center(
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 50,
+                                      ),
+                                      Text("전국 도감 번호 :    "),
+                                      Text(snapshot.data!
+                                          .pokedexnumbers[0]["entry_number"]
+                                          .toString()),
+                                    ],
+                                  ),
+                                );
+                                //return Text(snapshot.data!.types[0].toString());
+                              } else if (snapshot.hasError) {
+                                return Text('${snapshot.error}');
+                              }
+
+                              // By default, show a loading spinner.
+                              return Center(child: CircularProgressIndicator());
+                            },
                           ),
                         ),
                       ),
@@ -293,7 +350,7 @@ class _ListdetailState extends State<Listdetail> {
 
                                       // if (snapshot.data!.abilities.length >= 2){
                                       // return Text(snapshot
-                                      //     .data!.abilities[1]["ability"]["name"]
+                                      //     .data!.abilities[1]["ability"]["enName"]
                                       //     .toString());}
                                       //     else {
                                       //       return Text();
@@ -383,8 +440,36 @@ class _ListdetailState extends State<Listdetail> {
                         decoration: BoxDecoration(
                           border: Border.all(),
                         ),
-                        child: ListTile(
-                          leading: Text('진화정보'),
+                        child: SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.07,
+                          child: FutureBuilder<PokeApi>(
+                            future: anoname,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 50,
+                                    ),
+                                    Text('분류 : '),
+                                    Text(
+                                      snapshot.data!.genera[0]["genus"]
+                                              .toString() +
+                                          "   ,  ",
+                                    ),
+                                    Text(snapshot.data!.genera[1]["genus"]
+                                        .toString()),
+                                  ],
+                                );
+                                //return Text(snapshot.data!.types[0].toString());
+                              } else if (snapshot.hasError) {
+                                return Text('${snapshot.error}');
+                              }
+
+                              // By default, show a loading spinner.
+                              return Center(child: CircularProgressIndicator());
+                            },
+                          ),
                         ),
                       ),
                     ),
@@ -394,8 +479,191 @@ class _ListdetailState extends State<Listdetail> {
                         decoration: BoxDecoration(
                           border: Border.all(),
                         ),
-                        child: ListTile(
-                          leading: Text('도감설명'),
+                        child: SizedBox(
+                          child: FutureBuilder<PokeApi>(
+                            future: anoname,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text('도감설명 : '),
+                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                          bottom:
+                                              BorderSide(color: Colors.black),
+                                          top: BorderSide(color: Colors.black),
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Row(
+                                          children: [
+                                            SizedBox(
+                                              width: 30,
+                                            ),
+                                            Text(snapshot.data!
+                                                .entries[23]["version"]["name"]
+                                                .toString()),
+                                            SizedBox(
+                                              width: 30,
+                                            ),
+                                            Text(snapshot.data!
+                                                .entries[23]["flavor_text"]
+                                                .toString()),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                          bottom:
+                                              BorderSide(color: Colors.black),
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Row(
+                                          children: [
+                                            SizedBox(
+                                              width: 30,
+                                            ),
+                                            Text(snapshot.data!
+                                                .entries[31]["version"]["name"]
+                                                .toString()),
+                                            SizedBox(
+                                              width: 30,
+                                            ),
+                                            Text(snapshot.data!
+                                                .entries[31]["flavor_text"]
+                                                .toString()),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                          bottom:
+                                              BorderSide(color: Colors.black),
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Row(
+                                          children: [
+                                            SizedBox(
+                                              width: 30,
+                                            ),
+                                            Text(snapshot.data!
+                                                .entries[39]["version"]["name"]
+                                                .toString()),
+                                            SizedBox(
+                                              width: 30,
+                                            ),
+                                            Text(snapshot.data!
+                                                .entries[39]["flavor_text"]
+                                                .toString()),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                          bottom:
+                                              BorderSide(color: Colors.black),
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Row(
+                                          children: [
+                                            SizedBox(
+                                              width: 30,
+                                            ),
+                                            Text(snapshot.data!
+                                                .entries[47]["version"]["name"]
+                                                .toString()),
+                                            SizedBox(
+                                              width: 30,
+                                            ),
+                                            Text(snapshot.data!
+                                                .entries[47]["flavor_text"]
+                                                .toString()),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                          bottom:
+                                              BorderSide(color: Colors.black),
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Row(
+                                          children: [
+                                            SizedBox(
+                                              width: 30,
+                                            ),
+                                            Text(snapshot.data!
+                                                .entries[55]["version"]["name"]
+                                                .toString()),
+                                            SizedBox(
+                                              width: 30,
+                                            ),
+                                            Text(snapshot.data!
+                                                .entries[55]["flavor_text"]
+                                                .toString()),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                          bottom:
+                                              BorderSide(color: Colors.black),
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Row(
+                                          children: [
+                                            SizedBox(
+                                              width: 30,
+                                            ),
+                                            Text(snapshot.data!
+                                                .entries[65]["version"]["name"]
+                                                .toString()),
+                                            SizedBox(
+                                              width: 30,
+                                            ),
+                                            Text(snapshot.data!
+                                                .entries[65]["flavor_text"]
+                                                .toString()),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                                //return Text(snapshot.data!.types[0].toString());
+                              } else if (snapshot.hasError) {
+                                return Text('${snapshot.error}');
+                              }
+
+                              // By default, show a loading spinner.
+                              return Center(child: CircularProgressIndicator());
+                            },
+                          ),
                         ),
                       ),
                     ),

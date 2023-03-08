@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
-
+import 'geturl.dart';
 import 'package:pokesearch/listdetail.dart';
 
-var nexturl;
+var nexturl = "";
 
 class PokeApi {
   var results;
@@ -26,7 +26,8 @@ class PokeApi {
 Future<PokeApi> fetchAlbum() async {
   // 포켓몬 주소
   final response = await http
-      .get(Uri.parse('https://pokeapi.co/api/v2/pokemon/?limit=1281'));
+      // .get(Uri.parse('https://pokeapi.co/api/v2/pokemon/?limit=1010'));
+      .get(Uri.parse('https://pokeapi.co/api/v2/pokemon/?limit=300'));
 
   if (response.statusCode == 200) {
     return PokeApi.fromJson(jsonDecode(response.body));
@@ -34,6 +35,17 @@ Future<PokeApi> fetchAlbum() async {
     throw Exception('Failed to load pokeApi');
   }
 }
+
+// Future<PokeApi> Decx() async {
+//   // 포켓몬 주소
+//   final response = await http.get(Uri.parse(nexturl));
+
+//   if (response.statusCode == 200) {
+//     return PokeApi.fromJson(jsonDecode(response.body));
+//   } else {
+//     throw Exception('Failed to load pokeApi');
+//   }
+// }
 
 class PoketList extends StatefulWidget {
   PoketList({super.key});
@@ -48,6 +60,7 @@ class PoketList extends StatefulWidget {
 class _PoketListState extends State<PoketList> {
   late Future<PokeApi> futureAlbum;
   late Future<PokeApi> futurepage;
+  late Future<PokeApi> decx;
 
   // List<PokeApi> Presults = List.from(pokeApi.results);
 
@@ -66,6 +79,7 @@ class _PoketListState extends State<PoketList> {
   void initState() {
     super.initState();
     futureAlbum = fetchAlbum();
+
     // futurepage = nextpage();
   }
 
@@ -86,14 +100,15 @@ class _PoketListState extends State<PoketList> {
                   child: TextField(
                     // onChanged: (value) => updateList(value),
                     decoration: InputDecoration(
-                        hintText: '   search pokemon to num or name',
-                        prefixIcon: Icon(Icons.search),
-                        prefixIconColor: Colors.white,
-                        filled: true,
-                        fillColor: Color.fromARGB(255, 41, 40, 44),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(40.0),
-                            borderSide: BorderSide.none)),
+                      hintText: '   search pokemon to num or name',
+                      prefixIcon: Icon(Icons.search),
+                      prefixIconColor: Colors.white,
+                      filled: true,
+                      fillColor: Color.fromARGB(255, 41, 40, 44),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(40.0),
+                          borderSide: BorderSide.none),
+                    ),
                   ),
                 ),
               ),
@@ -111,6 +126,7 @@ class _PoketListState extends State<PoketList> {
                                 snapshot.data!.results[index]["name"];
                             dynamic pokedetail =
                                 snapshot.data!.results[index]["url"];
+                            // dynamic detaildecx = snapshot.data!.species["url"];
 
                             return Card(
                               child: ListTile(
@@ -120,11 +136,12 @@ class _PoketListState extends State<PoketList> {
                                 trailing: IconButton(
                                   onPressed: () {
                                     nexturl = pokedetail;
+                                    // detailDecx = detaildecx;
                                     print(nexturl);
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => Listdetail()),
+                                          builder: (context) => getUrl()),
                                     );
                                   },
                                   icon: Icon(Icons.navigate_next),
@@ -134,6 +151,24 @@ class _PoketListState extends State<PoketList> {
                                     pokename.toString(),
                                   ),
                                 ),
+                                // subtitle: Center(
+                                //   child: FutureBuilder<PokeApi>(
+                                //     future: decx,
+                                //     builder: (context, snapshot) {
+                                //       if (snapshot.hasData) {
+                                //         return (detailDecx =
+                                //             snapshot.data!.species["url"]);
+                                //         //return Text(snapshot.data!.results[0].toString());
+                                //       } else if (snapshot.hasError) {
+                                //         return Text('${snapshot.error}');
+                                //       }
+
+                                //       // By default, show a loading spinner.
+                                //       return Center(
+                                //           child: CircularProgressIndicator());
+                                //     },
+                                //   ),
+                                // ),
                               ),
                             );
                           }));
