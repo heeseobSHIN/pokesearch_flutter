@@ -1,9 +1,12 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_constructors_in_immutables, prefer_typing_uninitialized_variables, annotate_overrides, prefer_interpolation_to_compose_strings, unused_import, use_key_in_widget_constructors
 
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
+import 'customButtom.dart';
 import 'list.dart';
 import 'geturl.dart';
 
@@ -311,7 +314,6 @@ class _ListdetailState extends State<Listdetail> {
                                       SizedBox(
                                         width: 50,
                                       ),
-
                                       (() {
                                         if (snapshot.data!.abilities.length ==
                                             2) {
@@ -347,14 +349,6 @@ class _ListdetailState extends State<Listdetail> {
                                           );
                                         }
                                       })(),
-
-                                      // if (snapshot.data!.abilities.length >= 2){
-                                      // return Text(snapshot
-                                      //     .data!.abilities[1]["ability"]["enName"]
-                                      //     .toString());}
-                                      //     else {
-                                      //       return Text();
-                                      //     };
                                     ],
                                   ),
                                 );
@@ -422,7 +416,6 @@ class _ListdetailState extends State<Listdetail> {
                                     }
                                   })(),
                                 );
-                                //return Text(snapshot.data!.types[0].toString());
                               } else if (snapshot.hasError) {
                                 return Text('${snapshot.error}');
                               }
@@ -487,172 +480,44 @@ class _ListdetailState extends State<Listdetail> {
                                 return Column(
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text('도감설명 : '),
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        border: Border(
-                                          bottom:
-                                              BorderSide(color: Colors.black),
-                                          top: BorderSide(color: Colors.black),
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(5.0),
+                                      padding: const EdgeInsets.all(0.0),
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey,
+                                            border: Border(
+                                              bottom: BorderSide(
+                                                  color: Colors.black),
+                                            )),
                                         child: Row(
+                                          // ignore: prefer_const_literals_to_create_immutables
                                           children: [
                                             SizedBox(
-                                              width: 30,
+                                              width: 130,
                                             ),
-                                            Text(snapshot.data!
-                                                .entries[23]["version"]["name"]
-                                                .toString()),
+                                            Text('도감설명 : '),
                                             SizedBox(
-                                              width: 30,
+                                              height: 30,
                                             ),
-                                            Text(snapshot.data!
-                                                .entries[23]["flavor_text"]
-                                                .toString()),
                                           ],
                                         ),
                                       ),
                                     ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        border: Border(
-                                          bottom:
-                                              BorderSide(color: Colors.black),
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(5.0),
-                                        child: Row(
-                                          children: [
-                                            SizedBox(
-                                              width: 30,
-                                            ),
-                                            Text(snapshot.data!
-                                                .entries[31]["version"]["name"]
-                                                .toString()),
-                                            SizedBox(
-                                              width: 30,
-                                            ),
-                                            Text(snapshot.data!
-                                                .entries[31]["flavor_text"]
-                                                .toString()),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        border: Border(
-                                          bottom:
-                                              BorderSide(color: Colors.black),
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(5.0),
-                                        child: Row(
-                                          children: [
-                                            SizedBox(
-                                              width: 30,
-                                            ),
-                                            Text(snapshot.data!
-                                                .entries[39]["version"]["name"]
-                                                .toString()),
-                                            SizedBox(
-                                              width: 30,
-                                            ),
-                                            Text(snapshot.data!
-                                                .entries[39]["flavor_text"]
-                                                .toString()),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        border: Border(
-                                          bottom:
-                                              BorderSide(color: Colors.black),
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(5.0),
-                                        child: Row(
-                                          children: [
-                                            SizedBox(
-                                              width: 30,
-                                            ),
-                                            Text(snapshot.data!
-                                                .entries[47]["version"]["name"]
-                                                .toString()),
-                                            SizedBox(
-                                              width: 30,
-                                            ),
-                                            Text(snapshot.data!
-                                                .entries[47]["flavor_text"]
-                                                .toString()),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        border: Border(
-                                          bottom:
-                                              BorderSide(color: Colors.black),
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(5.0),
-                                        child: Row(
-                                          children: [
-                                            SizedBox(
-                                              width: 30,
-                                            ),
-                                            Text(snapshot.data!
-                                                .entries[55]["version"]["name"]
-                                                .toString()),
-                                            SizedBox(
-                                              width: 30,
-                                            ),
-                                            Text(snapshot.data!
-                                                .entries[55]["flavor_text"]
-                                                .toString()),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        border: Border(
-                                          bottom:
-                                              BorderSide(color: Colors.black),
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(5.0),
-                                        child: Row(
-                                          children: [
-                                            SizedBox(
-                                              width: 30,
-                                            ),
-                                            Text(snapshot.data!
-                                                .entries[65]["version"]["name"]
-                                                .toString()),
-                                            SizedBox(
-                                              width: 30,
-                                            ),
-                                            Text(snapshot.data!
-                                                .entries[65]["flavor_text"]
-                                                .toString()),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
+                                    for (int i = 0;
+                                        i < snapshot.data!.entries.length;
+                                        i++)
+                                      getKoEntries(
+                                          snapshot.data!
+                                              .entries[i]["language"]["name"]
+                                              .toString(),
+                                          context,
+                                          snapshot.data!
+                                              .entries[i]["version"]["name"]
+                                              .toString(),
+                                          snapshot
+                                              .data!.entries[i]["flavor_text"]
+                                              .toString())
                                   ],
                                 );
                                 //return Text(snapshot.data!.types[0].toString());

@@ -1,4 +1,6 @@
-// ignore_for_file: file_names, prefer_const_constructors, duplicate_import
+// ignore_for_file: file_names, prefer_const_constructors, duplicate_import, non_constant_identifier_names
+
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:pokesearch/list.dart';
@@ -88,5 +90,74 @@ ElevatedButton textBtn(Color fisrtColor, BuildContext voidcontext,
       );
     },
     child: Text(buttontext),
+  );
+}
+
+Container textEntries(String version, String text) {
+  return Container(
+    width: 330,
+    decoration: BoxDecoration(
+      border: Border(
+        bottom: BorderSide(color: Colors.black),
+      ),
+    ),
+    child: Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: Column(
+        children: [
+          Text(version),
+          SizedBox(
+            height: 10,
+          ),
+          Text(text),
+        ],
+      ),
+    ),
+  );
+}
+
+Padding getKoEntries(
+    String Lenlocation, BuildContext ContextC, String version, String text) {
+  String Fver = "";
+  String Ftex = "";
+
+  if (Lenlocation == "ko") {
+    Fver = version;
+    Ftex = text;
+  } else {
+    Fver = "";
+    Ftex = "";
+  }
+
+  return Padding(
+    padding: const EdgeInsets.all(0),
+    child: (() {
+      if (Fver != "" && Ftex != "") {
+        return Container(
+          width: MediaQuery.of(ContextC).size.width,
+          decoration: BoxDecoration(
+              border: Border(
+            bottom: BorderSide(color: Colors.black),
+          )),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 5,
+              ),
+              Text(Fver),
+              SizedBox(
+                height: 10,
+              ),
+              Text(Ftex),
+              SizedBox(
+                height: 5,
+              ),
+            ],
+          ),
+        );
+      } else {
+        return Column();
+      }
+    })(),
   );
 }
