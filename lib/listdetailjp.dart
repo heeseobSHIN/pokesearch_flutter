@@ -67,12 +67,12 @@ Future<PokeApi> anoName() async {
   }
 }
 
-class Listdetail extends StatefulWidget {
+class Listdetailjp extends StatefulWidget {
   @override
-  State<Listdetail> createState() => _ListdetailState();
+  State<Listdetailjp> createState() => _ListdetailjpState();
 }
 
-class _ListdetailState extends State<Listdetail> {
+class _ListdetailjpState extends State<Listdetailjp> {
   late Future<PokeApi> futureAlbum;
   late Future<PokeApi> anoname;
 
@@ -507,7 +507,7 @@ class _ListdetailState extends State<Listdetail> {
                                     for (int i = 0;
                                         i < snapshot.data!.entries.length;
                                         i++)
-                                      getKoEntries(
+                                      getKoEntriesjp(
                                           snapshot.data!
                                               .entries[i]["language"]["name"]
                                               .toString(),

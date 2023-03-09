@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, prefer_const_constructors, duplicate_import, non_constant_identifier_names
+// ignore_for_file: file_names, prefer_const_constructors, duplicate_import, non_constant_identifier_names, unused_import
 
 import 'dart:math';
 
@@ -122,6 +122,52 @@ Padding getKoEntries(
   String Ftex = "";
 
   if (Lenlocation == "ko") {
+    Fver = version;
+    Ftex = text;
+  } else {
+    Fver = "";
+    Ftex = "";
+  }
+
+  return Padding(
+    padding: const EdgeInsets.all(0),
+    child: (() {
+      if (Fver != "" && Ftex != "") {
+        return Container(
+          width: MediaQuery.of(ContextC).size.width,
+          decoration: BoxDecoration(
+              border: Border(
+            bottom: BorderSide(color: Colors.black),
+          )),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 5,
+              ),
+              Text(Fver),
+              SizedBox(
+                height: 10,
+              ),
+              Text(Ftex),
+              SizedBox(
+                height: 5,
+              ),
+            ],
+          ),
+        );
+      } else {
+        return Column();
+      }
+    })(),
+  );
+}
+
+Padding getKoEntriesjp(
+    String Lenlocation, BuildContext ContextC, String version, String text) {
+  String Fver = "";
+  String Ftex = "";
+
+  if (Lenlocation == "ja") {
     Fver = version;
     Ftex = text;
   } else {

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:pokesearch/listdetailjp.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'list.dart';
@@ -70,22 +71,43 @@ class _getUrlState extends State<getUrl> {
 
                       // dynamic detaildecx = snapshot.data!.species["url"];
 
-                      return Card(
-                        child: ListTile(
-                          leading: Text("도감 디테일 보기"),
-                          trailing: IconButton(
-                            onPressed: () {
-                              detailDecx = decx;
+                      return Column(
+                        children: [
+                          Card(
+                            child: ListTile(
+                              leading: Text("도감 디테일 한국어 보기"),
+                              trailing: IconButton(
+                                onPressed: () {
+                                  detailDecx = decx;
 
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Listdetail()),
-                              );
-                            },
-                            icon: Icon(Icons.home),
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Listdetail()),
+                                  );
+                                },
+                                icon: Icon(Icons.home),
+                              ),
+                            ),
                           ),
-                        ),
+                          Card(
+                            child: ListTile(
+                              leading: Text("도감 디테일 일본어 보기"),
+                              trailing: IconButton(
+                                onPressed: () {
+                                  detailDecx = decx;
+
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Listdetailjp()),
+                                  );
+                                },
+                                icon: Icon(Icons.home),
+                              ),
+                            ),
+                          ),
+                        ],
                       );
                     }));
               } else if (snapshot.hasError) {
