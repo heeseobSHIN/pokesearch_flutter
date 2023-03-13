@@ -7,6 +7,7 @@ import 'package:url_launcher/link.dart';
 import 'package:flutter/services.dart';
 
 final Uri _url = Uri.parse('https://tiredhermitcrab.github.io/SimplePokeCalc/');
+// FirebaseDatabase database = FirebaseDatabase.instance;
 
 class MyPage extends StatelessWidget {
   const MyPage({super.key});
@@ -18,6 +19,7 @@ class MyPage extends StatelessWidget {
         title: Text('마이페이지'),
       ),
       body: Container(
+        decoration: BoxDecoration(color: Colors.grey),
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
@@ -71,11 +73,18 @@ class MyPage extends StatelessWidget {
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.white),
                   ),
-                  child: Center(
-                    child: ElevatedButton(
-                      onPressed: _launchUrl,
-                      child: Text('포켓몬 계산기 웹 링크'),
-                    ),
+                  child: Column(
+                    children: [
+                      TextField(),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black26,
+                          elevation: 0,
+                        ),
+                        onPressed: _launchUrl,
+                        child: Text('포켓몬 계산기 웹 링크'),
+                      ),
+                    ],
                   ),
                 ),
               ),

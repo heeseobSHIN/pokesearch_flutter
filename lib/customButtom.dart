@@ -7,10 +7,12 @@ import 'package:pokesearch/list.dart';
 import 'package:pokesearch/listdetail.dart';
 import 'package:pokesearch/mypage.dart';
 import 'package:pokesearch/signup.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'home.dart';
 import 'list.dart';
 
+//몬스터볼 버튼
 ElevatedButton ball(Color fisrt, Color second, double imageWidth,
     double imageHeight, String imagePath) {
   return ElevatedButton(
@@ -75,6 +77,7 @@ List<Widget> pages = [
   Listdetail(),
 ];
 
+//페이지 이동 텍스트버튼
 ElevatedButton textBtn(Color fisrtColor, BuildContext voidcontext,
     String buttontext, int pageList) {
   return ElevatedButton(
@@ -93,6 +96,7 @@ ElevatedButton textBtn(Color fisrtColor, BuildContext voidcontext,
   );
 }
 
+//?
 Container textEntries(String version, String text) {
   return Container(
     width: 330,
@@ -116,6 +120,7 @@ Container textEntries(String version, String text) {
   );
 }
 
+//도감설명 한국어
 Padding getKoEntries(
     String Lenlocation, BuildContext ContextC, String version, String text) {
   String Fver = "";
@@ -162,6 +167,7 @@ Padding getKoEntries(
   );
 }
 
+//도감설명 일본어
 Padding getKoEntriesjp(
     String Lenlocation, BuildContext ContextC, String version, String text) {
   String Fver = "";
@@ -207,3 +213,37 @@ Padding getKoEntriesjp(
     })(),
   );
 }
+
+//파이어스토어 데이터 인풋
+TextButton Putdata(
+  String userName,
+  int age,
+  String region,
+  String imageUrl,
+  String mypokemon,
+) {
+  return TextButton(
+    onPressed: () {
+      final userCollectionReference =
+          FirebaseFirestore.instance.collection("users").doc("userKey1");
+      userCollectionReference.set({
+        "userName": userName,
+        "age": age,
+        "region": region,
+        "imageUrl": imageUrl,
+        "mypokemon": mypokemon,
+      });
+    },
+    child: Text("데이터 삽입"),
+  );
+}
+
+
+//데미지 계산식
+// class DemageCal {
+//   var demage;
+//   int level = 0;
+//   demage = (
+//     ((((((level * 2 / 5) + 2) * 위력 * 특수공격 / 50) / 특수방어) * Mod1) + 2)
+//      * [[급소]] * Mod2 *  랜덤수 / 100) * 자속보정 * 타입상성1 * 타입상성2 * Mod3
+// }
