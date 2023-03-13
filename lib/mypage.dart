@@ -1,6 +1,12 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace, unused_import, deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'dart:async';
+import 'package:url_launcher/link.dart';
+import 'package:flutter/services.dart';
+
+final Uri _url = Uri.parse('https://tiredhermitcrab.github.io/SimplePokeCalc/');
 
 class MyPage extends StatelessWidget {
   const MyPage({super.key});
@@ -66,7 +72,10 @@ class MyPage extends StatelessWidget {
                     border: Border.all(color: Colors.white),
                   ),
                   child: Center(
-                    child: Text('데미지 계산기'),
+                    child: ElevatedButton(
+                      onPressed: _launchUrl,
+                      child: Text('포켓몬 계산기 웹 링크'),
+                    ),
                   ),
                 ),
               ),
@@ -75,5 +84,11 @@ class MyPage extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+Future<void> _launchUrl() async {
+  if (!await launchUrl(_url)) {
+    throw Exception('Could not launch $_url');
   }
 }
