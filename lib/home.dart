@@ -69,35 +69,23 @@ class _HomeState extends State<Home> {
                       width: 300,
                       child: Column(
                         children: [
-                          TextField(
-                            decoration: InputDecoration(
-                              hintText: 'Id',
-                              hintStyle: TextStyle(color: Colors.black26),
-                            ),
-                          ),
-                          TextFormField(
-                            obscureText: true,
-                            enableSuggestions: false,
-                            autocorrect: false,
-                            decoration: InputDecoration(
-                              hintText: "Password",
-                              hintStyle: TextStyle(
-                                  color: Colors.black26), //<-- SEE HERE
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 60.0, top: 30),
-                            child: Row(
-                              children: [
-                                textBtn(Colors.grey, context, '로그인', 2),
-                                Padding(
-                                  padding: EdgeInsets.only(left: 30.0),
-                                  child: textBtn(
-                                      Colors.black12, context, '회원가입', 1),
-                                ),
-                              ],
-                            ),
-                          ),
+                          // TextField(
+                          //   decoration: InputDecoration(
+                          //     hintText: 'Id',
+                          //     hintStyle: TextStyle(color: Colors.black26),
+                          //   ),
+                          // ),
+                          // TextFormField(
+                          //   obscureText: true,
+                          //   enableSuggestions: false,
+                          //   autocorrect: false,
+                          //   decoration: InputDecoration(
+                          //     hintText: "Password",
+                          //     hintStyle: TextStyle(
+                          //         color: Colors.black26), //<-- SEE HERE
+                          //   ),
+                          // ),
+                          textBtn(Colors.black12, context, '로그인 기능 가기', 1),
                           Text(
                             '로그인하면 친구기능',
                             style: TextStyle(color: Colors.black),
@@ -113,10 +101,6 @@ class _HomeState extends State<Home> {
                                     style: TextStyle(color: Colors.black),
                                   ),
                                   textBtn(Colors.black12, context, '도감 보기', 2),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  textBtn(Colors.black12, context, '마이페이지', 3),
                                   SizedBox(
                                     height: 10,
                                   ),
