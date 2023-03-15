@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, duplicate_ignore, prefer_const_literals_to_create_immutables, unused_import, sized_box_for_whitespace, avoid_unnecessary_containers, duplicate_import, unused_field, prefer_final_fields, sort_child_properties_last, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, avoid_print, avoid_types_as_parameter_names
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, duplicate_ignore, prefer_const_literals_to_create_immutables, unused_import, sized_box_for_whitespace, avoid_unnecessary_containers, duplicate_import, unused_field, prefer_final_fields, sort_child_properties_last, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, avoid_print, avoid_types_as_parameter_names, unused_local_variable
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,6 +9,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:toast/toast.dart';
+
+final FirebaseAuth auth = FirebaseAuth.instance;
 
 class Signup extends StatefulWidget {
   @override
@@ -35,14 +38,15 @@ class _SignupState extends State<Signup> {
 
   @override
   Widget build(BuildContext context) {
+    ToastContext().init(context);
     var nameTextField = CupertinoTextField(
       controller: nameTextEditController,
       placeholder: "name",
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: Colors.black,
+        color: Colors.grey,
         border: Border.all(
-          color: Colors.black,
+          color: Colors.grey,
           width: 0.5,
         ),
         borderRadius: BorderRadius.circular(12),
@@ -55,12 +59,63 @@ class _SignupState extends State<Signup> {
     var ageTextField = CupertinoTextField(
       controller: ageTextEditController,
       placeholder: "나이",
-      obscureText: true,
+      // obscureText: true,
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: Colors.black,
+        color: Colors.grey,
         border: Border.all(
-          color: Colors.black,
+          color: Colors.grey,
+          width: 0.5,
+        ),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      onChanged: (Text) {
+        print(Text);
+      },
+    );
+    var regionTextField = CupertinoTextField(
+      controller: regionTextEditController,
+      placeholder: "출신 지역",
+      // obscureText: true,
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.grey,
+        border: Border.all(
+          color: Colors.grey,
+          width: 0.5,
+        ),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      onChanged: (Text) {
+        print(Text);
+      },
+    );
+    var imageTextField = CupertinoTextField(
+      controller: imageTextEditController,
+      placeholder: "대표이미지",
+      // obscureText: true,
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.grey,
+        border: Border.all(
+          color: Colors.grey,
+          width: 0.5,
+        ),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      onChanged: (Text) {
+        print(Text);
+      },
+    );
+    var mypoTextField = CupertinoTextField(
+      controller: mypoTextEditController,
+      placeholder: "즐겨찾는 포켓몬",
+      // obscureText: true,
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.grey,
+        border: Border.all(
+          color: Colors.grey,
           width: 0.5,
         ),
         borderRadius: BorderRadius.circular(12),
@@ -75,8 +130,28 @@ class _SignupState extends State<Signup> {
       color: Colors.black,
       borderRadius: BorderRadius.circular(12),
       onPressed: () {
+        final userCollectionReference = FirebaseFirestore.instance
+            .collection("users")
+            .doc(auth.currentUser.toString());
+        userCollectionReference.set({
+          "userName": nameTextEditController.text,
+          "age": ageTextEditController.text,
+          "region": regionTextEditController.text,
+          "imageUrl": imageTextEditController.text,
+          "mypokemon": mypoTextEditController.text,
+        });
+        if (auth.currentUser != null) {
+          Toast.show(auth.currentUser.toString(),
+              duration: Toast.lengthShort, gravity: Toast.bottom);
+        } else {
+          Toast.show("로그인된 사용자가 없습니다",
+              duration: Toast.lengthShort, gravity: Toast.bottom);
+        }
         print(nameTextEditController.text);
         print(ageTextEditController.text);
+        print(regionTextEditController.text);
+        print(imageTextEditController.text);
+        print(mypoTextEditController.text);
       },
     );
     return Scaffold(
@@ -132,12 +207,27 @@ class _SignupState extends State<Signup> {
                               nameTextField,
                               SizedBox(height: 10),
                               ageTextField,
+                              SizedBox(height: 10),
+                              regionTextField,
+                              SizedBox(height: 10),
+                              imageTextField,
+                              SizedBox(height: 10),
+                              mypoTextField,
                               SizedBox(height: 20),
-                              PutdataButton,
+
+                              Putdata(
+                                  auth.currentUser.toString(),
+                                  nameTextEditController.text,
+                                  ageTextEditController.text,
+                                  regionTextEditController.text,
+                                  imageTextEditController.text,
+                                  mypoTextEditController.text),
+
+                              // PutdataButton
                             ],
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),

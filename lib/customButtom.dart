@@ -1,7 +1,8 @@
-// ignore_for_file: file_names, prefer_const_constructors, duplicate_import, non_constant_identifier_names, unused_import
+// ignore_for_file: file_names, prefer_const_constructors, duplicate_import, non_constant_identifier_names, unused_import, sort_child_properties_last
 
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pokesearch/list.dart';
 import 'package:pokesearch/listdetail.dart';
@@ -215,17 +216,21 @@ Padding getKoEntriesjp(
 }
 
 //파이어스토어 데이터 인풋
-TextButton Putdata(
+CupertinoButton Putdata(
+  String user,
   String userName,
-  int age,
+  String age,
   String region,
   String imageUrl,
   String mypokemon,
 ) {
-  return TextButton(
+  return CupertinoButton(
+    child: Text("데이터 삽입"),
+    color: Colors.black,
+    borderRadius: BorderRadius.circular(12),
     onPressed: () {
       final userCollectionReference =
-          FirebaseFirestore.instance.collection("users").doc("userKey1");
+          FirebaseFirestore.instance.collection("users").doc(user);
       userCollectionReference.set({
         "userName": userName,
         "age": age,
@@ -234,7 +239,6 @@ TextButton Putdata(
         "mypokemon": mypokemon,
       });
     },
-    child: Text("데이터 삽입"),
   );
 }
 
