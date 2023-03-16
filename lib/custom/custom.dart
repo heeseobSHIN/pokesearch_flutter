@@ -13,6 +13,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../home/home.dart';
 import '../decx/list.dart';
 import '../auth/updateinfo.dart';
+import 'test.dart';
 
 //몬스터볼 버튼
 ElevatedButton ball(Color fisrt, Color second, double imageWidth,
@@ -78,6 +79,7 @@ List<Widget> pages = [
   MyPage(),
   Listdetail(),
   update(),
+  ChartsDemo()
 ];
 
 //페이지 이동 텍스트버튼
@@ -216,6 +218,38 @@ Padding getKoEntriesjp(
     })(),
   );
 }
+
+//종족값
+// Padding getstats(BuildContext ContextC, String hp, String attack,
+//     String defense, String specialAttack, String specialDefense, String speed) {
+//   return Padding(
+//     padding: const EdgeInsets.all(0),
+//     child: (() {
+//       return Container(
+//         width: MediaQuery.of(ContextC).size.width,
+//         decoration: BoxDecoration(
+//             border: Border(
+//           bottom: BorderSide(color: Colors.black),
+//         )),
+//         child: Column(
+//           children: [
+//             SizedBox(
+//               height: 5,
+//             ),
+//             Text(''),
+//             SizedBox(
+//               height: 10,
+//             ),
+//             Text(''),
+//             SizedBox(
+//               height: 5,
+//             ),
+//           ],
+//         ),
+//       );
+//     })(),
+//   );
+// }
 
 //파이어스토어 데이터 인풋
 CupertinoButton Putdata(

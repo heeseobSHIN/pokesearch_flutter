@@ -1,7 +1,7 @@
 // ignore_for_file: use_key_in_widget_ructors, prefer__ructors, prefer_const_constructors, prefer_const_constructors_in_immutables, use_key_in_widget_constructors, avoid_unnecessary_containers, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
-import 'package:pokesearch/custom/customButtom.dart';
+import 'package:pokesearch/custom/custom.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -87,6 +87,7 @@ class _HomeState extends State<Home> {
                                   SizedBox(
                                     height: 10,
                                   ),
+                                  textBtn(Colors.black, context, "차트 예제", 6)
                                 ],
                               ),
                             ),

@@ -1,6 +1,6 @@
 # pokesearch
 
-A new Flutter project.
+for first jp project
 
 ## Getting Started
 
@@ -14,3 +14,7 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+### 해야할 일
+
+-자기가 만든 샘플 올리기 -디테일에 종족값 표시 -서치페이지 -계산식 직접 계산하는 클래스 -즐겨찾기 기능 -파이어 스토어 이미지 업로드

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
-import '../custom/customButtom.dart';
+import '../custom/custom.dart';
 import 'list.dart';
 import 'geturl.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
@@ -20,17 +20,18 @@ class PokeApi {
   var poImage;
   var pokedexnumbers;
   var entries;
+  var stats;
 
-  PokeApi({
-    required this.types,
-    required this.enName,
-    required this.anoName,
-    required this.abilities,
-    required this.poImage,
-    required this.genera,
-    required this.pokedexnumbers,
-    required this.entries,
-  });
+  PokeApi(
+      {required this.types,
+      required this.enName,
+      required this.anoName,
+      required this.abilities,
+      required this.poImage,
+      required this.genera,
+      required this.pokedexnumbers,
+      required this.entries,
+      required this.stats});
 
   factory PokeApi.fromJson(Map<String, dynamic> json) {
     return PokeApi(
@@ -42,6 +43,7 @@ class PokeApi {
       genera: json['genera'],
       pokedexnumbers: json['pokedex_numbers'],
       entries: json['flavor_text_entries'],
+      stats: json['stats'],
     );
   }
 }
@@ -93,7 +95,6 @@ class _ListdetailState extends State<Listdetail> {
       ),
       body: Container(
         child: ListView(
-          scrollDirection: Axis.vertical,
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
@@ -360,6 +361,78 @@ class _ListdetailState extends State<Listdetail> {
                                     }
                                   })(),
                                 );
+                              } else if (snapshot.hasError) {
+                                return Text('${snapshot.error}');
+                              }
+
+                              // By default, show a loading spinner.
+                              return Center(child: CircularProgressIndicator());
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(),
+                        ),
+                        child: SizedBox(
+                          child: FutureBuilder<PokeApi>(
+                            future: futureAlbum,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(0.0),
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey,
+                                            border: Border(
+                                              bottom: BorderSide(
+                                                  color: Colors.black),
+                                            )),
+                                        child: Row(
+                                          // ignore: prefer_const_literals_to_create_immutables
+                                          children: [
+                                            SizedBox(
+                                              width: 130,
+                                            ),
+                                            Text('종족값(base stats) : '),
+                                            SizedBox(
+                                              height: 30,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    for (int i = 0;
+                                        i < snapshot.data!.stats.length;
+                                        i++)
+                                      Row(
+                                        children: [
+                                          SizedBox(
+                                            width: 20,
+                                          ),
+                                          Text(snapshot
+                                              .data!.stats[i]['stat']['name']
+                                              .toString()),
+                                          SizedBox(
+                                            width: 20,
+                                          ),
+                                          Text(":  "),
+                                          Text(snapshot
+                                              .data!.stats[i]['base_stat']
+                                              .toString()),
+                                        ],
+                                      )
+                                  ],
+                                );
+                                //return Text(snapshot.data!.types[0].toString());
                               } else if (snapshot.hasError) {
                                 return Text('${snapshot.error}');
                               }

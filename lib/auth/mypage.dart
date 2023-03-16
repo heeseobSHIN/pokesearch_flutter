@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace, unused_import, deprecated_member_use, unused_local_variable, non_constant_identifier_names, avoid_print, prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace, unused_import, deprecated_member_use, unused_local_variable, non_constant_identifier_names, avoid_print, prefer_typing_uninitialized_variables, unnecessary_null_comparison
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,17 +31,21 @@ class MyPage extends StatefulWidget {
 class _MyPageState extends State<MyPage> {
   @override
   Widget build(BuildContext context) {
-    final docRef = db.collection("users").doc(auth.currentUser.toString());
-    docRef.get().then(
-      (DocumentSnapshot doc) {
-        final data = doc.data() as Map<String, dynamic>;
-        // print(data);
-        region = data["region"];
-        mypo = data["mypokemon"];
-        imageUrl = data["imageUrl"];
-      },
-      onError: (e) => print("Error getting document: $e"),
-    );
+    if (db.collection("users").doc(auth.currentUser.toString()) != null) {
+      final docRef = db.collection("users").doc(auth.currentUser.toString());
+      docRef.get().then(
+        (DocumentSnapshot doc) {
+          final data = doc.data() as Map<String, dynamic>;
+          // print(data);
+          region = data["region"];
+          mypo = data["mypokemon"];
+          imageUrl = data["imageUrl"];
+        },
+        onError: (e) => print("Error getting document: $e"),
+      );
+    } else {
+      Toast.show("데이터가 없습니다.", duration: Toast.lengthShort, gravity: Toast.top);
+    }
 
     // Stream collectionStream =
     //     FirebaseFirestore.instance.collection('users').snapshots();
