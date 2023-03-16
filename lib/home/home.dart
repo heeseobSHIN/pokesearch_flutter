@@ -1,7 +1,7 @@
 // ignore_for_file: use_key_in_widget_ructors, prefer__ructors, prefer_const_constructors, prefer_const_constructors_in_immutables, use_key_in_widget_constructors, avoid_unnecessary_containers, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
-import 'package:pokesearch/customButtom.dart';
+import 'package:pokesearch/custom/customButtom.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -20,8 +20,8 @@ class _HomeState extends State<Home> {
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   image: NetworkImage(
-                      // 'https://mblogthumb-phinf.pstatic.net/MjAxOTEwMTdfNTgg/MDAxNTcxMjkwOTcxMDU1.ibryD5-KYl0IKqig9z8hc4sVBv7goLQjR66uwl5ZrFYg.C8aBQUgGIHzEOpflm3oD1t9QJ92Sqyi9ZnOEpSbzl1Mg.JPEG.new_springg/KakaoTalk_20191017_132508309.jpg?type=w800'),
-                      'https://marketplace.canva.com/EAEsTl8c0D0/1/0/900w/canva-%EC%B2%AD%EB%A1%9D%EC%83%89-%EB%85%B8%ED%8A%B8%EB%B6%81-%EB%AF%B8%EB%8B%88%EB%A9%80%EB%A6%AC%EC%8A%A4%ED%8A%B8-%EB%82%99%EC%84%9C-%EC%83%9D%EC%82%B0%EC%84%B1-%EC%9D%B8%EC%9A%A9%EB%AC%B8-%EB%AC%B8%EA%B5%AC-%ED%9C%B4%EB%8C%80%ED%8F%B0-%EB%B0%B0%EA%B2%BD%ED%99%94%EB%A9%B4-bQaq0hCkOhE.jpg'),
+                      'https://mblogthumb-phinf.pstatic.net/MjAxOTEwMTdfNTgg/MDAxNTcxMjkwOTcxMDU1.ibryD5-KYl0IKqig9z8hc4sVBv7goLQjR66uwl5ZrFYg.C8aBQUgGIHzEOpflm3oD1t9QJ92Sqyi9ZnOEpSbzl1Mg.JPEG.new_springg/KakaoTalk_20191017_132508309.jpg?type=w800'),
+                  // 'https://marketplace.canva.com/EAEsTl8c0D0/1/0/900w/canva-%EC%B2%AD%EB%A1%9D%EC%83%89-%EB%85%B8%ED%8A%B8%EB%B6%81-%EB%AF%B8%EB%8B%88%EB%A9%80%EB%A6%AC%EC%8A%A4%ED%8A%B8-%EB%82%99%EC%84%9C-%EC%83%9D%EC%82%B0%EC%84%B1-%EC%9D%B8%EC%9A%A9%EB%AC%B8-%EB%AC%B8%EA%B5%AC-%ED%9C%B4%EB%8C%80%ED%8F%B0-%EB%B0%B0%EA%B2%BD%ED%99%94%EB%A9%B4-bQaq0hCkOhE.jpg'),
                   colorFilter:
                       ColorFilter.mode(Colors.black12, BlendMode.darken),
                 ),
@@ -63,35 +63,18 @@ class _HomeState extends State<Home> {
                     ),
                     SizedBox(
                       width: 100,
-                      height: 100,
+                      height: 180,
                     ),
                     Container(
                       width: 300,
                       child: Column(
                         children: [
-                          // TextField(
-                          //   decoration: InputDecoration(
-                          //     hintText: 'Id',
-                          //     hintStyle: TextStyle(color: Colors.black26),
-                          //   ),
-                          // ),
-                          // TextFormField(
-                          //   obscureText: true,
-                          //   enableSuggestions: false,
-                          //   autocorrect: false,
-                          //   decoration: InputDecoration(
-                          //     hintText: "Password",
-                          //     hintStyle: TextStyle(
-                          //         color: Colors.black26), //<-- SEE HERE
-                          //   ),
-                          // ),
-                          textBtn(Colors.black12, context, '로그인 기능 가기', 1),
                           Text(
                             '로그인하면 친구기능',
                             style: TextStyle(color: Colors.black),
                           ),
+                          textBtn(Colors.black26, context, '로그인 기능 가기', 1),
                           Container(
-                            decoration: BoxDecoration(border: Border.all()),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
@@ -100,7 +83,7 @@ class _HomeState extends State<Home> {
                                     '로그인 없이 시작',
                                     style: TextStyle(color: Colors.black),
                                   ),
-                                  textBtn(Colors.black12, context, '도감 보기', 2),
+                                  textBtn(Colors.black26, context, '도감 보기', 2),
                                   SizedBox(
                                     height: 10,
                                   ),

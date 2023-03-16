@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
-import 'customButtom.dart';
+import '../custom/customButtom.dart';
 import 'list.dart';
 import 'geturl.dart';
 
@@ -67,12 +67,12 @@ Future<PokeApi> anoName() async {
   }
 }
 
-class Listdetail extends StatefulWidget {
+class Listdetailjp extends StatefulWidget {
   @override
-  State<Listdetail> createState() => _ListdetailState();
+  State<Listdetailjp> createState() => _ListdetailjpState();
 }
 
-class _ListdetailState extends State<Listdetail> {
+class _ListdetailjpState extends State<Listdetailjp> {
   late Future<PokeApi> futureAlbum;
   late Future<PokeApi> anoname;
 
@@ -445,12 +445,7 @@ class _ListdetailState extends State<Listdetail> {
                                       width: 50,
                                     ),
                                     Text('분류 : '),
-                                    Text(
-                                      snapshot.data!.genera[0]["genus"]
-                                              .toString() +
-                                          "   ,  ",
-                                    ),
-                                    Text(snapshot.data!.genera[1]["genus"]
+                                    Text(snapshot.data!.genera[0]["genus"]
                                         .toString()),
                                   ],
                                 );
@@ -507,7 +502,7 @@ class _ListdetailState extends State<Listdetail> {
                                     for (int i = 0;
                                         i < snapshot.data!.entries.length;
                                         i++)
-                                      getKoEntries(
+                                      getKoEntriesjp(
                                           snapshot.data!
                                               .entries[i]["language"]["name"]
                                               .toString(),

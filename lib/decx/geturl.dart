@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:pokesearch/listdetailjp.dart';
+import 'listdetailjp.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'list.dart';
-import 'package:pokesearch/listdetail.dart';
+import 'listdetail.dart';
 
 var detailDecx;
 

@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 import 'geturl.dart';
-import 'package:pokesearch/listdetail.dart';
+import 'listdetail.dart';
 
 var nexturl = "";
 
@@ -27,7 +27,7 @@ Future<PokeApi> fetchAlbum() async {
   // 포켓몬 주소
   final response = await http
       // .get(Uri.parse('https://pokeapi.co/api/v2/pokemon/?limit=1010'));
-      .get(Uri.parse('https://pokeapi.co/api/v2/pokemon/?limit=300'));
+      .get(Uri.parse('https://pokeapi.co/api/v2/pokemon/?limit=898'));
 
   if (response.statusCode == 200) {
     return PokeApi.fromJson(jsonDecode(response.body));
@@ -54,26 +54,10 @@ class PoketList extends StatefulWidget {
   State<PoketList> createState() => _PoketListState();
 }
 
-//객체 생성 PokeApi.results
-// PokeApi pokeApi = PokeApi(results: pokeApi.results);
-
 class _PoketListState extends State<PoketList> {
   late Future<PokeApi> futureAlbum;
   late Future<PokeApi> futurepage;
   late Future<PokeApi> decx;
-
-  // List<PokeApi> Presults = List.from(pokeApi.results);
-
-  // void updateList(String value) {
-  //   //fillter나 list 기능
-  //   setState(() {
-  //     Presults = pokeApi.results
-  //         .where((element) => element.pokeapi.results!
-  //             .toLowerCase()
-  //             .contains(value.toLowerCase()))
-  //         .toList();
-  //   });
-  // }
 
   @override
   void initState() {

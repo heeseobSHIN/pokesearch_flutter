@@ -4,14 +4,15 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pokesearch/list.dart';
-import 'package:pokesearch/listdetail.dart';
-import 'package:pokesearch/mypage.dart';
-import 'package:pokesearch/signup.dart';
+import '../decx/list.dart';
+import '../decx/listdetail.dart';
+import 'package:pokesearch/auth/mypage.dart';
+import 'package:pokesearch/auth/signup.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'home.dart';
-import 'list.dart';
+import '../home/home.dart';
+import '../decx/list.dart';
+import '../auth/updateinfo.dart';
 
 //몬스터볼 버튼
 ElevatedButton ball(Color fisrt, Color second, double imageWidth,
@@ -76,6 +77,7 @@ List<Widget> pages = [
   PoketList(),
   MyPage(),
   Listdetail(),
+  update(),
 ];
 
 //페이지 이동 텍스트버튼

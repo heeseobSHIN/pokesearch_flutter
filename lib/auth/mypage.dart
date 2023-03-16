@@ -35,7 +35,7 @@ class _MyPageState extends State<MyPage> {
     docRef.get().then(
       (DocumentSnapshot doc) {
         final data = doc.data() as Map<String, dynamic>;
-        print(data);
+        // print(data);
         region = data["region"];
         mypo = data["mypokemon"];
         imageUrl = data["imageUrl"];

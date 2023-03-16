@@ -6,9 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
-import 'customButtom.dart';
+import '../custom/customButtom.dart';
 import 'list.dart';
 import 'geturl.dart';
+import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 
 class PokeApi {
   var types;
@@ -67,12 +68,12 @@ Future<PokeApi> anoName() async {
   }
 }
 
-class Listdetailjp extends StatefulWidget {
+class Listdetail extends StatefulWidget {
   @override
-  State<Listdetailjp> createState() => _ListdetailjpState();
+  State<Listdetail> createState() => _ListdetailState();
 }
 
-class _ListdetailjpState extends State<Listdetailjp> {
+class _ListdetailState extends State<Listdetail> {
   late Future<PokeApi> futureAlbum;
   late Future<PokeApi> anoname;
 
@@ -99,107 +100,50 @@ class _ListdetailjpState extends State<Listdetailjp> {
               child: SizedBox(
                 width: 300,
                 height: 200,
-                child: PageView(
-                  children: [
-                    Container(
-                      child: SizedBox(
-                        child: FutureBuilder<PokeApi>(
-                          future: futureAlbum,
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return Center(
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 50,
-                                    ),
-                                    Image(
+                child: Container(
+                  child: SizedBox(
+                    child: FutureBuilder<PokeApi>(
+                      future: futureAlbum,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return FlutterCarousel(
+                            options: CarouselOptions(
+                              height: 400.0,
+                              showIndicator: true,
+                              slideIndicator: CircularSlideIndicator(),
+                            ),
+                            items: [
+                              "front_default",
+                              "front_shiny",
+                            ].map((i) {
+                              return Builder(
+                                builder: (BuildContext context) {
+                                  return Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    margin:
+                                        EdgeInsets.symmetric(horizontal: 5.0),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(),
+                                        borderRadius: BorderRadius.circular(50),
+                                        color: Colors.white10),
+                                    child: Image(
                                         image: NetworkImage(snapshot
-                                            .data!
-                                            .poImage["other"]["home"]
-                                                ["front_default"]
+                                            .data!.poImage["other"]["home"][i]
                                             .toString())),
-                                  ],
-                                ),
+                                  );
+                                },
                               );
-                              //return Text(snapshot.data!.types[0].toString());
-                            } else if (snapshot.hasError) {
-                              return Text('${snapshot.error}');
-                            }
+                            }).toList(),
+                          );
+                        } else if (snapshot.hasError) {
+                          return Text('${snapshot.error}');
+                        }
 
-                            // By default, show a loading spinner.
-                            return Center(child: CircularProgressIndicator());
-                          },
-                        ),
-                      ),
+                        // By default, show a loading spinner.
+                        return Center(child: CircularProgressIndicator());
+                      },
                     ),
-                    Container(
-                      child: SizedBox(
-                        child: FutureBuilder<PokeApi>(
-                          future: futureAlbum,
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return Center(
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 50,
-                                    ),
-                                    Image(
-                                        image: NetworkImage(snapshot
-                                            .data!
-                                            .poImage["other"]["home"]
-                                                ["front_shiny"]
-                                            .toString())),
-                                  ],
-                                ),
-                              );
-                              //return Text(snapshot.data!.types[0].toString());
-                            } else if (snapshot.hasError) {
-                              return Text('${snapshot.error}');
-                            }
-
-                            // By default, show a loading spinner.
-                            return Center(child: CircularProgressIndicator());
-                          },
-                        ),
-                      ),
-                    ),
-                    Container(
-                      child: SizedBox(
-                        child: FutureBuilder<PokeApi>(
-                          future: futureAlbum,
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return Center(
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 70,
-                                    ),
-                                    Image(
-                                      image: NetworkImage(snapshot
-                                          .data!.poImage["front_default"]
-                                          .toString()),
-                                      width: 200,
-                                      height: 200,
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ],
-                                ),
-                              );
-                              //return Text(snapshot.data!.types[0].toString());
-                            } else if (snapshot.hasError) {
-                              return Text('${snapshot.error}');
-                            }
-
-                            // By default, show a loading spinner.
-                            return Center(child: CircularProgressIndicator());
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ),
@@ -445,11 +389,6 @@ class _ListdetailjpState extends State<Listdetailjp> {
                                       width: 50,
                                     ),
                                     Text('분류 : '),
-                                    Text(
-                                      snapshot.data!.genera[0]["genus"]
-                                              .toString() +
-                                          "   ,  ",
-                                    ),
                                     Text(snapshot.data!.genera[1]["genus"]
                                         .toString()),
                                   ],
@@ -507,7 +446,7 @@ class _ListdetailjpState extends State<Listdetailjp> {
                                     for (int i = 0;
                                         i < snapshot.data!.entries.length;
                                         i++)
-                                      getKoEntriesjp(
+                                      getKoEntries(
                                           snapshot.data!
                                               .entries[i]["language"]["name"]
                                               .toString(),
