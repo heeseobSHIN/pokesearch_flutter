@@ -1,15 +1,20 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_constructors_in_immutables, prefer_typing_uninitialized_variables, annotate_overrides, prefer_interpolation_to_compose_strings, unused_import, use_key_in_widget_constructors
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_constructors_in_immutables, prefer_typing_uninitialized_variables, annotate_overrides, prefer_interpolation_to_compose_strings, unused_import, use_key_in_widget_constructors, curly_braces_in_flow_control_structures
 
 // import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
+import 'package:charts_flutter_new/flutter.dart' as charts;
 import 'dart:convert';
 import '../custom/custom.dart';
 import 'list.dart';
 import 'geturl.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
+
+List<Sales> statlist = [];
+var statname = [];
+var statbase = [];
 
 class PokeApi {
   var types;
@@ -71,19 +76,45 @@ Future<PokeApi> anoName() async {
 }
 
 class Listdetail extends StatefulWidget {
+  // final bool animate = true;
   @override
   State<Listdetail> createState() => _ListdetailState();
 }
 
 class _ListdetailState extends State<Listdetail> {
+  late List<charts.Series<dynamic, String>> seriesList;
   late Future<PokeApi> futureAlbum;
   late Future<PokeApi> anoname;
 
+  static List<charts.Series<Sales, String>> _createRandomData() {
+    return [
+      charts.Series<Sales, String>(
+          id: 'Sales',
+          domainFn: (Sales sales, _) => sales.stat,
+          measureFn: (Sales sales, _) => sales.value,
+          data: statlist,
+          // primaryMeasureAxis: charts.NumericAxisSpec(
+          //   tickProviderSpec:
+          //       charts.BasicNumericTickProviderSpec(desiredTickCount: 3)),
+          fillColorFn: (Sales sales, _) {
+            return charts.MaterialPalette.blue.shadeDefault;
+          },
+          labelAccessorFn: (Sales sales, _) =>
+              '${sales.stat}: \$${sales.value.toString()}'),
+    ];
+  }
+
+  barChart() {
+    return Chart(seriesList);
+  }
+
+//초기화 후 생성자 전달
   @override
   void initState() {
     super.initState();
     futureAlbum = fetchAlbum();
     anoname = anoName();
+    seriesList = _createRandomData();
   }
 
 // "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/1.png"),
@@ -92,6 +123,16 @@ class _ListdetailState extends State<Listdetail> {
     return Scaffold(
       appBar: AppBar(
         title: Text('도감 디테일'),
+        leading: IconButton(
+          onPressed: () {
+            statlist.removeRange(0, 6);
+
+            Navigator.pop(context);
+            // statlist.length = statlist.length - 5;
+            // statlist = [];
+          },
+          icon: Icon(Icons.navigate_before),
+        ),
       ),
       body: Container(
         child: ListView(
@@ -383,6 +424,30 @@ class _ListdetailState extends State<Listdetail> {
                             future: futureAlbum,
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
+                                for (int i = 0;
+                                    i < snapshot.data!.stats.length;
+                                    i++)
+                                  statbase.add(snapshot
+                                      .data!.stats[i]["base_stat"]
+                                      .toString());
+
+                                for (int i = 0;
+                                    i < snapshot.data!.stats.length;
+                                    i++)
+                                  statname.add(snapshot
+                                      .data!.stats[i]["stat"]["name"]
+                                      .toString());
+
+                                for (int i = 0;
+                                    i < snapshot.data!.stats.length;
+                                    i++) {
+                                  statlist.add(Sales(
+                                      statname[i].toString(),
+                                      int.parse(statbase[i]
+                                          .toString()))); //근데 따로 안바꿔도 int형으로 들어갈 거에요
+                                }
+
+                                print(statlist);
                                 return Column(
                                   children: [
                                     Padding(
@@ -413,23 +478,28 @@ class _ListdetailState extends State<Listdetail> {
                                     for (int i = 0;
                                         i < snapshot.data!.stats.length;
                                         i++)
-                                      Row(
-                                        children: [
-                                          SizedBox(
-                                            width: 20,
-                                          ),
-                                          Text(snapshot
-                                              .data!.stats[i]['stat']['name']
-                                              .toString()),
-                                          SizedBox(
-                                            width: 20,
-                                          ),
-                                          Text(":  "),
-                                          Text(snapshot
-                                              .data!.stats[i]['base_stat']
-                                              .toString()),
-                                        ],
-                                      )
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 3.0),
+                                        child: Row(
+                                          children: [
+                                            SizedBox(
+                                              width: 20,
+                                            ),
+                                            Text(snapshot
+                                                .data!.stats[i]['stat']['name']
+                                                .toString()),
+                                            SizedBox(
+                                              width: 20,
+                                            ),
+                                            Text(":  "),
+                                            Text(snapshot
+                                                .data!.stats[i]['base_stat']
+                                                .toString()),
+                                          ],
+                                        ),
+                                      ),
+                                    barChart(),
                                   ],
                                 );
                                 //return Text(snapshot.data!.types[0].toString());
@@ -553,4 +623,11 @@ class _ListdetailState extends State<Listdetail> {
       ),
     );
   }
+}
+
+class Sales {
+  String stat;
+  int value;
+
+  Sales(this.stat, this.value);
 }

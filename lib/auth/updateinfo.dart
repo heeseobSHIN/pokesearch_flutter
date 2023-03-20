@@ -133,7 +133,7 @@ class _updateState extends State<update> {
       onPressed: () {
         final userCollectionReference = FirebaseFirestore.instance
             .collection("users")
-            .doc(auth.currentUser.toString());
+            .doc(FirebaseAuth.instance.currentUser?.uid.toString());
         userCollectionReference.set({
           "userName": nameTextEditController.text,
           "age": ageTextEditController.text,

@@ -63,6 +63,7 @@ class _getUrlState extends State<getUrl> {
             future: decx,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
+                print(statlist);
                 return (ListView.builder(
                     itemCount: 1,
                     scrollDirection: Axis.vertical,
@@ -79,6 +80,9 @@ class _getUrlState extends State<getUrl> {
                               trailing: IconButton(
                                 onPressed: () {
                                   detailDecx = decx;
+                                  // if (statlist != null) {
+
+                                  // }
 
                                   Navigator.push(
                                     context,

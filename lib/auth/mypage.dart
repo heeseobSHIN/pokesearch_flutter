@@ -14,6 +14,9 @@ import 'package:flutterfire_ui/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 final db = FirebaseFirestore.instance;
+final _auth = FirebaseAuth.instance;
+String? userEmail;
+
 var region;
 var mypo;
 var imageUrl;
@@ -31,8 +34,9 @@ class MyPage extends StatefulWidget {
 class _MyPageState extends State<MyPage> {
   @override
   Widget build(BuildContext context) {
-    if (db.collection("users").doc(auth.currentUser.toString()) != null) {
-      final docRef = db.collection("users").doc(auth.currentUser.toString());
+    if (db.collection("users").doc(_auth.currentUser?.uid.toString()) != null) {
+      final docRef =
+          db.collection("users").doc(_auth.currentUser?.uid.toString());
       docRef.get().then(
         (DocumentSnapshot doc) {
           final data = doc.data() as Map<String, dynamic>;
