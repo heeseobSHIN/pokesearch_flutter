@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pokesearch/custom/custom.dart';
 import 'package:toast/toast.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:async';
@@ -32,8 +33,37 @@ class MyPage extends StatefulWidget {
 }
 
 class _MyPageState extends State<MyPage> {
+  final spiciesEditController = TextEditingController();
+  final personalEditController = TextEditingController();
+  final dopingEditController = TextEditingController();
+  final skilldeEditController = TextEditingController();
+  final EditController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    spiciesEditController.dispose();
+    personalEditController.dispose();
+    dopingEditController.dispose();
+    skilldeEditController.dispose();
+    EditController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    double spdata = 0;
+    double pedata = 0;
+    double dodata = 0;
+    double skdata = 0;
+    double realdemage = 0;
+    void _changedemage() {
+      setState(() {
+        realdemage =
+            ((spdata + pedata / 2 + dodata / 8 + 5) * 1.1) * skdata * 1.5;
+      });
+    }
+
     if (db.collection("users").doc(_auth.currentUser?.uid.toString()) != null) {
       final docRef =
           db.collection("users").doc(_auth.currentUser?.uid.toString());
@@ -89,16 +119,30 @@ class _MyPageState extends State<MyPage> {
                       }
                       // 데이터를 정상적으로 받아오게 되면 다음 부분을 실행하게 되는 것이다.
                       else {
-                        return Container(
-                          width: double.infinity,
-                          height: MediaQuery.of(context).size.height * 0.3,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(200),
-                            image: DecorationImage(
-                              image: NetworkImage(imageUrl),
+                        if (imageUrl != null) {
+                          return Container(
+                            width: double.infinity,
+                            height: MediaQuery.of(context).size.height * 0.3,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(200),
+                              image: DecorationImage(
+                                image: NetworkImage(imageUrl),
+                              ),
                             ),
-                          ),
-                        );
+                          );
+                        } else {
+                          return Container(
+                            width: double.infinity,
+                            height: MediaQuery.of(context).size.height * 0.3,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(200),
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                    "https://dimg.donga.com/wps/NEWS/IMAGE/2021/09/07/109121848.2.jpg"),
+                              ),
+                            ),
+                          );
+                        }
                       }
                     }),
               ),
@@ -188,13 +232,103 @@ class _MyPageState extends State<MyPage> {
                 padding: EdgeInsets.all(8),
                 child: Container(
                   width: 400,
-                  height: 300,
+                  height: 500,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.white),
                   ),
                   child: Column(
                     children: [
-                      TextField(),
+                      CupertinoTextField(
+                        controller: spiciesEditController,
+                        placeholder: "종족값",
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.black12,
+                          border: Border.all(
+                            color: Colors.grey,
+                            width: 0.5,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        // onChanged: (Text) {
+                        //   spdata = double.parse(Text);
+                        //   print(spdata.toString());
+                        // }
+                      ),
+                      CupertinoTextField(
+                        controller: personalEditController,
+                        placeholder: "개체값 1~31",
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.black12,
+                          border: Border.all(
+                            color: Colors.grey,
+                            width: 0.5,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        // onChanged: (Text) {
+                        //   pedata = double.parse(Text);
+                        //   print(pedata.toString());
+                        // }
+                      ),
+                      CupertinoTextField(
+                        controller: dopingEditController,
+                        placeholder: "노력치 1 ~ 252",
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.black12,
+                          border: Border.all(
+                            color: Colors.grey,
+                            width: 0.5,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        // onChanged: (Text) {
+                        //   dodata = double.parse(Text);
+                        //   print(dodata.toString());
+                        // }
+                      ),
+                      CupertinoTextField(
+                        controller: skilldeEditController,
+                        placeholder: "기술 위력",
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.black12,
+                          border: Border.all(
+                            color: Colors.grey,
+                            width: 0.5,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        // onChanged: (Text) {
+                        //   skdata = double.parse(Text);
+                        //   print(skdata.toString());
+                        // }
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          spdata = double.parse(spiciesEditController.text);
+                          pedata = double.parse(personalEditController.text);
+                          dodata = double.parse(dopingEditController.text);
+                          skdata = double.parse(skilldeEditController.text);
+                          print(spdata.toString());
+                          print(pedata.toString());
+                          print(dodata.toString());
+                          print(skdata.toString());
+
+                          _changedemage();
+                          Toast.show("기본 결정력" + realdemage.floor().toString(),
+                              duration: Toast.lengthShort, gravity: Toast.top);
+                          print(realdemage.floor());
+                        },
+                        icon: Icon(Icons.search),
+                      ),
+                      // Text(
+                      //   '$realdemage',
+                      // ),
+
+                      // Text(realdemage),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.black26,

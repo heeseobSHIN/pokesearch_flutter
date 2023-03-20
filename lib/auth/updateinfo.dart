@@ -11,7 +11,8 @@ import 'package:flutterfire_ui/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:toast/toast.dart';
 
-final FirebaseAuth auth = FirebaseAuth.instance;
+final db = FirebaseFirestore.instance;
+final _auth = FirebaseAuth.instance;
 
 class update extends StatefulWidget {
   @override
@@ -166,6 +167,7 @@ class _updateState extends State<update> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
+                          SizedBox(height: 10),
                           nameTextField,
                           SizedBox(height: 10),
                           ageTextField,

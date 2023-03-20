@@ -18,7 +18,6 @@ class ChartsDemo extends StatefulWidget {
 
 class ChartsDemoState extends State<ChartsDemo> {
   late List<charts.Series<dynamic, String>> seriesList;
-  late Future<PokeApi> futureAlbum;
 
 //  일련의 차트 데이터를 저장할 목록
   static List<charts.Series<Sales, String>> _createRandomData() {
@@ -56,7 +55,6 @@ class ChartsDemoState extends State<ChartsDemo> {
   void initState() {
     super.initState();
     seriesList = _createRandomData();
-    futureAlbum = fetchAlbum();
   }
 
   @override
@@ -64,7 +62,12 @@ class ChartsDemoState extends State<ChartsDemo> {
     return Scaffold(
         body: Container(
       padding: const EdgeInsets.all(20.0),
-      child: barChart(),
+      child: Column(
+        children: [
+          barChart(),
+          // getDemage(139, 31, 252, 110),
+        ],
+      ),
     ));
   }
 }

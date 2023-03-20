@@ -280,11 +280,24 @@ CupertinoButton Putdata(
 
 //데미지 계산식
 // class DemageCal {
-//   var demage;
-//   int level = 0;
-//   demage = (
-//     ((((((level * 2 / 5) + 2) * 위력 * 특수공격 / 50) / 특수방어) * Mod1) + 2)
-//      * [[급소]] * Mod2 *  랜덤수 / 100) * 자속보정 * 타입상성1 * 타입상성2 * Mod3
+
+//   int skilldm;
+//   int atstat;
+//   int dfstat;
+//   final nansu = Random().nextInt(100 - 85);
+//   bool mytype = true;
+//   int dmpoint;
+
+//   var demage = 22 * skilldm * atstat / 50 / dfstat *nansu / 100 * 1.5 * dmpoint ;
+
+//   DemageCal(
+//     // this.nansu,
+//     this.skilldm,
+//     this.atstat,
+//     this.mytype,
+//     this.dfstat,
+//     this.dmpoint,
+//   );
 // }
 
 //차트
@@ -307,3 +320,17 @@ Container Chart(List<charts.Series<dynamic, String>> firstlist) {
     ),
   );
 }
+
+//결정력 계산
+// IconButton getDemage(
+//     double spicies, double personal, double doping, double skillde) {
+//   double realdemage;
+//   return IconButton(
+//     onPressed: () {
+//       realdemage =
+//           ((spicies + personal / 2 + doping / 8 + 5) * 1.1) * skillde * 1.5;
+//       print(realdemage.floor());
+//     },
+//     icon: Icon(Icons.abc),
+//   );
+// }
