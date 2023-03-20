@@ -1,7 +1,7 @@
-// ignore_for_file: file_names, prefer_const_constructors, duplicate_import, non_constant_identifier_names, unused_import, sort_child_properties_last
+// ignore_for_file: file_names, prefer_const_constructors, duplicate_import, non_constant_identifier_names, unused_import, sort_child_properties_last, sized_box_for_whitespace
 
 import 'dart:math';
-
+import 'package:charts_flutter_new/flutter.dart' as charts;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../decx/list.dart';
@@ -278,7 +278,6 @@ CupertinoButton Putdata(
   );
 }
 
-
 //데미지 계산식
 // class DemageCal {
 //   var demage;
@@ -287,3 +286,24 @@ CupertinoButton Putdata(
 //     ((((((level * 2 / 5) + 2) * 위력 * 특수공격 / 50) / 특수방어) * Mod1) + 2)
 //      * [[급소]] * Mod2 *  랜덤수 / 100) * 자속보정 * 타입상성1 * 타입상성2 * Mod3
 // }
+
+//차트
+Container Chart(List<charts.Series<dynamic, String>> firstlist) {
+  return Container(
+    width: 300,
+    height: 300,
+    child: charts.BarChart(
+      firstlist,
+      animate: true,
+      vertical: false,
+      barGroupingType: charts.BarGroupingType.grouped,
+      defaultRenderer: charts.BarRendererConfig(
+        groupingType: charts.BarGroupingType.grouped,
+        strokeWidthPx: 1.0,
+      ),
+      domainAxis: const charts.OrdinalAxisSpec(
+        renderSpec: charts.NoneRenderSpec(),
+      ),
+    ),
+  );
+}
