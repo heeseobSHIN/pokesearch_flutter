@@ -8,6 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'dart:async';
 import 'package:url_launcher/link.dart';
 import 'package:flutter/services.dart';
+import 'updatemysample.dart';
 import 'signup.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -195,37 +196,74 @@ class _MyPageState extends State<MyPage> {
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.white),
                   ),
-                  child: Center(
-                    child: FutureBuilder(
-                        future: _fetch2(),
-                        builder:
-                            (BuildContext context, AsyncSnapshot snapshot) {
-                          //해당 부분은 data를 아직 받아 오지 못했을때 실행되는 부분을 의미한다.
-                          if (snapshot.hasData == false) {
-                            return CircularProgressIndicator();
-                          }
-                          //error가 발생하게 될 경우 반환하게 되는 부분
-                          else if (snapshot.hasError) {
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'Error: ${snapshot.error}',
-                                style: TextStyle(fontSize: 15),
+                  child: FutureBuilder(
+                      future: _fetch2(),
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        //해당 부분은 data를 아직 받아 오지 못했을때 실행되는 부분을 의미한다.
+                        if (snapshot.hasData == false) {
+                          return CircularProgressIndicator();
+                        }
+                        //error가 발생하게 될 경우 반환하게 되는 부분
+                        else if (snapshot.hasError) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              'Error: ${snapshot.error}',
+                              style: TextStyle(fontSize: 15),
+                            ),
+                          );
+                        }
+                        // 데이터를 정상적으로 받아오게 되면 다음 부분을 실행하게 되는 것이다.
+                        else {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              width: 300,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    width: 300,
+                                    height: 40,
+                                    child: Card(
+                                      shape: RoundedRectangleBorder(
+                                        //모서리를 둥글게 하기 위해 사용
+                                        borderRadius:
+                                            BorderRadius.circular(16.0),
+                                      ),
+                                      child: Text(
+                                        snapshot.data.toString(),
+                                        style: TextStyle(fontSize: 20),
+                                      ),
+                                    ),
+                                  ),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.black12,
+                                      elevation: 0,
+                                    ),
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Mysmaple()),
+                                      );
+                                    },
+                                    child: Text("내 샘플 올리기"),
+                                  ),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.black12,
+                                      elevation: 0,
+                                    ),
+                                    onPressed: () {},
+                                    child: Text("내 샘플 보기"),
+                                  ),
+                                ],
                               ),
-                            );
-                          }
-                          // 데이터를 정상적으로 받아오게 되면 다음 부분을 실행하게 되는 것이다.
-                          else {
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                snapshot.data.toString(),
-                                style: TextStyle(fontSize: 15),
-                              ),
-                            );
-                          }
-                        }),
-                  ),
+                            ),
+                          );
+                        }
+                      }),
                 ),
               ),
               Padding(

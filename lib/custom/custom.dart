@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:charts_flutter_new/flutter.dart' as charts;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../auth/updatemysample.dart';
 import '../decx/list.dart';
 import '../decx/listdetail.dart';
 import 'package:pokesearch/auth/mypage.dart';
@@ -15,9 +16,19 @@ import '../decx/list.dart';
 import '../auth/updateinfo.dart';
 import 'test.dart';
 
+List ballpage = [
+  Mysmaple(),
+];
 //몬스터볼 버튼
-ElevatedButton ball(Color fisrt, Color second, double imageWidth,
-    double imageHeight, String imagePath) {
+ElevatedButton ball(
+    Color fisrt,
+    dynamic mycontext,
+    Color second,
+    double imageWidth,
+    double imageHeight,
+    String imagePath,
+    String undertext,
+    int ballpagelist) {
   return ElevatedButton(
     style: ElevatedButton.styleFrom(
       backgroundColor: Colors.transparent,
@@ -26,47 +37,60 @@ ElevatedButton ball(Color fisrt, Color second, double imageWidth,
         borderRadius: BorderRadius.circular(300),
       ),
     ),
-    onPressed: () {},
-    child: Stack(
-      alignment: AlignmentDirectional.center,
+    onPressed: () {
+      Navigator.push(
+        mycontext,
+        MaterialPageRoute(builder: (context) => ballpage[ballpagelist]),
+      );
+    },
+    child: Column(
       children: [
-        Container(
-          width: 270,
-          height: 270,
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey),
-            borderRadius: BorderRadius.circular(150),
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomRight,
-              // ignore: prefer_const_literals_to_create_immutables
-              colors: [
-                fisrt,
-                second,
-              ],
-            ),
-          ),
-        ),
-        Container(
-          width: 255,
-          height: 255,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(150),
-          ),
-        ),
-        Container(
-          width: imageWidth,
-          height: imageHeight,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(150),
-            image: DecorationImage(
-              image: AssetImage(
-                imagePath,
+        Stack(
+          alignment: AlignmentDirectional.center,
+          children: [
+            Container(
+              width: 270,
+              height: 270,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(150),
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomRight,
+                  // ignore: prefer_const_literals_to_create_immutables
+                  colors: [
+                    fisrt,
+                    second,
+                  ],
+                ),
               ),
             ),
-          ),
-        )
+            Container(
+              width: 255,
+              height: 255,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(150),
+              ),
+            ),
+            Container(
+              width: imageWidth,
+              height: imageHeight,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(150),
+                image: DecorationImage(
+                  image: AssetImage(
+                    imagePath,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        Text(
+          undertext,
+          style: TextStyle(color: Colors.black),
+        ),
       ],
     ),
   );

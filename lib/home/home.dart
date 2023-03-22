@@ -48,14 +48,14 @@ class _HomeState extends State<Home> {
                       child: Row(
                         children: [
                           //몬스터볼
-                          ball(Colors.red, Colors.yellow, 255, 255,
-                              'assets/images/monsterball.png'),
+                          ball(Colors.red, context, Colors.yellow, 255, 255,
+                              'assets/images/monsterball.png', "자신의 샘플 올리기", 0),
                           //슈퍼볼
-                          ball(Colors.blue, Colors.red, 285, 285,
-                              'assets/images/superball.png'),
+                          ball(Colors.blue, context, Colors.red, 285, 285,
+                              'assets/images/superball.png', "미정", 0),
                           //하이퍼볼
-                          ball(Colors.brown, Colors.yellow, 285, 285,
-                              'assets/images/hiperball.png'),
+                          ball(Colors.brown, context, Colors.yellow, 285, 285,
+                              'assets/images/hiperball.png', "미정", 0),
 
                           //슈퍼볼
                         ],
