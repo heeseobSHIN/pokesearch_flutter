@@ -52,7 +52,7 @@ class _HomeState extends State<Home> {
                               'assets/images/monsterball.png', "자신의 샘플 올리기", 0),
                           //슈퍼볼
                           ball(Colors.blue, context, Colors.red, 285, 285,
-                              'assets/images/superball.png', "미정", 0),
+                              'assets/images/superball.png', "자신의 샘플 보기", 1),
                           //하이퍼볼
                           ball(Colors.brown, context, Colors.yellow, 285, 285,
                               'assets/images/hiperball.png', "미정", 0),

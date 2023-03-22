@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:charts_flutter_new/flutter.dart' as charts;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../auth/showsample.dart';
 import '../auth/updatemysample.dart';
 import '../decx/list.dart';
 import '../decx/listdetail.dart';
@@ -14,10 +15,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../home/home.dart';
 import '../decx/list.dart';
 import '../auth/updateinfo.dart';
+import 'getsampleDoc.dart';
 import 'test.dart';
 
 List ballpage = [
   Mysmaple(),
+  Getsamdoc(),
+  Showsm(),
 ];
 //몬스터볼 버튼
 ElevatedButton ball(

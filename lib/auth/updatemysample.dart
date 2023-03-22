@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pokesearch/auth/showsample.dart';
 import 'package:pokesearch/custom/custom.dart';
 import 'package:toast/toast.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -13,6 +14,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+final db = FirebaseFirestore.instance;
+var enumValue;
+var ponameforshow;
 
 enum Char {
   Hardy,
@@ -57,6 +62,9 @@ class _MysmapleState extends State<Mysmaple> {
   final cController = TextEditingController();
   final dController = TextEditingController();
   final sController = TextEditingController();
+  final opinionController = TextEditingController();
+  final mainskillController = TextEditingController();
+  final subskillController = TextEditingController();
 
   @override
   void dispose() {
@@ -68,12 +76,16 @@ class _MysmapleState extends State<Mysmaple> {
     cController.dispose();
     dController.dispose();
     sController.dispose();
+    opinionController.dispose();
+    mainskillController.dispose();
+    subskillController.dispose();
     super.dispose();
   }
 
   Char _char = Char.Hardy;
   @override
   Widget build(BuildContext context) {
+    ToastContext().init(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('샘플 올리기'),
@@ -90,13 +102,14 @@ class _MysmapleState extends State<Mysmaple> {
               SizedBox(
                 height: 10,
               ),
-              sampleinputcard('   Enter name : ', nameController),
+              sampleinputcard('   Enter name : (띄어쓰기없이)', nameController),
               sampleinputcard('   Enter H : ', hController),
               sampleinputcard('   Enter A : ', aController),
               sampleinputcard('   Enter B : ', bController),
               sampleinputcard('   Enter C : ', cController),
               sampleinputcard('   Enter D : ', dController),
               sampleinputcard('   Enter S : ', sController),
+              sampleinputcard('   노력치 배분 의도 : ', opinionController),
               SizedBox(
                 height: 10,
               ),
@@ -120,7 +133,10 @@ class _MysmapleState extends State<Mysmaple> {
                               groupValue: _char,
                               onChanged: (Char? value) {
                                 setState(() {
-                                  _char = value!;
+                                  if (value != null) {
+                                    _char = value;
+                                    enumValue = value.name;
+                                  }
                                 });
                               },
                             ),
@@ -137,7 +153,10 @@ class _MysmapleState extends State<Mysmaple> {
                               groupValue: _char,
                               onChanged: (Char? value) {
                                 setState(() {
-                                  _char = value!;
+                                  if (value != null) {
+                                    _char = value;
+                                    enumValue = value.name;
+                                  }
                                 });
                               },
                             ),
@@ -154,7 +173,10 @@ class _MysmapleState extends State<Mysmaple> {
                               groupValue: _char,
                               onChanged: (Char? value) {
                                 setState(() {
-                                  _char = value!;
+                                  if (value != null) {
+                                    _char = value;
+                                    enumValue = value.name;
+                                  }
                                 });
                               },
                             ),
@@ -171,7 +193,10 @@ class _MysmapleState extends State<Mysmaple> {
                               groupValue: _char,
                               onChanged: (Char? value) {
                                 setState(() {
-                                  _char = value!;
+                                  if (value != null) {
+                                    _char = value;
+                                    enumValue = value.name;
+                                  }
                                 });
                               },
                             ),
@@ -188,7 +213,10 @@ class _MysmapleState extends State<Mysmaple> {
                               groupValue: _char,
                               onChanged: (Char? value) {
                                 setState(() {
-                                  _char = value!;
+                                  if (value != null) {
+                                    _char = value;
+                                    enumValue = value.name;
+                                  }
                                 });
                               },
                             ),
@@ -212,7 +240,10 @@ class _MysmapleState extends State<Mysmaple> {
                               groupValue: _char,
                               onChanged: (Char? value) {
                                 setState(() {
-                                  _char = value!;
+                                  if (value != null) {
+                                    _char = value;
+                                    enumValue = value.name;
+                                  }
                                 });
                               },
                             ),
@@ -226,7 +257,10 @@ class _MysmapleState extends State<Mysmaple> {
                               groupValue: _char,
                               onChanged: (Char? value) {
                                 setState(() {
-                                  _char = value!;
+                                  if (value != null) {
+                                    _char = value;
+                                    enumValue = value.name;
+                                  }
                                 });
                               },
                             ),
@@ -243,7 +277,10 @@ class _MysmapleState extends State<Mysmaple> {
                               groupValue: _char,
                               onChanged: (Char? value) {
                                 setState(() {
-                                  _char = value!;
+                                  if (value != null) {
+                                    _char = value;
+                                    enumValue = value.name;
+                                  }
                                 });
                               },
                             ),
@@ -260,7 +297,10 @@ class _MysmapleState extends State<Mysmaple> {
                               groupValue: _char,
                               onChanged: (Char? value) {
                                 setState(() {
-                                  _char = value!;
+                                  if (value != null) {
+                                    _char = value;
+                                    enumValue = value.name;
+                                  }
                                 });
                               },
                             ),
@@ -277,7 +317,10 @@ class _MysmapleState extends State<Mysmaple> {
                               groupValue: _char,
                               onChanged: (Char? value) {
                                 setState(() {
-                                  _char = value!;
+                                  if (value != null) {
+                                    _char = value;
+                                    enumValue = value.name;
+                                  }
                                 });
                               },
                             ),
@@ -301,7 +344,10 @@ class _MysmapleState extends State<Mysmaple> {
                               groupValue: _char,
                               onChanged: (Char? value) {
                                 setState(() {
-                                  _char = value!;
+                                  if (value != null) {
+                                    _char = value;
+                                    enumValue = value.name;
+                                  }
                                 });
                               },
                             ),
@@ -318,7 +364,10 @@ class _MysmapleState extends State<Mysmaple> {
                               groupValue: _char,
                               onChanged: (Char? value) {
                                 setState(() {
-                                  _char = value!;
+                                  if (value != null) {
+                                    _char = value;
+                                    enumValue = value.name;
+                                  }
                                 });
                               },
                             ),
@@ -332,7 +381,10 @@ class _MysmapleState extends State<Mysmaple> {
                               groupValue: _char,
                               onChanged: (Char? value) {
                                 setState(() {
-                                  _char = value!;
+                                  if (value != null) {
+                                    _char = value;
+                                    enumValue = value.name;
+                                  }
                                 });
                               },
                             ),
@@ -349,7 +401,10 @@ class _MysmapleState extends State<Mysmaple> {
                               groupValue: _char,
                               onChanged: (Char? value) {
                                 setState(() {
-                                  _char = value!;
+                                  if (value != null) {
+                                    _char = value;
+                                    enumValue = value.name;
+                                  }
                                 });
                               },
                             ),
@@ -366,7 +421,10 @@ class _MysmapleState extends State<Mysmaple> {
                               groupValue: _char,
                               onChanged: (Char? value) {
                                 setState(() {
-                                  _char = value!;
+                                  if (value != null) {
+                                    _char = value;
+                                    enumValue = value.name;
+                                  }
                                 });
                               },
                             ),
@@ -390,7 +448,10 @@ class _MysmapleState extends State<Mysmaple> {
                               groupValue: _char,
                               onChanged: (Char? value) {
                                 setState(() {
-                                  _char = value!;
+                                  if (value != null) {
+                                    _char = value;
+                                    enumValue = value.name;
+                                  }
                                 });
                               },
                             ),
@@ -407,7 +468,10 @@ class _MysmapleState extends State<Mysmaple> {
                               groupValue: _char,
                               onChanged: (Char? value) {
                                 setState(() {
-                                  _char = value!;
+                                  if (value != null) {
+                                    _char = value;
+                                    enumValue = value.name;
+                                  }
                                 });
                               },
                             ),
@@ -424,7 +488,10 @@ class _MysmapleState extends State<Mysmaple> {
                               groupValue: _char,
                               onChanged: (Char? value) {
                                 setState(() {
-                                  _char = value!;
+                                  if (value != null) {
+                                    _char = value;
+                                    enumValue = value.name;
+                                  }
                                 });
                               },
                             ),
@@ -438,7 +505,10 @@ class _MysmapleState extends State<Mysmaple> {
                               groupValue: _char,
                               onChanged: (Char? value) {
                                 setState(() {
-                                  _char = value!;
+                                  if (value != null) {
+                                    _char = value;
+                                    enumValue = value.name;
+                                  }
                                 });
                               },
                             ),
@@ -455,7 +525,10 @@ class _MysmapleState extends State<Mysmaple> {
                               groupValue: _char,
                               onChanged: (Char? value) {
                                 setState(() {
-                                  _char = value!;
+                                  if (value != null) {
+                                    _char = value;
+                                    enumValue = value.name;
+                                  }
                                 });
                               },
                             ),
@@ -479,7 +552,10 @@ class _MysmapleState extends State<Mysmaple> {
                               groupValue: _char,
                               onChanged: (Char? value) {
                                 setState(() {
-                                  _char = value!;
+                                  if (value != null) {
+                                    _char = value;
+                                    enumValue = value.name;
+                                  }
                                 });
                               },
                             ),
@@ -496,7 +572,10 @@ class _MysmapleState extends State<Mysmaple> {
                               groupValue: _char,
                               onChanged: (Char? value) {
                                 setState(() {
-                                  _char = value!;
+                                  if (value != null) {
+                                    _char = value;
+                                    enumValue = value.name;
+                                  }
                                 });
                               },
                             ),
@@ -513,7 +592,10 @@ class _MysmapleState extends State<Mysmaple> {
                               groupValue: _char,
                               onChanged: (Char? value) {
                                 setState(() {
-                                  _char = value!;
+                                  if (value != null) {
+                                    _char = value;
+                                    enumValue = value.name;
+                                  }
                                 });
                               },
                             ),
@@ -530,7 +612,10 @@ class _MysmapleState extends State<Mysmaple> {
                               groupValue: _char,
                               onChanged: (Char? value) {
                                 setState(() {
-                                  _char = value!;
+                                  if (value != null) {
+                                    _char = value;
+                                    enumValue = value.name;
+                                  }
                                 });
                               },
                             ),
@@ -544,7 +629,10 @@ class _MysmapleState extends State<Mysmaple> {
                               groupValue: _char,
                               onChanged: (Char? value) {
                                 setState(() {
-                                  _char = value!;
+                                  if (value != null) {
+                                    _char = value;
+                                    enumValue = value.name;
+                                  }
                                 });
                               },
                             ),
@@ -555,13 +643,58 @@ class _MysmapleState extends State<Mysmaple> {
                   ),
                 ),
               ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white24,
-                  elevation: 0,
-                ),
-                onPressed: () {},
-                child: Text("등록하기"),
+              sampleinputcard("주기술 이름 목록", mainskillController),
+              sampleinputcard("후보 기술 목록", subskillController),
+              Row(
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 80.0, right: 20, top: 10),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white24,
+                        elevation: 0,
+                      ),
+                      onPressed: () {
+                        final userCollectionReference = db
+                            .collection("mysample")
+                            .doc(nameController.text.toString());
+                        userCollectionReference.set({
+                          "h": hController.text,
+                          "a": aController.text,
+                          "b": bController.text,
+                          "c": cController.text,
+                          "d": dController.text,
+                          "s": sController.text,
+                          "reason": opinionController.text,
+                          "성격": enumValue.toString(),
+                          "주기술": mainskillController.text,
+                          "후보기술": subskillController.text,
+                        });
+                        ponameforshow = nameController.text.toString();
+                        Toast.show("등록완료",
+                            duration: Toast.lengthShort, gravity: Toast.top);
+                      },
+                      child: Text("등록하기"),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 10.0, right: 20, top: 10),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white38,
+                        elevation: 0,
+                      ),
+                      onPressed: () {
+//Showsm
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Showsm()));
+                      },
+                      child: Text("샘플보러가기"),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
