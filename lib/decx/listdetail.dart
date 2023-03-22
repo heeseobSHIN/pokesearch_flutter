@@ -27,16 +27,17 @@ class PokeApi {
   var entries;
   var stats;
 
-  PokeApi(
-      {required this.types,
-      required this.enName,
-      required this.anoName,
-      required this.abilities,
-      required this.poImage,
-      required this.genera,
-      required this.pokedexnumbers,
-      required this.entries,
-      required this.stats});
+  PokeApi({
+    required this.types,
+    required this.enName,
+    required this.anoName,
+    required this.abilities,
+    required this.poImage,
+    required this.genera,
+    required this.pokedexnumbers,
+    required this.entries,
+    required this.stats,
+  });
 
   factory PokeApi.fromJson(Map<String, dynamic> json) {
     return PokeApi(
@@ -76,7 +77,6 @@ Future<PokeApi> anoName() async {
 }
 
 class Listdetail extends StatefulWidget {
-  // final bool animate = true;
   @override
   State<Listdetail> createState() => _ListdetailState();
 }

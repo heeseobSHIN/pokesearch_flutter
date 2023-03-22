@@ -40,111 +40,111 @@ class _SignupState extends State<Signup> {
   Widget build(BuildContext context) {
     bool selected = false;
     ToastContext().init(context);
-    var nameTextField = CupertinoTextField(
-      controller: nameTextEditController,
-      placeholder: "name",
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.grey,
-        border: Border.all(
-          color: Colors.grey,
-          width: 0.5,
-        ),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      onChanged: (Text) {
-        // print(Text);
-      },
-    );
+    // var nameTextField = CupertinoTextField(
+    //   controller: nameTextEditController,
+    //   placeholder: "name",
+    //   padding: EdgeInsets.all(10),
+    //   decoration: BoxDecoration(
+    //     color: Colors.grey,
+    //     border: Border.all(
+    //       color: Colors.grey,
+    //       width: 0.5,
+    //     ),
+    //     borderRadius: BorderRadius.circular(12),
+    //   ),
+    //   onChanged: (Text) {
+    //     // print(Text);
+    //   },
+    // );
 
-    var ageTextField = CupertinoTextField(
-      controller: ageTextEditController,
-      placeholder: "나이",
-      // obscureText: true,
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.grey,
-        border: Border.all(
-          color: Colors.grey,
-          width: 0.5,
-        ),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      onChanged: (Text) {
-        // print(Text);
-      },
-    );
-    var regionTextField = CupertinoTextField(
-      controller: regionTextEditController,
-      placeholder: "출신 지역",
-      // obscureText: true,
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.grey,
-        border: Border.all(
-          color: Colors.grey,
-          width: 0.5,
-        ),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      onChanged: (Text) {
-        // print(Text);
-      },
-    );
-    var imageTextField = CupertinoTextField(
-      controller: imageTextEditController,
-      placeholder: "대표이미지 Url",
-      // obscureText: true,
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.grey,
-        border: Border.all(
-          color: Colors.grey,
-          width: 0.5,
-        ),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      onChanged: (Text) {
-        // print(Text);
-      },
-    );
-    var mypoTextField = CupertinoTextField(
-      controller: mypoTextEditController,
-      placeholder: "즐겨찾는 포켓몬",
-      // obscureText: true,
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.grey,
-        border: Border.all(
-          color: Colors.grey,
-          width: 0.5,
-        ),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      onChanged: (Text) {
-        // print(Text);
-      },
-    );
+    // var ageTextField = CupertinoTextField(
+    //   controller: ageTextEditController,
+    //   placeholder: "나이",
+    //   // obscureText: true,
+    //   padding: EdgeInsets.all(10),
+    //   decoration: BoxDecoration(
+    //     color: Colors.grey,
+    //     border: Border.all(
+    //       color: Colors.grey,
+    //       width: 0.5,
+    //     ),
+    //     borderRadius: BorderRadius.circular(12),
+    //   ),
+    //   onChanged: (Text) {
+    //     // print(Text);
+    //   },
+    // );
+    // var regionTextField = CupertinoTextField(
+    //   controller: regionTextEditController,
+    //   placeholder: "출신 지역",
+    //   // obscureText: true,
+    //   padding: EdgeInsets.all(10),
+    //   decoration: BoxDecoration(
+    //     color: Colors.grey,
+    //     border: Border.all(
+    //       color: Colors.grey,
+    //       width: 0.5,
+    //     ),
+    //     borderRadius: BorderRadius.circular(12),
+    //   ),
+    //   onChanged: (Text) {
+    //     // print(Text);
+    //   },
+    // );
+    // var imageTextField = CupertinoTextField(
+    //   controller: imageTextEditController,
+    //   placeholder: "대표이미지 Url",
+    //   // obscureText: true,
+    //   padding: EdgeInsets.all(10),
+    //   decoration: BoxDecoration(
+    //     color: Colors.grey,
+    //     border: Border.all(
+    //       color: Colors.grey,
+    //       width: 0.5,
+    //     ),
+    //     borderRadius: BorderRadius.circular(12),
+    //   ),
+    //   onChanged: (Text) {
+    //     // print(Text);
+    //   },
+    // );
+    // var mypoTextField = CupertinoTextField(
+    //   controller: mypoTextEditController,
+    //   placeholder: "즐겨찾는 포켓몬",
+    //   // obscureText: true,
+    //   padding: EdgeInsets.all(10),
+    //   decoration: BoxDecoration(
+    //     color: Colors.grey,
+    //     border: Border.all(
+    //       color: Colors.grey,
+    //       width: 0.5,
+    //     ),
+    //     borderRadius: BorderRadius.circular(12),
+    //   ),
+    //   onChanged: (Text) {
+    //     // print(Text);
+    //   },
+    // );
 
-    var PutdataButton = CupertinoButton(
-      child: Text("개인 정보 변경"),
-      color: Colors.black,
-      borderRadius: BorderRadius.circular(12),
-      onPressed: () {
-        final userCollectionReference = FirebaseFirestore.instance
-            .collection("users")
-            .doc(FirebaseAuth.instance.currentUser?.uid.toString());
-        userCollectionReference.set({
-          "userName": nameTextEditController.text,
-          "age": ageTextEditController.text,
-          "region": regionTextEditController.text,
-          "imageUrl": imageTextEditController.text,
-          "mypokemon": mypoTextEditController.text,
-        });
-        Toast.show("데이터 적용",
-            duration: Toast.lengthShort, gravity: Toast.bottom);
-      },
-    );
+    // var PutdataButton = CupertinoButton(
+    //   child: Text("개인 정보 변경"),
+    //   color: Colors.black,
+    //   borderRadius: BorderRadius.circular(12),
+    //   onPressed: () {
+    //     final userCollectionReference = FirebaseFirestore.instance
+    //         .collection("users")
+    //         .doc(FirebaseAuth.instance.currentUser?.uid.toString());
+    //     userCollectionReference.set({
+    //       "userName": nameTextEditController.text,
+    //       "age": ageTextEditController.text,
+    //       "region": regionTextEditController.text,
+    //       "imageUrl": imageTextEditController.text,
+    //       "mypokemon": mypoTextEditController.text,
+    //     });
+    //     Toast.show("데이터 적용",
+    //         duration: Toast.lengthShort, gravity: Toast.bottom);
+    //   },
+    // );
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(),
@@ -159,24 +159,30 @@ class _SignupState extends State<Signup> {
             return ListView(
               children: [
                 Container(
-                  width: 300,
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        "https://i.pinimg.com/originals/31/51/2a/31512a374041bcc7ba0983f37b67016e.jpg",
+                      ),
+                    ),
+                  ),
                   child: Column(
                     children: [
-                      Container(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              textBtn(Colors.white12, context, '도감 보기', 2),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              textBtn(Colors.white12, context, '마이페이지', 3),
-                              SizedBox(
-                                height: 10,
-                              ),
-                            ],
-                          ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            textBtn(Colors.white12, context, '도감 보기', 2),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            textBtn(Colors.white12, context, '마이페이지', 3),
+                            SizedBox(
+                              height: 10,
+                            ),
+                          ],
                         ),
                       ),
                       textBtn(Colors.black, context, "개인정보변경하기", 5),

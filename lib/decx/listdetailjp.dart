@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_constructors_in_immutables, prefer_typing_uninitialized_variables, annotate_overrides, prefer_interpolation_to_compose_strings, unused_import, use_key_in_widget_constructors
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_constructors_in_immutables, prefer_typing_uninitialized_variables, annotate_overrides, prefer_interpolation_to_compose_strings, unused_import, use_key_in_widget_constructors, curly_braces_in_flow_control_structures
 
 // import 'dart:ffi';
 
@@ -9,6 +9,11 @@ import 'dart:convert';
 import '../custom/custom.dart';
 import 'list.dart';
 import 'geturl.dart';
+import 'package:charts_flutter_new/flutter.dart' as charts;
+
+List<Sales> statlist = [];
+var statname = [];
+var statbase = [];
 
 class PokeApi {
   var types;
@@ -19,6 +24,7 @@ class PokeApi {
   var poImage;
   var pokedexnumbers;
   var entries;
+  var stats;
 
   PokeApi({
     required this.types,
@@ -29,6 +35,7 @@ class PokeApi {
     required this.genera,
     required this.pokedexnumbers,
     required this.entries,
+    required this.stats,
   });
 
   factory PokeApi.fromJson(Map<String, dynamic> json) {
@@ -41,6 +48,7 @@ class PokeApi {
       genera: json['genera'],
       pokedexnumbers: json['pokedex_numbers'],
       entries: json['flavor_text_entries'],
+      stats: json['stats'],
     );
   }
 }
@@ -75,12 +83,36 @@ class Listdetailjp extends StatefulWidget {
 class _ListdetailjpState extends State<Listdetailjp> {
   late Future<PokeApi> futureAlbum;
   late Future<PokeApi> anoname;
+  late List<charts.Series<dynamic, String>> seriesList;
+
+  static List<charts.Series<Sales, String>> _createRandomData() {
+    return [
+      charts.Series<Sales, String>(
+          id: 'Sales',
+          domainFn: (Sales sales, _) => sales.stat,
+          measureFn: (Sales sales, _) => sales.value,
+          data: statlist,
+          // primaryMeasureAxis: charts.NumericAxisSpec(
+          //   tickProviderSpec:
+          //       charts.BasicNumericTickProviderSpec(desiredTickCount: 3)),
+          fillColorFn: (Sales sales, _) {
+            return charts.MaterialPalette.blue.shadeDefault;
+          },
+          labelAccessorFn: (Sales sales, _) =>
+              '${sales.stat}: \$${sales.value.toString()}'),
+    ];
+  }
+
+  barChart() {
+    return Chart(seriesList);
+  }
 
   @override
   void initState() {
     super.initState();
     futureAlbum = fetchAlbum();
     anoname = anoName();
+    seriesList = _createRandomData();
   }
 
 // "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/1.png"),
@@ -384,14 +416,14 @@ class _ListdetailjpState extends State<Listdetailjp> {
                                           SizedBox(
                                             width: 50,
                                           ),
-                                          Text('타입1 : '),
+                                          Text('タイプ1 : '),
                                           Text(
                                             snapshot.data!
                                                     .types[0]["type"]["name"]
                                                     .toString() +
                                                 "   ,  ",
                                           ),
-                                          Text('타입2 : '),
+                                          Text('タイプ2 : '),
                                           Text(
                                             snapshot
                                                 .data!.types[1]["type"]["name"]
@@ -405,7 +437,7 @@ class _ListdetailjpState extends State<Listdetailjp> {
                                           SizedBox(
                                             width: 50,
                                           ),
-                                          Text('단일 타입 : '),
+                                          Text('タイプ一つ : '),
                                           Text(
                                             snapshot
                                                 .data!.types[0]["type"]["name"]
@@ -416,6 +448,111 @@ class _ListdetailjpState extends State<Listdetailjp> {
                                     }
                                   })(),
                                 );
+                              } else if (snapshot.hasError) {
+                                return Text('${snapshot.error}');
+                              }
+
+                              // By default, show a loading spinner.
+                              return Center(child: CircularProgressIndicator());
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(
+                                "https://i.pinimg.com/736x/6d/10/6b/6d106b05a38878a88382348e0c31bdbe.jpg"),
+                          ),
+                          border: Border.all(),
+                        ),
+                        child: SizedBox(
+                          child: FutureBuilder<PokeApi>(
+                            future: futureAlbum,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                for (int i = 0;
+                                    i < snapshot.data!.stats.length;
+                                    i++)
+                                  statbase.add(snapshot
+                                      .data!.stats[i]["base_stat"]
+                                      .toString());
+
+                                for (int i = 0;
+                                    i < snapshot.data!.stats.length;
+                                    i++)
+                                  statname.add(snapshot
+                                      .data!.stats[i]["stat"]["name"]
+                                      .toString());
+
+                                for (int i = 0;
+                                    i < snapshot.data!.stats.length;
+                                    i++) {
+                                  statlist.add(Sales(
+                                      statname[i].toString(),
+                                      int.parse(statbase[i]
+                                          .toString()))); //근데 따로 안바꿔도 int형으로 들어갈 거에요
+                                }
+
+                                // print(statlist);
+                                return Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(0.0),
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey,
+                                            border: Border(
+                                              bottom: BorderSide(
+                                                  color: Colors.black),
+                                            )),
+                                        child: Row(
+                                          // ignore: prefer_const_literals_to_create_immutables
+                                          children: [
+                                            SizedBox(
+                                              width: 100,
+                                            ),
+                                            Text('종족값(base stats) : '),
+                                            SizedBox(
+                                              height: 30,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    for (int i = 0;
+                                        i < snapshot.data!.stats.length;
+                                        i++)
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 3.0),
+                                        child: Row(
+                                          children: [
+                                            SizedBox(
+                                              width: 50,
+                                            ),
+                                            Text(snapshot
+                                                .data!.stats[i]['stat']['name']
+                                                .toString()),
+                                            SizedBox(
+                                              width: 20,
+                                            ),
+                                            Text(":  "),
+                                            Text(snapshot
+                                                .data!.stats[i]['base_stat']
+                                                .toString()),
+                                          ],
+                                        ),
+                                      ),
+                                    barChart(),
+                                  ],
+                                );
+                                //return Text(snapshot.data!.types[0].toString());
                               } else if (snapshot.hasError) {
                                 return Text('${snapshot.error}');
                               }
@@ -536,4 +673,11 @@ class _ListdetailjpState extends State<Listdetailjp> {
       ),
     );
   }
+}
+
+class Sales {
+  String stat;
+  int value;
+
+  Sales(this.stat, this.value);
 }

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace, unused_import, deprecated_member_use, unused_local_variable, non_constant_identifier_names, avoid_print, prefer_typing_uninitialized_variables, unnecessary_null_comparison, no_leading_underscores_for_local_identifiers
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace, unused_import, deprecated_member_use, unused_local_variable, non_constant_identifier_names, avoid_print, prefer_typing_uninitialized_variables, unnecessary_null_comparison, no_leading_underscores_for_local_identifiers, prefer_interpolation_to_compose_strings
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -120,7 +120,7 @@ class _MyPageState extends State<MyPage> {
                       }
                       // 데이터를 정상적으로 받아오게 되면 다음 부분을 실행하게 되는 것이다.
                       else {
-                        if (imageUrl != null) {
+                        if (imageUrl != "") {
                           return Container(
                             width: double.infinity,
                             height: MediaQuery.of(context).size.height * 0.3,
@@ -139,7 +139,7 @@ class _MyPageState extends State<MyPage> {
                               borderRadius: BorderRadius.circular(200),
                               image: DecorationImage(
                                 image: NetworkImage(
-                                    "https://dimg.donga.com/wps/NEWS/IMAGE/2021/09/07/109121848.2.jpg"),
+                                    "https://static.wikia.nocookie.net/pokemon/images/e/e5/%EB%82%9C%EC%B2%9C_%EA%B3%B5%EC%8B%9D_%EC%9D%BC%EB%9F%AC%EC%8A%A4%ED%8A%B8.png/revision/latest/scale-to-width-down/170?cb=20110225143806&path-prefix=ko"),
                               ),
                             ),
                           );
@@ -150,10 +150,14 @@ class _MyPageState extends State<MyPage> {
               Padding(
                 padding: EdgeInsets.all(8),
                 child: Container(
-                  width: 300,
-                  height: 60,
+                  width: 220,
+                  height: 80,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.white),
+                    image: DecorationImage(
+                      image: NetworkImage(
+                          "https://png.pngtree.com/thumb_back/fh260/back_our/20200812/ourmid/pngtree-pink-minimalist-mid-autumn-festival-banner-background-poster-png-image_391702.jpg"),
+                    ),
                   ),
                   child: Center(
                     child: FutureBuilder(
@@ -180,7 +184,8 @@ class _MyPageState extends State<MyPage> {
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
                                 snapshot.data.toString(),
-                                style: TextStyle(fontSize: 15),
+                                style: TextStyle(
+                                    fontSize: 15, color: Colors.black),
                               ),
                             );
                           }
@@ -192,9 +197,13 @@ class _MyPageState extends State<MyPage> {
                 padding: EdgeInsets.all(8),
                 child: Container(
                   width: 400,
-                  height: 300,
+                  height: 215,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.white),
+                    image: DecorationImage(
+                      image: NetworkImage(
+                          "https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/8LOK/image/Kx3PTA8nv2pHelBbVxvavOi0lK0.JPG"),
+                    ),
                   ),
                   child: FutureBuilder(
                       future: _fetch2(),
@@ -217,49 +226,45 @@ class _MyPageState extends State<MyPage> {
                         else {
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              width: 300,
-                              child: Column(
-                                children: [
-                                  Container(
-                                    width: 300,
-                                    height: 40,
-                                    child: Card(
-                                      shape: RoundedRectangleBorder(
-                                        //모서리를 둥글게 하기 위해 사용
-                                        borderRadius:
-                                            BorderRadius.circular(16.0),
-                                      ),
-                                      child: Text(
-                                        snapshot.data.toString(),
-                                        style: TextStyle(fontSize: 20),
-                                      ),
-                                    ),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 40,
+                                ),
+                                Text(
+                                  snapshot.data.toString(),
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.black),
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.black54,
+                                    elevation: 0,
                                   ),
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.black12,
-                                      elevation: 0,
-                                    ),
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => Mysmaple()),
-                                      );
-                                    },
-                                    child: Text("내 샘플 올리기"),
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Mysmaple()),
+                                    );
+                                  },
+                                  child: Text("내 샘플 올리기"),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.black54,
+                                    elevation: 0,
                                   ),
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.black12,
-                                      elevation: 0,
-                                    ),
-                                    onPressed: () {},
-                                    child: Text("내 샘플 보기"),
-                                  ),
-                                ],
-                              ),
+                                  onPressed: () {},
+                                  child: Text("내 샘플 보기"),
+                                ),
+                              ],
                             ),
                           );
                         }
@@ -270,79 +275,75 @@ class _MyPageState extends State<MyPage> {
                 padding: EdgeInsets.all(8),
                 child: Container(
                   width: 400,
-                  height: 500,
+                  height: 350,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.white),
                   ),
                   child: Column(
                     children: [
-                      CupertinoTextField(
-                        controller: spiciesEditController,
-                        placeholder: "종족값",
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.black12,
-                          border: Border.all(
-                            color: Colors.grey,
-                            width: 0.5,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CupertinoTextField(
+                          controller: spiciesEditController,
+                          placeholder: "종족값",
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.black12,
+                            border: Border.all(
+                              color: Colors.grey,
+                              width: 0.5,
+                            ),
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                          borderRadius: BorderRadius.circular(12),
                         ),
-                        // onChanged: (Text) {
-                        //   spdata = double.parse(Text);
-                        //   print(spdata.toString());
-                        // }
                       ),
-                      CupertinoTextField(
-                        controller: personalEditController,
-                        placeholder: "개체값 1~31",
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.black12,
-                          border: Border.all(
-                            color: Colors.grey,
-                            width: 0.5,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CupertinoTextField(
+                          controller: personalEditController,
+                          placeholder: "개체값 1~31",
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.black12,
+                            border: Border.all(
+                              color: Colors.grey,
+                              width: 0.5,
+                            ),
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                          borderRadius: BorderRadius.circular(12),
                         ),
-                        // onChanged: (Text) {
-                        //   pedata = double.parse(Text);
-                        //   print(pedata.toString());
-                        // }
                       ),
-                      CupertinoTextField(
-                        controller: dopingEditController,
-                        placeholder: "노력치 1 ~ 252",
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.black12,
-                          border: Border.all(
-                            color: Colors.grey,
-                            width: 0.5,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CupertinoTextField(
+                          controller: dopingEditController,
+                          placeholder: "노력치 1 ~ 252",
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.black12,
+                            border: Border.all(
+                              color: Colors.grey,
+                              width: 0.5,
+                            ),
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                          borderRadius: BorderRadius.circular(12),
                         ),
-                        // onChanged: (Text) {
-                        //   dodata = double.parse(Text);
-                        //   print(dodata.toString());
-                        // }
                       ),
-                      CupertinoTextField(
-                        controller: skilldeEditController,
-                        placeholder: "기술 위력",
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.black12,
-                          border: Border.all(
-                            color: Colors.grey,
-                            width: 0.5,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CupertinoTextField(
+                          controller: skilldeEditController,
+                          placeholder: "기술 위력",
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.black12,
+                            border: Border.all(
+                              color: Colors.grey,
+                              width: 0.5,
+                            ),
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                          borderRadius: BorderRadius.circular(12),
                         ),
-                        // onChanged: (Text) {
-                        //   skdata = double.parse(Text);
-                        //   print(skdata.toString());
-                        // }
                       ),
                       IconButton(
                         onPressed: () {
@@ -350,21 +351,18 @@ class _MyPageState extends State<MyPage> {
                           pedata = double.parse(personalEditController.text);
                           dodata = double.parse(dopingEditController.text);
                           skdata = double.parse(skilldeEditController.text);
-                          print(spdata.toString());
-                          print(pedata.toString());
-                          print(dodata.toString());
-                          print(skdata.toString());
+                          // print(spdata.toString());
+                          // print(pedata.toString());
+                          // print(dodata.toString());
+                          // print(skdata.toString());
 
                           _changedemage();
                           Toast.show("기본 결정력" + realdemage.floor().toString(),
                               duration: Toast.lengthShort, gravity: Toast.top);
-                          print(realdemage.floor());
+                          // print(realdemage.floor());
                         },
                         icon: Icon(Icons.search),
                       ),
-                      // Text(
-                      //   '$realdemage',
-                      // ),
 
                       // Text(realdemage),
                       ElevatedButton(

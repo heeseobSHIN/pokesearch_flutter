@@ -9,6 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'dart:async';
 import 'package:url_launcher/link.dart';
 import 'package:flutter/services.dart';
+import '../custom/getsampleDoc.dart';
 import 'signup.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -688,8 +689,10 @@ class _MysmapleState extends State<Mysmaple> {
                       ),
                       onPressed: () {
 //Showsm
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Showsm()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Getsamdoc()));
                       },
                       child: Text("샘플보러가기"),
                     ),

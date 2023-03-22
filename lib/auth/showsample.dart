@@ -46,7 +46,7 @@ class _ShowsmState extends State<Showsm> {
       docRef.get().then(
         (DocumentSnapshot doc) {
           final data = doc.data() as Map<String, dynamic>;
-          print(data);
+
           reason = data["reason"];
           h = data["h"];
           a = data["a"];

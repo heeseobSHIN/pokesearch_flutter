@@ -63,7 +63,7 @@ class _getUrlState extends State<getUrl> {
             future: decx,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                print(statlist);
+                // print(statlist);
                 return (ListView.builder(
                     itemCount: 1,
                     scrollDirection: Axis.vertical,
