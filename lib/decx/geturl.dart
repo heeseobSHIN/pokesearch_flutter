@@ -80,9 +80,17 @@ class _getUrlState extends State<getUrl> {
                               trailing: IconButton(
                                 onPressed: () {
                                   detailDecx = decx;
-                                  // if (statlist != null) {
-
-                                  // }
+                                  if (statlist != [] || statlistjp != []) {
+                                    print("널이 아닐때1$statlist");
+                                    print("널이 아닐때2$statlistjp");
+                                    statlistjp = [];
+                                    statlist = [];
+                                  } else {
+                                    statlistjp = [];
+                                    statlist = [];
+                                    print(statlist);
+                                    print(statlistjp);
+                                  }
 
                                   Navigator.push(
                                     context,
@@ -96,7 +104,7 @@ class _getUrlState extends State<getUrl> {
                           ),
                           Card(
                             child: ListTile(
-                              leading: Text("도감 디테일 일본어 보기"),
+                              leading: Text("エントリーを日本語で見にいく"),
                               trailing: IconButton(
                                 onPressed: () {
                                   detailDecx = decx;

@@ -447,7 +447,7 @@ class _ListdetailState extends State<Listdetail> {
                                           .toString()))); //근데 따로 안바꿔도 int형으로 들어갈 거에요
                                 }
 
-                                print(statlist);
+                                // print(statlist);
                                 return Column(
                                   children: [
                                     Padding(

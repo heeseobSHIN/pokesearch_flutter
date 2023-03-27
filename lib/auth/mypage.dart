@@ -90,7 +90,7 @@ class _MyPageState extends State<MyPage> {
     //     .snapshots();
     return Scaffold(
       appBar: AppBar(
-        title: Text('마이페이지'),
+        title: Text('自分のペイジー'),
       ),
       body: Container(
         decoration: BoxDecoration(color: Colors.grey),
@@ -251,7 +251,7 @@ class _MyPageState extends State<MyPage> {
                                           builder: (context) => Mysmaple()),
                                     );
                                   },
-                                  child: Text("내 샘플 올리기"),
+                                  child: Text("내 샘플 올리기、自分のsampleを上げる"),
                                 ),
                                 SizedBox(
                                   height: 10,
@@ -262,7 +262,7 @@ class _MyPageState extends State<MyPage> {
                                     elevation: 0,
                                   ),
                                   onPressed: () {},
-                                  child: Text("내 샘플 보기"),
+                                  child: Text("내 샘플 보기、自分のsampleを見る"),
                                 ),
                               ],
                             ),

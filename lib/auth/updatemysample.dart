@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pokesearch/auth/showsample.dart';
+// import 'package:pokesearch/auth/showsample.dart';
 import 'package:pokesearch/custom/custom.dart';
 import 'package:toast/toast.dart';
 import 'package:url_launcher/url_launcher.dart';

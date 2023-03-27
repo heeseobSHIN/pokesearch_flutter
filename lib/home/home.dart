@@ -20,8 +20,9 @@ class _HomeState extends State<Home> {
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   image: NetworkImage(
-                      'https://mblogthumb-phinf.pstatic.net/MjAxOTEwMTdfNTgg/MDAxNTcxMjkwOTcxMDU1.ibryD5-KYl0IKqig9z8hc4sVBv7goLQjR66uwl5ZrFYg.C8aBQUgGIHzEOpflm3oD1t9QJ92Sqyi9ZnOEpSbzl1Mg.JPEG.new_springg/KakaoTalk_20191017_132508309.jpg?type=w800'),
-                  // 'https://marketplace.canva.com/EAEsTl8c0D0/1/0/900w/canva-%EC%B2%AD%EB%A1%9D%EC%83%89-%EB%85%B8%ED%8A%B8%EB%B6%81-%EB%AF%B8%EB%8B%88%EB%A9%80%EB%A6%AC%EC%8A%A4%ED%8A%B8-%EB%82%99%EC%84%9C-%EC%83%9D%EC%82%B0%EC%84%B1-%EC%9D%B8%EC%9A%A9%EB%AC%B8-%EB%AC%B8%EA%B5%AC-%ED%9C%B4%EB%8C%80%ED%8F%B0-%EB%B0%B0%EA%B2%BD%ED%99%94%EB%A9%B4-bQaq0hCkOhE.jpg'),
+                      // 'https://mblogthumb-phinf.pstatic.net/MjAxOTEwMTdfNTgg/MDAxNTcxMjkwOTcxMDU1.ibryD5-KYl0IKqig9z8hc4sVBv7goLQjR66uwl5ZrFYg.C8aBQUgGIHzEOpflm3oD1t9QJ92Sqyi9ZnOEpSbzl1Mg.JPEG.new_springg/KakaoTalk_20191017_132508309.jpg?type=w800'),
+                      'https://marketplace.canva.com/EAEsTl8c0D0/1/0/900w/canva-%EC%B2%AD%EB%A1%9D%EC%83%89-%EB%85%B8%ED%8A%B8%EB%B6%81-%EB%AF%B8%EB%8B%88%EB%A9%80%EB%A6%AC%EC%8A%A4%ED%8A%B8-%EB%82%99%EC%84%9C-%EC%83%9D%EC%82%B0%EC%84%B1-%EC%9D%B8%EC%9A%A9%EB%AC%B8-%EB%AC%B8%EA%B5%AC-%ED%9C%B4%EB%8C%80%ED%8F%B0-%EB%B0%B0%EA%B2%BD%ED%99%94%EB%A9%B4-bQaq0hCkOhE.jpg'),
+                  // "https://i.pinimg.com/originals/bb/13/85/bb138529b04cf5dba6b39f256ba95562.jpg"),
                   colorFilter:
                       ColorFilter.mode(Colors.black12, BlendMode.darken),
                 ),
@@ -36,7 +37,7 @@ class _HomeState extends State<Home> {
                     Padding(
                       padding: EdgeInsets.only(bottom: 20, top: 20),
                       child: Text(
-                        '전국도감',
+                        '전국도감, ポケモンエントリー',
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 20,
@@ -48,14 +49,28 @@ class _HomeState extends State<Home> {
                       child: Row(
                         children: [
                           //몬스터볼
-                          ball(Colors.red, context, Colors.yellow, 255, 255,
-                              'assets/images/monsterball.png', "자신의 샘플 올리기", 0),
+                          ball(
+                              Colors.red,
+                              context,
+                              Colors.yellow,
+                              255,
+                              255,
+                              'assets/images/monsterball.png',
+                              "자신의 샘플 올리기、自分のsample登録する",
+                              0),
                           //슈퍼볼
-                          ball(Colors.blue, context, Colors.red, 285, 285,
-                              'assets/images/superball.png', "자신의 샘플 보기", 1),
+                          ball(
+                              Colors.blue,
+                              context,
+                              Colors.red,
+                              285,
+                              285,
+                              'assets/images/superball.png',
+                              "자신의 샘플 보기, 自分のsample見る",
+                              1),
                           //하이퍼볼
                           ball(Colors.brown, context, Colors.yellow, 285, 285,
-                              'assets/images/hiperball.png', "미정", 0),
+                              'assets/images/hiperball.png', "미정、決めていない", 0),
 
                           //슈퍼볼
                         ],
@@ -70,24 +85,26 @@ class _HomeState extends State<Home> {
                       child: Column(
                         children: [
                           Text(
-                            '로그인하면 친구기능',
+                            '로그인하면 친구기능、ログインすれば友達と一緒に',
                             style: TextStyle(color: Colors.black),
                           ),
-                          textBtn(Colors.black26, context, '로그인 기능 가기', 1),
+                          textBtn(
+                              Colors.black26, context, '로그인 기능 가기、ログイン機能', 1),
                           Container(
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
                                 children: [
                                   Text(
-                                    '로그인 없이 시작',
+                                    '로그인 없이 시작、ログインしなくて見る',
                                     style: TextStyle(color: Colors.black),
                                   ),
-                                  textBtn(Colors.black26, context, '도감 보기', 2),
+                                  textBtn(Colors.black26, context,
+                                      '도감 보기、エントリーを見る', 2),
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  textBtn(Colors.black, context, "차트 예제", 6)
+                                  textBtn(Colors.black, context, "차트 예제、演習", 6)
                                 ],
                               ),
                             ),

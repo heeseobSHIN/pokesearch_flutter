@@ -27,3 +27,11 @@ samples, guidance on mobile development, and a full API reference.
 ### 결정력
 
 (물리/특수 공격 실능치) \* (기술 위력)이 기본이며, 이 값에 자속 보정, 특성 보정, 상성 관계, 날씨 보정, 도구 등을 추가로 곱해 주면 된다.
+
+### apk빌드 터미널 명령어
+
+flutter build apk --release --target-platform=android-arm64
+
+### apk경로
+
+[Project Forder]/build/app/outputs/apk/release/app-release.apk

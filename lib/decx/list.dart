@@ -84,7 +84,7 @@ class _PoketListState extends State<PoketList> {
                   child: TextField(
                     // onChanged: (value) => updateList(value),
                     decoration: InputDecoration(
-                      hintText: '   search pokemon to num or name',
+                      hintText: '   名前とナンバーを通して探す',
                       prefixIcon: Icon(Icons.search),
                       prefixIconColor: Colors.white,
                       filled: true,
@@ -115,13 +115,13 @@ class _PoketListState extends State<PoketList> {
                             return Card(
                               child: ListTile(
                                 //   title: Text('일러'),
-                                leading:
-                                    Text("도감번호 : " + (index + 1).toString()),
+                                leading: Text(
+                                    "도감번호、ナンバー : " + (index + 1).toString()),
                                 trailing: IconButton(
                                   onPressed: () {
                                     nexturl = pokedetail;
                                     // detailDecx = detaildecx;
-                                    print(nexturl);
+                                    // print(nexturl);
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(

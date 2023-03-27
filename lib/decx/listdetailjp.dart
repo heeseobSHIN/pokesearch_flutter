@@ -11,9 +11,18 @@ import 'list.dart';
 import 'geturl.dart';
 import 'package:charts_flutter_new/flutter.dart' as charts;
 
-List<Sales> statlist = [];
+List<Sales> statlistjp = [];
 var statname = [];
 var statbase = [];
+
+var statnametojp = [
+  "HP",
+  "こうげき",
+  "ぼうぎょ",
+  "とくこう",
+  "とくぼう",
+  "すばやさ",
+];
 
 class PokeApi {
   var types;
@@ -91,7 +100,7 @@ class _ListdetailjpState extends State<Listdetailjp> {
           id: 'Sales',
           domainFn: (Sales sales, _) => sales.stat,
           measureFn: (Sales sales, _) => sales.value,
-          data: statlist,
+          data: statlistjp,
           // primaryMeasureAxis: charts.NumericAxisSpec(
           //   tickProviderSpec:
           //       charts.BasicNumericTickProviderSpec(desiredTickCount: 3)),
@@ -262,7 +271,7 @@ class _ListdetailjpState extends State<Listdetailjp> {
                                       SizedBox(
                                         width: 50,
                                       ),
-                                      Text("이름 :         "),
+                                      Text("名前 :         "),
                                       Column(
                                         children: [
                                           SizedBox(
@@ -309,7 +318,7 @@ class _ListdetailjpState extends State<Listdetailjp> {
                                       SizedBox(
                                         width: 50,
                                       ),
-                                      Text("전국 도감 번호 :    "),
+                                      Text("ｎo :    "),
                                       Text(snapshot.data!
                                           .pokedexnumbers[0]["entry_number"]
                                           .toString()),
@@ -351,7 +360,7 @@ class _ListdetailjpState extends State<Listdetailjp> {
                                             2) {
                                           return Row(
                                             children: [
-                                              Text('특성1 : '),
+                                              Text('特性一つ目 : '),
                                               Text(
                                                 snapshot
                                                         .data!
@@ -360,7 +369,7 @@ class _ListdetailjpState extends State<Listdetailjp> {
                                                         .toString() +
                                                     "   ,  ",
                                               ),
-                                              Text('특성2 : '),
+                                              Text('特性二つ目 : '),
                                               Text(snapshot
                                                   .data!
                                                   .abilities[1]["ability"]
@@ -371,7 +380,7 @@ class _ListdetailjpState extends State<Listdetailjp> {
                                         } else {
                                           return Row(
                                             children: [
-                                              Text('단일 특성 : '),
+                                              Text('但一つの特性 : '),
                                               Text(snapshot
                                                   .data!
                                                   .abilities[0]["ability"]
@@ -491,13 +500,11 @@ class _ListdetailjpState extends State<Listdetailjp> {
                                 for (int i = 0;
                                     i < snapshot.data!.stats.length;
                                     i++) {
-                                  statlist.add(Sales(
-                                      statname[i].toString(),
-                                      int.parse(statbase[i]
-                                          .toString()))); //근데 따로 안바꿔도 int형으로 들어갈 거에요
+                                  statlistjp.add(Sales(statname[i].toString(),
+                                      int.parse(statbase[i].toString())));
                                 }
 
-                                // print(statlist);
+                                // print(statlistjp);
                                 return Column(
                                   children: [
                                     Padding(
@@ -517,7 +524,7 @@ class _ListdetailjpState extends State<Listdetailjp> {
                                             SizedBox(
                                               width: 100,
                                             ),
-                                            Text('종족값(base stats) : '),
+                                            Text('stat(base stats) : '),
                                             SizedBox(
                                               height: 30,
                                             ),
@@ -536,9 +543,13 @@ class _ListdetailjpState extends State<Listdetailjp> {
                                             SizedBox(
                                               width: 50,
                                             ),
-                                            Text(snapshot
-                                                .data!.stats[i]['stat']['name']
-                                                .toString()),
+                                            // Text(snapshot
+                                            //     .data!.stats[i]['stat']['name']
+                                            //     .toString()),
+                                            // SizedBox(
+                                            //   width: 20,
+                                            // ),
+                                            Text(statnametojp[i]),
                                             SizedBox(
                                               width: 20,
                                             ),
@@ -581,7 +592,7 @@ class _ListdetailjpState extends State<Listdetailjp> {
                                     SizedBox(
                                       width: 50,
                                     ),
-                                    Text('분류 : '),
+                                    Text('分流 : '),
                                     Text(snapshot.data!.genera[0]["genus"]
                                         .toString()),
                                   ],
@@ -628,7 +639,7 @@ class _ListdetailjpState extends State<Listdetailjp> {
                                             SizedBox(
                                               width: 130,
                                             ),
-                                            Text('도감설명 : '),
+                                            Text('説明 : '),
                                             SizedBox(
                                               height: 30,
                                             ),
