@@ -3,6 +3,7 @@
 // import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
@@ -11,9 +12,8 @@ import 'list.dart';
 import 'geturl.dart';
 import 'package:charts_flutter_new/flutter.dart' as charts;
 
-List<Sales> statlistjp = [];
-var statname = [];
-var statbase = [];
+var statnamejp = [];
+var statbasejp = [];
 
 var statnametojp = [
   "HP",
@@ -130,6 +130,15 @@ class _ListdetailjpState extends State<Listdetailjp> {
     return Scaffold(
       appBar: AppBar(
         title: Text('도감 디테일'),
+        leading: IconButton(
+          icon: Icon(Icons.navigate_before),
+          onPressed: () {
+            statlistjp = [];
+            statnamejp = [];
+            statbasejp = [];
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Container(
         child: ListView(
@@ -140,107 +149,50 @@ class _ListdetailjpState extends State<Listdetailjp> {
               child: SizedBox(
                 width: 300,
                 height: 200,
-                child: PageView(
-                  children: [
-                    Container(
-                      child: SizedBox(
-                        child: FutureBuilder<PokeApi>(
-                          future: futureAlbum,
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return Center(
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 50,
-                                    ),
-                                    Image(
+                child: Container(
+                  child: SizedBox(
+                    child: FutureBuilder<PokeApi>(
+                      future: futureAlbum,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return FlutterCarousel(
+                            options: CarouselOptions(
+                              height: 400.0,
+                              showIndicator: true,
+                              slideIndicator: CircularSlideIndicator(),
+                            ),
+                            items: [
+                              "front_default",
+                              "front_shiny",
+                            ].map((i) {
+                              return Builder(
+                                builder: (BuildContext context) {
+                                  return Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    margin:
+                                        EdgeInsets.symmetric(horizontal: 5.0),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(),
+                                        borderRadius: BorderRadius.circular(50),
+                                        color: Colors.white10),
+                                    child: Image(
                                         image: NetworkImage(snapshot
-                                            .data!
-                                            .poImage["other"]["home"]
-                                                ["front_default"]
+                                            .data!.poImage["other"]["home"][i]
                                             .toString())),
-                                  ],
-                                ),
+                                  );
+                                },
                               );
-                              //return Text(snapshot.data!.types[0].toString());
-                            } else if (snapshot.hasError) {
-                              return Text('${snapshot.error}');
-                            }
+                            }).toList(),
+                          );
+                        } else if (snapshot.hasError) {
+                          return Text('${snapshot.error}');
+                        }
 
-                            // By default, show a loading spinner.
-                            return Center(child: CircularProgressIndicator());
-                          },
-                        ),
-                      ),
+                        // By default, show a loading spinner.
+                        return Center(child: CircularProgressIndicator());
+                      },
                     ),
-                    Container(
-                      child: SizedBox(
-                        child: FutureBuilder<PokeApi>(
-                          future: futureAlbum,
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return Center(
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 50,
-                                    ),
-                                    Image(
-                                        image: NetworkImage(snapshot
-                                            .data!
-                                            .poImage["other"]["home"]
-                                                ["front_shiny"]
-                                            .toString())),
-                                  ],
-                                ),
-                              );
-                              //return Text(snapshot.data!.types[0].toString());
-                            } else if (snapshot.hasError) {
-                              return Text('${snapshot.error}');
-                            }
-
-                            // By default, show a loading spinner.
-                            return Center(child: CircularProgressIndicator());
-                          },
-                        ),
-                      ),
-                    ),
-                    Container(
-                      child: SizedBox(
-                        child: FutureBuilder<PokeApi>(
-                          future: futureAlbum,
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return Center(
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 70,
-                                    ),
-                                    Image(
-                                      image: NetworkImage(snapshot
-                                          .data!.poImage["front_default"]
-                                          .toString()),
-                                      width: 200,
-                                      height: 200,
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ],
-                                ),
-                              );
-                              //return Text(snapshot.data!.types[0].toString());
-                            } else if (snapshot.hasError) {
-                              return Text('${snapshot.error}');
-                            }
-
-                            // By default, show a loading spinner.
-                            return Center(child: CircularProgressIndicator());
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ),
@@ -472,10 +424,10 @@ class _ListdetailjpState extends State<Listdetailjp> {
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
                         decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(
-                                "https://i.pinimg.com/736x/6d/10/6b/6d106b05a38878a88382348e0c31bdbe.jpg"),
-                          ),
+                          // image: DecorationImage(
+                          //   image: NetworkImage(
+                          //       "https://i.pinimg.com/736x/6d/10/6b/6d106b05a38878a88382348e0c31bdbe.jpg"),
+                          // ),
                           border: Border.all(),
                         ),
                         child: SizedBox(
@@ -486,22 +438,22 @@ class _ListdetailjpState extends State<Listdetailjp> {
                                 for (int i = 0;
                                     i < snapshot.data!.stats.length;
                                     i++)
-                                  statbase.add(snapshot
+                                  statbasejp.add(snapshot
                                       .data!.stats[i]["base_stat"]
                                       .toString());
 
                                 for (int i = 0;
                                     i < snapshot.data!.stats.length;
                                     i++)
-                                  statname.add(snapshot
+                                  statnamejp.add(snapshot
                                       .data!.stats[i]["stat"]["name"]
                                       .toString());
 
                                 for (int i = 0;
                                     i < snapshot.data!.stats.length;
                                     i++) {
-                                  statlistjp.add(Sales(statname[i].toString(),
-                                      int.parse(statbase[i].toString())));
+                                  statlistjp.add(Sales(statnamejp[i].toString(),
+                                      int.parse(statbasejp[i].toString())));
                                 }
 
                                 // print(statlistjp);
@@ -686,9 +638,9 @@ class _ListdetailjpState extends State<Listdetailjp> {
   }
 }
 
-class Sales {
-  String stat;
-  int value;
+// class Sales {
+//   String stat;
+//   int value;
 
-  Sales(this.stat, this.value);
-}
+//   Sales(this.stat, this.value);
+// }

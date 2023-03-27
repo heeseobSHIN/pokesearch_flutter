@@ -9,6 +9,8 @@ import 'list.dart';
 import 'listdetail.dart';
 
 var detailDecx;
+List<Sales> statlistjp = [];
+List<Sales> statlist = [];
 
 class testApi {
   var species;
@@ -80,17 +82,14 @@ class _getUrlState extends State<getUrl> {
                               trailing: IconButton(
                                 onPressed: () {
                                   detailDecx = decx;
-                                  if (statlist != [] || statlistjp != []) {
-                                    print("널이 아닐때1$statlist");
-                                    print("널이 아닐때2$statlistjp");
-                                    statlistjp = [];
-                                    statlist = [];
-                                  } else {
-                                    statlistjp = [];
-                                    statlist = [];
-                                    print(statlist);
-                                    print(statlistjp);
-                                  }
+                                  // if (statlist != []) {
+                                  //   print("널이 아닐때1$statlist");
+
+                                  //   statlist = [];
+                                  // } else {
+                                  //   statlist = [];
+                                  //   print(statlist);
+                                  // }
 
                                   Navigator.push(
                                     context,
@@ -108,6 +107,14 @@ class _getUrlState extends State<getUrl> {
                               trailing: IconButton(
                                 onPressed: () {
                                   detailDecx = decx;
+                                  if (statlistjp != []) {
+                                    print("널이 아닐때2$statlistjp");
+                                    statlistjp = [];
+                                  } else {
+                                    statlistjp = [];
+
+                                    print(statlistjp);
+                                  }
 
                                   Navigator.push(
                                     context,
@@ -134,4 +141,11 @@ class _getUrlState extends State<getUrl> {
       ),
     );
   }
+}
+
+class Sales {
+  String stat;
+  int value;
+
+  Sales(this.stat, this.value);
 }

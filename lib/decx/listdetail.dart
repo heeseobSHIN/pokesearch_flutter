@@ -12,7 +12,6 @@ import 'list.dart';
 import 'geturl.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 
-List<Sales> statlist = [];
 var statname = [];
 var statbase = [];
 
@@ -125,7 +124,9 @@ class _ListdetailState extends State<Listdetail> {
         title: Text('도감 디테일'),
         leading: IconButton(
           onPressed: () {
-            statlist.removeRange(0, 6);
+            statlist = [];
+            statbase = [];
+            statname = [];
 
             Navigator.pop(context);
             // statlist.length = statlist.length - 5;
@@ -623,11 +624,4 @@ class _ListdetailState extends State<Listdetail> {
       ),
     );
   }
-}
-
-class Sales {
-  String stat;
-  int value;
-
-  Sales(this.stat, this.value);
 }
