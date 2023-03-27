@@ -82,14 +82,14 @@ class _getUrlState extends State<getUrl> {
                               trailing: IconButton(
                                 onPressed: () {
                                   detailDecx = decx;
-                                  // if (statlist != []) {
-                                  //   print("널이 아닐때1$statlist");
+                                  if (statlist != []) {
+                                    // print("널이 아닐때1$statlist");
 
-                                  //   statlist = [];
-                                  // } else {
-                                  //   statlist = [];
-                                  //   print(statlist);
-                                  // }
+                                    statlist = [];
+                                  } else {
+                                    statlist = [];
+                                    // print(statlist);
+                                  }
 
                                   Navigator.push(
                                     context,

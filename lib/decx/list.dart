@@ -115,8 +115,8 @@ class _PoketListState extends State<PoketList> {
                             return Card(
                               child: ListTile(
                                 //   title: Text('일러'),
-                                leading: Text(
-                                    "도감번호、ナンバー : " + (index + 1).toString()),
+                                leading:
+                                    Text("ナンバー : " + (index + 1).toString()),
                                 trailing: IconButton(
                                   onPressed: () {
                                     nexturl = pokedetail;

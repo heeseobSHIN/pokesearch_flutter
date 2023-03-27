@@ -1,13 +1,17 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace, unused_import, deprecated_member_use, unused_local_variable, non_constant_identifier_names, avoid_print, prefer_typing_uninitialized_variables, unnecessary_null_comparison, no_leading_underscores_for_local_identifiers, prefer_interpolation_to_compose_strings
 
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pokesearch/auth/showsample.dart';
 import 'package:pokesearch/custom/custom.dart';
 import 'package:toast/toast.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:async';
 import 'package:url_launcher/link.dart';
 import 'package:flutter/services.dart';
+import '../custom/getsampleDoc.dart';
 import 'updatemysample.dart';
 import 'signup.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -25,6 +29,8 @@ var imageUrl;
 
 final Uri _url = Uri.parse('https://tiredhermitcrab.github.io/SimplePokeCalc/');
 // FirebaseDatabase database = FirebaseDatabase.instance;
+final Uri _url2 = Uri.parse(
+    'https://blog.naver.com/prologue/PrologueList.naver?blogId=1209sung');
 
 class MyPage extends StatefulWidget {
   const MyPage({super.key});
@@ -89,9 +95,21 @@ class _MyPageState extends State<MyPage> {
     //     .doc(auth.currentUser.toString())
     //     .snapshots();
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text('自分のペイジー'),
-      ),
+          centerTitle: true,
+          title: Text('自分のペイジー'),
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.settings),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Mysmaple()));
+              },
+            ),
+          ]),
       body: Container(
         decoration: BoxDecoration(color: Colors.grey),
         child: SingleChildScrollView(
@@ -99,6 +117,9 @@ class _MyPageState extends State<MyPage> {
           child: Column(
             // ignore: prefer_const_literals_to_create_immutables
             children: [
+              SizedBox(
+                height: 50,
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),
                 child: FutureBuilder(
@@ -180,14 +201,25 @@ class _MyPageState extends State<MyPage> {
                           }
                           // 데이터를 정상적으로 받아오게 되면 다음 부분을 실행하게 되는 것이다.
                           else {
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                snapshot.data.toString(),
-                                style: TextStyle(
-                                    fontSize: 15, color: Colors.black),
-                              ),
-                            );
+                            if (region == "") {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  "지역을 정해주세요, 地域を選んでください",
+                                  style: TextStyle(
+                                      fontSize: 15, color: Colors.black),
+                                ),
+                              );
+                            } else {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  snapshot.data.toString(),
+                                  style: TextStyle(
+                                      fontSize: 15, color: Colors.black),
+                                ),
+                              );
+                            }
                           }
                         }),
                   ),
@@ -205,77 +237,95 @@ class _MyPageState extends State<MyPage> {
                           "https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/8LOK/image/Kx3PTA8nv2pHelBbVxvavOi0lK0.JPG"),
                     ),
                   ),
-                  child: FutureBuilder(
-                      future: _fetch2(),
-                      builder: (BuildContext context, AsyncSnapshot snapshot) {
-                        //해당 부분은 data를 아직 받아 오지 못했을때 실행되는 부분을 의미한다.
-                        if (snapshot.hasData == false) {
-                          return CircularProgressIndicator();
-                        }
-                        //error가 발생하게 될 경우 반환하게 되는 부분
-                        else if (snapshot.hasError) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              'Error: ${snapshot.error}',
-                              style: TextStyle(fontSize: 15),
-                            ),
-                          );
-                        }
-                        // 데이터를 정상적으로 받아오게 되면 다음 부분을 실행하게 되는 것이다.
-                        else {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 40,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 40,
+                      ),
+                      FutureBuilder(
+                        future: _fetch2(),
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot) {
+                          //해당 부분은 data를 아직 받아 오지 못했을때 실행되는 부분을 의미한다.
+                          if (snapshot.hasData == false) {
+                            return CircularProgressIndicator();
+                          }
+                          //error가 발생하게 될 경우 반환하게 되는 부분
+                          else if (snapshot.hasError) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'Error: ${snapshot.error}',
+                                style: TextStyle(fontSize: 15),
+                              ),
+                            );
+                          }
+                          // 데이터를 정상적으로 받아오게 되면 다음 부분을 실행하게 되는 것이다.
+                          else {
+                            if (mypo == "") {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  "최애는?, 何が一番仲良い？",
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.black),
                                 ),
-                                Text(
+                              );
+                            } else {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
                                   snapshot.data.toString(),
                                   style: TextStyle(
                                       fontSize: 20, color: Colors.black),
                                 ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.black54,
-                                    elevation: 0,
-                                  ),
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Mysmaple()),
-                                    );
-                                  },
-                                  child: Text("내 샘플 올리기、自分のsampleを上げる"),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.black54,
-                                    elevation: 0,
-                                  ),
-                                  onPressed: () {},
-                                  child: Text("내 샘플 보기、自分のsampleを見る"),
-                                ),
-                              ],
-                            ),
+                              );
+                            }
+                          }
+                        },
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black54,
+                          elevation: 0,
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Mysmaple()),
                           );
-                        }
-                      }),
+                        },
+                        child: Text("自分の「sample」を上げる"),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black54,
+                          elevation: 0,
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Getsamdoc()),
+                          );
+                        },
+                        child: Text("自分の「sample」を見る"),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.all(8),
                 child: Container(
                   width: 400,
-                  height: 350,
+                  height: 400,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.white),
                   ),
@@ -347,18 +397,24 @@ class _MyPageState extends State<MyPage> {
                       ),
                       IconButton(
                         onPressed: () {
-                          spdata = double.parse(spiciesEditController.text);
-                          pedata = double.parse(personalEditController.text);
-                          dodata = double.parse(dopingEditController.text);
-                          skdata = double.parse(skilldeEditController.text);
-                          // print(spdata.toString());
-                          // print(pedata.toString());
-                          // print(dodata.toString());
-                          // print(skdata.toString());
+                          if (spiciesEditController != null &&
+                              personalEditController != null &&
+                              dopingEditController != null &&
+                              skilldeEditController != null) {
+                            spdata = double.parse(spiciesEditController.text);
+                            pedata = double.parse(personalEditController.text);
+                            dodata = double.parse(dopingEditController.text);
+                            skdata = double.parse(skilldeEditController.text);
+                            // print(spdata.toString());
+                            // print(pedata.toString());
+                            // print(dodata.toString());
+                            // print(skdata.toString());
 
-                          _changedemage();
-                          Toast.show("기본 결정력" + realdemage.floor().toString(),
-                              duration: Toast.lengthShort, gravity: Toast.top);
+                            _changedemage();
+                            Toast.show("기본 결정력" + realdemage.floor().toString(),
+                                duration: Toast.lengthShort,
+                                gravity: Toast.top);
+                          } else {}
                           // print(realdemage.floor());
                         },
                         icon: Icon(Icons.search),
@@ -372,6 +428,14 @@ class _MyPageState extends State<MyPage> {
                         ),
                         onPressed: _launchUrl,
                         child: Text('포켓몬 계산기 웹 링크'),
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black26,
+                          elevation: 0,
+                        ),
+                        onPressed: _launchUrl2,
+                        child: Text('눈파티 블로그'),
                       ),
                     ],
                   ),
@@ -404,5 +468,12 @@ Future<String> _fetch2() async {
 Future<void> _launchUrl() async {
   if (!await launchUrl(_url)) {
     throw Exception('Could not launch $_url');
+  }
+}
+
+//눈파티블로그
+Future<void> _launchUrl2() async {
+  if (!await launchUrl(_url2)) {
+    throw Exception('Could not launch $_url2');
   }
 }

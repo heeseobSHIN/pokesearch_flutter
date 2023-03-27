@@ -312,7 +312,7 @@ class _ListdetailjpState extends State<Listdetailjp> {
                                             2) {
                                           return Row(
                                             children: [
-                                              Text('特性一つ目 : '),
+                                              Text('特性1 : '),
                                               Text(
                                                 snapshot
                                                         .data!
@@ -321,7 +321,7 @@ class _ListdetailjpState extends State<Listdetailjp> {
                                                         .toString() +
                                                     "   ,  ",
                                               ),
-                                              Text('特性二つ目 : '),
+                                              Text('特性2 : '),
                                               Text(snapshot
                                                   .data!
                                                   .abilities[1]["ability"]

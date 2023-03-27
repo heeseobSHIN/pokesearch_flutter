@@ -56,7 +56,7 @@ class _HomeState extends State<Home> {
                               255,
                               255,
                               'assets/images/monsterball.png',
-                              "자신의 샘플 올리기、自分のsample登録する",
+                              "自分の「sample」登録する",
                               0),
                           //슈퍼볼
                           ball(
@@ -66,11 +66,18 @@ class _HomeState extends State<Home> {
                               285,
                               285,
                               'assets/images/superball.png',
-                              "자신의 샘플 보기, 自分のsample見る",
+                              "自分の「sample」見る",
                               1),
                           //하이퍼볼
-                          ball(Colors.brown, context, Colors.yellow, 285, 285,
-                              'assets/images/hiperball.png', "미정、決めていない", 0),
+                          ball(
+                              Colors.brown,
+                              context,
+                              Colors.yellow,
+                              285,
+                              285,
+                              'assets/images/hiperball.png',
+                              "mypage、自分のペイジー",
+                              3),
 
                           //슈퍼볼
                         ],
@@ -85,26 +92,25 @@ class _HomeState extends State<Home> {
                       child: Column(
                         children: [
                           Text(
-                            '로그인하면 친구기능、ログインすれば友達と一緒に',
+                            'ログインすれば友達と一緒に',
                             style: TextStyle(color: Colors.black),
                           ),
-                          textBtn(
-                              Colors.black26, context, '로그인 기능 가기、ログイン機能', 1),
+                          textBtn(Colors.black26, context, 'ログイン機能', 1),
                           Container(
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
                                 children: [
                                   Text(
-                                    '로그인 없이 시작、ログインしなくて見る',
+                                    'ログインしなくて見る',
                                     style: TextStyle(color: Colors.black),
                                   ),
-                                  textBtn(Colors.black26, context,
-                                      '도감 보기、エントリーを見る', 2),
+                                  textBtn(
+                                      Colors.black26, context, 'エントリーを見る', 2),
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  textBtn(Colors.black, context, "차트 예제、演習", 6)
+                                  textBtn(Colors.black, context, "演習", 6)
                                 ],
                               ),
                             ),

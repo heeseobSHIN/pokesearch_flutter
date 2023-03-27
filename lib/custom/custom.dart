@@ -22,6 +22,7 @@ List ballpage = [
   Mysmaple(),
   Getsamdoc(),
   Showsm(),
+  MyPage(),
 ];
 //몬스터볼 버튼
 ElevatedButton ball(
