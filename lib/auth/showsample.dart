@@ -64,16 +64,31 @@ class _ShowsmState extends State<Showsm> {
       Toast.show("데이터가 없습니다.", duration: Toast.lengthShort, gravity: Toast.top);
     }
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: Text('샘플 보기'),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
       ),
-      body: SafeArea(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(Colors.black12, BlendMode.darken),
+            image: NetworkImage(
+              "https://i.pinimg.com/originals/bb/13/85/bb138529b04cf5dba6b39f256ba95562.jpg",
+            ),
+          ),
+        ),
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
+                SizedBox(
+                  height: 100,
+                ),
                 FutureBuilder(
                     future: _reason(),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {

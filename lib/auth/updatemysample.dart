@@ -88,16 +88,28 @@ class _MysmapleState extends State<Mysmaple> {
   Widget build(BuildContext context) {
     ToastContext().init(context);
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
         title: Text('샘플 올리기'),
       ),
-      body: SafeArea(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(Colors.black12, BlendMode.darken),
+            image: NetworkImage(
+              "https://i.pinimg.com/originals/bb/13/85/bb138529b04cf5dba6b39f256ba95562.jpg",
+            ),
+          ),
+        ),
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
             children: [
               SizedBox(
-                height: 10,
+                height: 80,
               ),
               Text("노력치"),
               SizedBox(

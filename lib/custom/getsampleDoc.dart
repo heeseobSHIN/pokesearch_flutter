@@ -38,14 +38,28 @@ class _GetsamdocState extends State<Getsamdoc> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: Text('샘플 보기'),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
       ),
-      body: SafeArea(
-          child: Container(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(Colors.black12, BlendMode.darken),
+            image: NetworkImage(
+              "https://i.pinimg.com/originals/bb/13/85/bb138529b04cf5dba6b39f256ba95562.jpg",
+            ),
+          ),
+        ),
         child: Center(
             child: Column(
           children: [
+            SizedBox(
+              height: 100,
+            ),
             CupertinoTextField(
               controller: nameController,
               placeholder: "확인할 샘플 이름을 입력하세요.",
@@ -58,17 +72,28 @@ class _GetsamdocState extends State<Getsamdoc> {
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
+            SizedBox(
+              height: 50,
+            ),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.black54,
+                elevation: 0,
+              ),
               onPressed: () {
-                samname = nameController.text;
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Showsm()));
+                if (nameController.text != null) {
+                  samname = nameController.text;
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Showsm()));
+                } else {
+                  Toast.show("값을 입력해주세요");
+                }
               },
               child: Text("샘플보기"),
             ),
           ],
         )),
-      )),
+      ),
     );
   }
 }
