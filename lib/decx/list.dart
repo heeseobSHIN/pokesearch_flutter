@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'geturl.dart';
 import 'listdetail.dart';
 import 'package:searchable_listview/searchable_listview.dart';
+import 'package:page_transition/page_transition.dart';
 
 var nexturl = "";
 List<Listpo> getlist = [];
@@ -181,8 +182,9 @@ class _PoketListState extends State<PoketList> {
                             onPressed: () {
                               Navigator.push(
                                   context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ChartsDemo()));
+                                  PageTransition(
+                                      type: PageTransitionType.topToBottom,
+                                      child: ChartsDemo()));
                             },
                             icon: Icon(Icons.search),
                           ),

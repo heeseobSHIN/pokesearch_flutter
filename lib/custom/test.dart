@@ -17,7 +17,7 @@ class ChartsDemo extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.blueGrey,
       ),
       home: const Scaffold(
         body: SafeArea(
@@ -42,7 +42,6 @@ class _ExampleAppState extends State<ExampleApp> {
       width: double.infinity,
       child: Column(
         children: [
-          const Text('Searchable list with divider'),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(15),
@@ -92,29 +91,14 @@ class _ExampleAppState extends State<ExampleApp> {
                 onRefresh: () async {},
                 onItemSelected: (Listpo item) {},
                 inputDecoration: InputDecoration(
-                  labelText: "Search Actor",
+                  labelText: "Search Pokemon",
                   fillColor: Colors.white,
                   focusedBorder: OutlineInputBorder(
                     borderSide: const BorderSide(
-                      color: Colors.blue,
+                      color: Colors.blueGrey,
                       width: 1.0,
                     ),
                     borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
-                secondaryWidget: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Container(
-                    color: Colors.grey[400],
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 20,
-                        horizontal: 10,
-                      ),
-                      child: Center(
-                        child: Icon(Icons.sort),
-                      ),
-                    ),
                   ),
                 ),
               ),
@@ -138,39 +122,58 @@ class ActorItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
-        height: 60,
-        decoration: BoxDecoration(
-          color: Colors.grey[200],
-          borderRadius: BorderRadius.circular(10),
+      child: Card(
+        child: ListTile(
+          trailing: IconButton(
+            icon: Icon(Icons.navigate_next),
+            onPressed: () {},
+          ),
+          leading: Text(
+            ' ${name.name}',
+            style: const TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
-        child: Row(
-          children: [
-            const SizedBox(
-              width: 10,
-            ),
-            Icon(
-              Icons.star,
-              color: Colors.yellow[700],
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Firstname: ${name.name}',
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+        // child: Container(
+        //   height: 60,
+        //   decoration: BoxDecoration(
+        //     color: Colors.grey[200],
+        //     borderRadius: BorderRadius.circular(10),
+        //   ),
+        //   child: Row(
+        //     children: [
+        //       const SizedBox(
+        //         width: 10,
+        //       ),
+        //       Icon(
+        //         Icons.star,
+        //         color: Colors.yellow[700],
+        //       ),
+        //       const SizedBox(
+        //         width: 10,
+        //       ),
+        //       Column(
+        //         crossAxisAlignment: CrossAxisAlignment.start,
+        //         mainAxisAlignment: MainAxisAlignment.center,
+        //         children: [
+        //           Text(
+        //             ' ${name.name}',
+        //             style: const TextStyle(
+        //               color: Colors.black,
+        //               fontWeight: FontWeight.bold,
+        //             ),
+        //           ),
+        //         ],
+        //       ),
+        //       IconButton(
+        //         onPressed: () {},
+        //         icon: Icon(Icons.navigate_next),
+        //       ),
+        //     ],
+        //   ),
+        // ),
       ),
     );
   }
