@@ -86,8 +86,11 @@ class _getUrlState extends State<getUrl> {
 
                         return Column(
                           children: [
+                            SizedBox(
+                              height: 20,
+                            ),
                             Card(
-                              color: Colors.white10,
+                              color: Colors.white30,
                               child: ListTile(
                                 leading: Text("도감 디테일 한국어 보기"),
                                 trailing: IconButton(
@@ -117,7 +120,7 @@ class _getUrlState extends State<getUrl> {
                               height: 20,
                             ),
                             Card(
-                              color: Colors.white10,
+                              color: Colors.white30,
                               child: ListTile(
                                 leading: Text("エントリーを日本語で見にいく"),
                                 trailing: IconButton(

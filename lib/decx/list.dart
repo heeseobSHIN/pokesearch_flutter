@@ -13,6 +13,7 @@ import 'package:page_transition/page_transition.dart';
 var nexturl = "";
 List<Listpo> getlist = [];
 var getname = [];
+var getnexturl = [];
 
 class PokeApi1 {
   var results;
@@ -212,6 +213,9 @@ class _PoketListState extends State<PoketList> {
                         future: futureAlbum,
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
+                            getname = [];
+                            getnexturl = [];
+                            getlist = [];
                             for (int i = 0;
                                 i < snapshot.data!.results.length;
                                 i++)
@@ -220,9 +224,16 @@ class _PoketListState extends State<PoketList> {
 
                             for (int i = 0;
                                 i < snapshot.data!.results.length;
+                                i++)
+                              getnexturl.add(
+                                  snapshot.data!.results[i]["url"].toString());
+                            for (int i = 0;
+                                i < snapshot.data!.results.length;
                                 i++) {
-                              getlist.add(Listpo(getname[i]
-                                  .toString())); //근데 따로 안바꿔도 int형으로 들어갈 거에요
+                              getlist.add(Listpo(
+                                  getname[i].toString(),
+                                  getnexturl[i]
+                                      .toString())); //근데 따로 안바꿔도 int형으로 들어갈 거에요
                             }
                             return (ListView.builder(
                                 itemCount: snapshot.data!.results.length,
@@ -552,8 +563,7 @@ class _PoketListState extends State<PoketList> {
 
 class Listpo {
   String name;
+  String url;
 
-  Listpo(
-    this.name,
-  );
+  Listpo(this.name, this.url);
 }
