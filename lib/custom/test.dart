@@ -36,15 +36,6 @@ class ExampleApp extends StatefulWidget {
 }
 
 class _ExampleAppState extends State<ExampleApp> {
-  final List<Actor> actors = [
-    Actor(age: 47, name: 'Leonardo', lastName: 'DiCaprio'),
-    Actor(age: 58, name: 'Johnny', lastName: 'Depp'),
-    Actor(age: 78, name: 'Robert', lastName: 'De Niro'),
-    Actor(age: 44, name: 'Tom', lastName: 'Hardy'),
-    Actor(age: 66, name: 'Denzel', lastName: 'Washington'),
-    Actor(age: 49, name: 'Ben', lastName: 'Affleck'),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -59,13 +50,6 @@ class _ExampleAppState extends State<ExampleApp> {
                 style: const TextStyle(fontSize: 25),
                 onPaginate: () async {
                   await Future.delayed(const Duration(milliseconds: 1000));
-                  // setState(() {
-                  //   actors.addAll([
-                  //     Actor(age: 22, name: 'Fathi', lastName: 'Hadawi'),
-                  //     Actor(age: 22, name: 'Hichem', lastName: 'Rostom'),
-                  //     Actor(age: 22, name: 'Kamel', lastName: 'Twati'),
-                  //   ]);
-                  // });
                 },
                 builder: (Listpo name) => ActorItem(name: name),
                 loadingWidget: Column(
@@ -136,26 +120,10 @@ class _ExampleAppState extends State<ExampleApp> {
               ),
             ),
           ),
-          // Align(
-          //   alignment: Alignment.center,
-          //   child: ElevatedButton(
-          //     onPressed: addActor,
-          //     child: const Text('Add actor'),
-          //   ),
-          // )
         ],
       ),
     );
   }
-
-  // void addActor() {
-  //   actors.add(Actor(
-  //     age: 10,
-  //     lastName: 'Ali',
-  //     name: 'ALi',
-  //   ));
-  //   setState(() {});
-  // }
 }
 
 class ActorItem extends StatelessWidget {
@@ -199,19 +167,6 @@ class ActorItem extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                // Text(
-                //   'Lastname: ${name.name}',
-                //   style: const TextStyle(
-                //     color: Colors.black,
-                //     fontWeight: FontWeight.bold,
-                //   ),
-                // ),
-                // Text(
-                //   'Age: ${actor.age}',
-                //   style: const TextStyle(
-                //     color: Colors.black,
-                //   ),
-                // ),
               ],
             ),
           ],

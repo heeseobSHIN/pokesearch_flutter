@@ -2,6 +2,7 @@
 // import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:pokesearch/custom/test.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'geturl.dart';
@@ -170,21 +171,38 @@ class _PoketListState extends State<PoketList> {
                       decoration: BoxDecoration(
                         color: Colors.black54,
                       ),
-                      child: Center(
-                        child: TextField(
-                          // onChanged: (value) => updateList(value),
-                          decoration: InputDecoration(
-                            hintText: '   探す1세대',
-                            prefixIcon: Icon(Icons.search),
-                            prefixIconColor: Colors.white,
-                            filled: true,
-                            fillColor: Color.fromARGB(255, 41, 40, 44),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(40.0),
-                                borderSide: BorderSide.none),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 50,
                           ),
-                        ),
+                          Text("검색하기"),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ChartsDemo()));
+                            },
+                            icon: Icon(Icons.search),
+                          ),
+                        ],
                       ),
+                      // child: Center(
+                      //   child: TextField(
+                      //     // onChanged: (value) => updateList(value),
+                      //     decoration: InputDecoration(
+                      //       hintText: '   探す1세대',
+                      //       prefixIcon: Icon(Icons.search),
+                      //       prefixIconColor: Colors.white,
+                      //       filled: true,
+                      //       fillColor: Color.fromARGB(255, 41, 40, 44),
+                      //       border: OutlineInputBorder(
+                      //           borderRadius: BorderRadius.circular(40.0),
+                      //           borderSide: BorderSide.none),
+                      //     ),
+                      //   ),
+                      // ),
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.9,
