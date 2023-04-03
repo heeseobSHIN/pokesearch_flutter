@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:pokesearch/decx/list.dart';
 import 'package:searchable_listview/searchable_listview.dart';
 
 void main() {
@@ -54,7 +55,7 @@ class _ExampleAppState extends State<ExampleApp> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(15),
-              child: SearchableList<Actor>(
+              child: SearchableList<Listpo>(
                 style: const TextStyle(fontSize: 25),
                 onPaginate: () async {
                   await Future.delayed(const Duration(milliseconds: 1000));
@@ -66,7 +67,7 @@ class _ExampleAppState extends State<ExampleApp> {
                   //   ]);
                   // });
                 },
-                builder: (Actor actor) => ActorItem(actor: actor),
+                builder: (Listpo name) => ActorItem(name: name),
                 loadingWidget: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
@@ -93,10 +94,10 @@ class _ExampleAppState extends State<ExampleApp> {
                 asyncListCallback: () async {
                   await Future.delayed(
                     const Duration(
-                      milliseconds: 10000,
+                      milliseconds: 1000,
                     ),
                   );
-                  return actors;
+                  return getlist;
                 },
                 asyncListFilter: (q, list) {
                   return list
@@ -105,7 +106,7 @@ class _ExampleAppState extends State<ExampleApp> {
                 },
                 emptyWidget: const EmptyView(),
                 onRefresh: () async {},
-                onItemSelected: (Actor item) {},
+                onItemSelected: (Listpo item) {},
                 inputDecoration: InputDecoration(
                   labelText: "Search Actor",
                   fillColor: Colors.white,
@@ -135,34 +136,34 @@ class _ExampleAppState extends State<ExampleApp> {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.center,
-            child: ElevatedButton(
-              onPressed: addActor,
-              child: const Text('Add actor'),
-            ),
-          )
+          // Align(
+          //   alignment: Alignment.center,
+          //   child: ElevatedButton(
+          //     onPressed: addActor,
+          //     child: const Text('Add actor'),
+          //   ),
+          // )
         ],
       ),
     );
   }
 
-  void addActor() {
-    actors.add(Actor(
-      age: 10,
-      lastName: 'Ali',
-      name: 'ALi',
-    ));
-    setState(() {});
-  }
+  // void addActor() {
+  //   actors.add(Actor(
+  //     age: 10,
+  //     lastName: 'Ali',
+  //     name: 'ALi',
+  //   ));
+  //   setState(() {});
+  // }
 }
 
 class ActorItem extends StatelessWidget {
-  final Actor actor;
+  final Listpo name;
 
   const ActorItem({
     Key? key,
-    required this.actor,
+    required this.name,
   }) : super(key: key);
 
   @override
@@ -192,25 +193,25 @@ class ActorItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Firstname: ${actor.name}',
+                  'Firstname: ${name.name}',
                   style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Text(
-                  'Lastname: ${actor.lastName}',
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  'Age: ${actor.age}',
-                  style: const TextStyle(
-                    color: Colors.black,
-                  ),
-                ),
+                // Text(
+                //   'Lastname: ${name.name}',
+                //   style: const TextStyle(
+                //     color: Colors.black,
+                //     fontWeight: FontWeight.bold,
+                //   ),
+                // ),
+                // Text(
+                //   'Age: ${actor.age}',
+                //   style: const TextStyle(
+                //     color: Colors.black,
+                //   ),
+                // ),
               ],
             ),
           ],
