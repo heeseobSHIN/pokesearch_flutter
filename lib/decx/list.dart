@@ -6,6 +6,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'geturl.dart';
 import 'listdetail.dart';
+import 'package:searchable_listview/searchable_listview.dart';
 
 var nexturl = "";
 
@@ -36,17 +37,6 @@ Future<PokeApi> fetchAlbum() async {
   }
 }
 
-// Future<PokeApi> Decx() async {
-//   // 포켓몬 주소
-//   final response = await http.get(Uri.parse(nexturl));
-
-//   if (response.statusCode == 200) {
-//     return PokeApi.fromJson(jsonDecode(response.body));
-//   } else {
-//     throw Exception('Failed to load pokeApi');
-//   }
-// }
-
 class PoketList extends StatefulWidget {
   PoketList({super.key});
 
@@ -72,101 +62,91 @@ class _PoketListState extends State<PoketList> {
       extendBodyBehindAppBar: true,
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                width: double.infinity,
-                height: MediaQuery.of(context).size.height * 0.1,
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                ),
-                child: Center(
-                  child: TextField(
-                    // onChanged: (value) => updateList(value),
-                    decoration: InputDecoration(
-                      hintText: '   名前とナンバーを通して探す',
-                      prefixIcon: Icon(Icons.search),
-                      prefixIconColor: Colors.white,
-                      filled: true,
-                      fillColor: Color.fromARGB(255, 41, 40, 44),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(40.0),
-                          borderSide: BorderSide.none),
+          child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: NetworkImage(
+                    "https://i.pinimg.com/originals/bb/13/85/bb138529b04cf5dba6b39f256ba95562.jpg"),
+              ),
+            ),
+            child: Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.height * 0.1,
+                  decoration: BoxDecoration(
+                    color: Colors.black54,
+                  ),
+                  child: Center(
+                    child: TextField(
+                      // onChanged: (value) => updateList(value),
+                      decoration: InputDecoration(
+                        hintText: '   名前とナンバーを通して探す',
+                        prefixIcon: Icon(Icons.search),
+                        prefixIconColor: Colors.white,
+                        filled: true,
+                        fillColor: Color.fromARGB(255, 41, 40, 44),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40.0),
+                            borderSide: BorderSide.none),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.9,
-                child: FutureBuilder<PokeApi>(
-                  future: futureAlbum,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return (ListView.builder(
-                          itemCount: snapshot.data!.results.length,
-                          scrollDirection: Axis.vertical,
-                          itemBuilder: (context, index) {
-                            dynamic pokename =
-                                snapshot.data!.results[index]["name"];
-                            dynamic pokedetail =
-                                snapshot.data!.results[index]["url"];
-                            // dynamic detaildecx = snapshot.data!.species["url"];
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.9,
+                  child: FutureBuilder<PokeApi>(
+                    future: futureAlbum,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return (ListView.builder(
+                            itemCount: snapshot.data!.results.length,
+                            scrollDirection: Axis.vertical,
+                            itemBuilder: (context, index) {
+                              dynamic pokename =
+                                  snapshot.data!.results[index]["name"];
+                              dynamic pokedetail =
+                                  snapshot.data!.results[index]["url"];
+                              // dynamic detaildecx = snapshot.data!.species["url"];
 
-                            return Card(
-                              child: ListTile(
-                                //   title: Text('일러'),
-                                leading:
-                                    Text("ナンバー : " + (index + 1).toString()),
-                                trailing: IconButton(
-                                  onPressed: () {
-                                    nexturl = pokedetail;
-                                    // detailDecx = detaildecx;
-                                    // print(nexturl);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => getUrl()),
-                                    );
-                                  },
-                                  icon: Icon(Icons.navigate_next),
-                                ),
-                                title: Center(
-                                  child: Text(
-                                    pokename.toString(),
+                              return Card(
+                                color: Colors.white10,
+                                elevation: 0,
+                                child: ListTile(
+                                  leading:
+                                      Text("ナンバー : " + (index + 1).toString()),
+                                  trailing: IconButton(
+                                    onPressed: () {
+                                      nexturl = pokedetail;
+
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => getUrl()),
+                                      );
+                                    },
+                                    icon: Icon(Icons.navigate_next),
+                                  ),
+                                  title: Center(
+                                    child: Text(
+                                      pokename.toString(),
+                                    ),
                                   ),
                                 ),
-                                // subtitle: Center(
-                                //   child: FutureBuilder<PokeApi>(
-                                //     future: decx,
-                                //     builder: (context, snapshot) {
-                                //       if (snapshot.hasData) {
-                                //         return (detailDecx =
-                                //             snapshot.data!.species["url"]);
-                                //         //return Text(snapshot.data!.results[0].toString());
-                                //       } else if (snapshot.hasError) {
-                                //         return Text('${snapshot.error}');
-                                //       }
+                              );
+                            }));
+                      } else if (snapshot.hasError) {
+                        return Text('${snapshot.error}');
+                      }
 
-                                //       // By default, show a loading spinner.
-                                //       return Center(
-                                //           child: CircularProgressIndicator());
-                                //     },
-                                //   ),
-                                // ),
-                              ),
-                            );
-                          }));
-                      //return Text(snapshot.data!.results[0].toString());
-                    } else if (snapshot.hasError) {
-                      return Text('${snapshot.error}');
-                    }
-
-                    // By default, show a loading spinner.
-                    return Center(child: CircularProgressIndicator());
-                  },
+                      // By default, show a loading spinner.
+                      return Center(child: CircularProgressIndicator());
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

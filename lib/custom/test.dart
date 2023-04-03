@@ -1,81 +1,251 @@
-// ignore_for_file: sized_box_for_whitespace, non_constant_identifier_names, unused_import
-
-import 'dart:convert';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'dart:math';
-import 'package:charts_flutter_new/flutter.dart' as charts;
-import 'package:http/http.dart' as http;
-import '../decx/listdetail.dart';
-import 'custom.dart';
+import 'package:searchable_listview/searchable_listview.dart';
 
-class ChartsDemo extends StatefulWidget {
-  const ChartsDemo({super.key});
-
-  @override
-  ChartsDemoState createState() => ChartsDemoState();
+void main() {
+  runApp(const ChartsDemo());
 }
 
-class ChartsDemoState extends State<ChartsDemo> {
-  late List<charts.Series<dynamic, String>> seriesList;
-
-//  일련의 차트 데이터를 저장할 목록
-  static List<charts.Series<Sales, String>> _createRandomData() {
-    final random = Random();
-
-//리스트는 api에서 가져오고
-    final desktopSalesData = [
-      Sales('2015', 200),
-      Sales('2016', 150),
-      Sales('2017', 100),
-      Sales('2018', random.nextInt(100)),
-      Sales('2019', random.nextInt(100)),
-    ];
-
-    return [
-      charts.Series<Sales, String>(
-          id: 'Sales',
-          domainFn: (Sales sales, _) => sales.stat,
-          measureFn: (Sales sales, _) => sales.value,
-          data: desktopSalesData,
-          fillColorFn: (Sales sales, _) {
-            return charts.MaterialPalette.blue.shadeDefault;
-          },
-          labelAccessorFn: (Sales sales, _) =>
-              '${sales.stat}: \$${sales.value.toString()}'),
-    ];
-  }
-
-  barChart() {
-    return Chart(seriesList);
-  }
-
-//계열 목록을 초기화한 다음 BarChart 생성자에 전달
-  @override
-  void initState() {
-    super.initState();
-    seriesList = _createRandomData();
-  }
+class ChartsDemo extends StatelessWidget {
+  const ChartsDemo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Container(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        children: [
-          barChart(),
-          // getDemage(139, 31, 252, 110),
-        ],
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
-    ));
+      home: const Scaffold(
+        body: SafeArea(
+          child: ExampleApp(),
+        ),
+      ),
+    );
   }
 }
 
-//먼저 차트 데이터를 보유하는 클래스
-class Sales {
-  final String stat;
-  final int value;
+class ExampleApp extends StatefulWidget {
+  const ExampleApp({Key? key}) : super(key: key);
 
-  Sales(this.stat, this.value);
+  @override
+  State<ExampleApp> createState() => _ExampleAppState();
+}
+
+class _ExampleAppState extends State<ExampleApp> {
+  final List<Actor> actors = [
+    Actor(age: 47, name: 'Leonardo', lastName: 'DiCaprio'),
+    Actor(age: 58, name: 'Johnny', lastName: 'Depp'),
+    Actor(age: 78, name: 'Robert', lastName: 'De Niro'),
+    Actor(age: 44, name: 'Tom', lastName: 'Hardy'),
+    Actor(age: 66, name: 'Denzel', lastName: 'Washington'),
+    Actor(age: 49, name: 'Ben', lastName: 'Affleck'),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        children: [
+          const Text('Searchable list with divider'),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: SearchableList<Actor>(
+                style: const TextStyle(fontSize: 25),
+                onPaginate: () async {
+                  await Future.delayed(const Duration(milliseconds: 1000));
+                  // setState(() {
+                  //   actors.addAll([
+                  //     Actor(age: 22, name: 'Fathi', lastName: 'Hadawi'),
+                  //     Actor(age: 22, name: 'Hichem', lastName: 'Rostom'),
+                  //     Actor(age: 22, name: 'Kamel', lastName: 'Twati'),
+                  //   ]);
+                  // });
+                },
+                builder: (Actor actor) => ActorItem(actor: actor),
+                loadingWidget: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    CircularProgressIndicator(),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text('Loading actors...')
+                  ],
+                ),
+                errorWidget: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(
+                      Icons.error,
+                      color: Colors.red,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text('Error while fetching actors')
+                  ],
+                ),
+                asyncListCallback: () async {
+                  await Future.delayed(
+                    const Duration(
+                      milliseconds: 10000,
+                    ),
+                  );
+                  return actors;
+                },
+                asyncListFilter: (q, list) {
+                  return list
+                      .where((element) => element.name.contains(q))
+                      .toList();
+                },
+                emptyWidget: const EmptyView(),
+                onRefresh: () async {},
+                onItemSelected: (Actor item) {},
+                inputDecoration: InputDecoration(
+                  labelText: "Search Actor",
+                  fillColor: Colors.white,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(
+                      color: Colors.blue,
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+                secondaryWidget: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Container(
+                    color: Colors.grey[400],
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 20,
+                        horizontal: 10,
+                      ),
+                      child: Center(
+                        child: Icon(Icons.sort),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: ElevatedButton(
+              onPressed: addActor,
+              child: const Text('Add actor'),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  void addActor() {
+    actors.add(Actor(
+      age: 10,
+      lastName: 'Ali',
+      name: 'ALi',
+    ));
+    setState(() {});
+  }
+}
+
+class ActorItem extends StatelessWidget {
+  final Actor actor;
+
+  const ActorItem({
+    Key? key,
+    required this.actor,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 60,
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          children: [
+            const SizedBox(
+              width: 10,
+            ),
+            Icon(
+              Icons.star,
+              color: Colors.yellow[700],
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Firstname: ${actor.name}',
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  'Lastname: ${actor.lastName}',
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  'Age: ${actor.age}',
+                  style: const TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class EmptyView extends StatelessWidget {
+  const EmptyView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: const [
+        Icon(
+          Icons.error,
+          color: Colors.red,
+        ),
+        Text('no actor is found with this name'),
+      ],
+    );
+  }
+}
+
+class Actor {
+  int age;
+  String name;
+  String lastName;
+
+  Actor({
+    required this.age,
+    required this.name,
+    required this.lastName,
+  });
 }

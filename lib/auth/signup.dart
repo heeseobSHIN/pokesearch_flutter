@@ -44,111 +44,7 @@ class _SignupState extends State<Signup> {
   Widget build(BuildContext context) {
     bool selected = false;
     ToastContext().init(context);
-    // var nameTextField = CupertinoTextField(
-    //   controller: nameTextEditController,
-    //   placeholder: "name",
-    //   padding: EdgeInsets.all(10),
-    //   decoration: BoxDecoration(
-    //     color: Colors.grey,
-    //     border: Border.all(
-    //       color: Colors.grey,
-    //       width: 0.5,
-    //     ),
-    //     borderRadius: BorderRadius.circular(12),
-    //   ),
-    //   onChanged: (Text) {
-    //     // print(Text);
-    //   },
-    // );
 
-    // var ageTextField = CupertinoTextField(
-    //   controller: ageTextEditController,
-    //   placeholder: "나이",
-    //   // obscureText: true,
-    //   padding: EdgeInsets.all(10),
-    //   decoration: BoxDecoration(
-    //     color: Colors.grey,
-    //     border: Border.all(
-    //       color: Colors.grey,
-    //       width: 0.5,
-    //     ),
-    //     borderRadius: BorderRadius.circular(12),
-    //   ),
-    //   onChanged: (Text) {
-    //     // print(Text);
-    //   },
-    // );
-    // var regionTextField = CupertinoTextField(
-    //   controller: regionTextEditController,
-    //   placeholder: "출신 지역",
-    //   // obscureText: true,
-    //   padding: EdgeInsets.all(10),
-    //   decoration: BoxDecoration(
-    //     color: Colors.grey,
-    //     border: Border.all(
-    //       color: Colors.grey,
-    //       width: 0.5,
-    //     ),
-    //     borderRadius: BorderRadius.circular(12),
-    //   ),
-    //   onChanged: (Text) {
-    //     // print(Text);
-    //   },
-    // );
-    // var imageTextField = CupertinoTextField(
-    //   controller: imageTextEditController,
-    //   placeholder: "대표이미지 Url",
-    //   // obscureText: true,
-    //   padding: EdgeInsets.all(10),
-    //   decoration: BoxDecoration(
-    //     color: Colors.grey,
-    //     border: Border.all(
-    //       color: Colors.grey,
-    //       width: 0.5,
-    //     ),
-    //     borderRadius: BorderRadius.circular(12),
-    //   ),
-    //   onChanged: (Text) {
-    //     // print(Text);
-    //   },
-    // );
-    // var mypoTextField = CupertinoTextField(
-    //   controller: mypoTextEditController,
-    //   placeholder: "즐겨찾는 포켓몬",
-    //   // obscureText: true,
-    //   padding: EdgeInsets.all(10),
-    //   decoration: BoxDecoration(
-    //     color: Colors.grey,
-    //     border: Border.all(
-    //       color: Colors.grey,
-    //       width: 0.5,
-    //     ),
-    //     borderRadius: BorderRadius.circular(12),
-    //   ),
-    //   onChanged: (Text) {
-    //     // print(Text);
-    //   },
-    // );
-
-    // var PutdataButton = CupertinoButton(
-    //   child: Text("개인 정보 변경"),
-    //   color: Colors.black,
-    //   borderRadius: BorderRadius.circular(12),
-    //   onPressed: () {
-    //     final userCollectionReference = FirebaseFirestore.instance
-    //         .collection("users")
-    //         .doc(FirebaseAuth.instance.currentUser?.uid.toString());
-    //     userCollectionReference.set({
-    //       "userName": nameTextEditController.text,
-    //       "age": ageTextEditController.text,
-    //       "region": regionTextEditController.text,
-    //       "imageUrl": imageTextEditController.text,
-    //       "mypokemon": mypoTextEditController.text,
-    //     });
-    //     Toast.show("데이터 적용",
-    //         duration: Toast.lengthShort, gravity: Toast.bottom);
-    //   },
-    // );
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -170,8 +66,17 @@ class _SignupState extends State<Signup> {
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
-                return SignInScreen(
-                    providerConfigs: [EmailProviderConfiguration()]);
+                return Container(
+                  // decoration: BoxDecoration(
+                  //   image: DecorationImage(
+                  //     fit: BoxFit.cover,
+                  //     image: NetworkImage(
+                  //         "https://i.pinimg.com/originals/bb/13/85/bb138529b04cf5dba6b39f256ba95562.jpg"),
+                  //   ),
+                  // ),
+                  child: SignInScreen(
+                      providerConfigs: [EmailProviderConfiguration()]),
+                );
               }
               return ListView(
                 children: [

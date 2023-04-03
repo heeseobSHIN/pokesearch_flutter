@@ -136,6 +136,13 @@ class _ListdetailState extends State<Listdetail> {
         ),
       ),
       body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: NetworkImage(
+                "https://i.pinimg.com/originals/bb/13/85/bb138529b04cf5dba6b39f256ba95562.jpg"),
+          ),
+        ),
         child: ListView(
           children: [
             Padding(

@@ -94,7 +94,7 @@ ElevatedButton ball(
         ),
         Text(
           undertext,
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white54),
         ),
       ],
     ),

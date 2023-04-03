@@ -57,85 +57,103 @@ class _getUrlState extends State<getUrl> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: FutureBuilder<testApi>(
-            future: decx,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                // print(statlist);
-                return (ListView.builder(
-                    itemCount: 1,
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (context, index) {
-                      dynamic decx = snapshot.data!.species["url"];
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: NetworkImage(
+                "https://i.pinimg.com/originals/bb/13/85/bb138529b04cf5dba6b39f256ba95562.jpg"),
+          ),
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: FutureBuilder<testApi>(
+              future: decx,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  // print(statlist);
+                  return (ListView.builder(
+                      itemCount: 1,
+                      scrollDirection: Axis.vertical,
+                      itemBuilder: (context, index) {
+                        dynamic decx = snapshot.data!.species["url"];
 
-                      // dynamic detaildecx = snapshot.data!.species["url"];
+                        // dynamic detaildecx = snapshot.data!.species["url"];
 
-                      return Column(
-                        children: [
-                          Card(
-                            child: ListTile(
-                              leading: Text("도감 디테일 한국어 보기"),
-                              trailing: IconButton(
-                                onPressed: () {
-                                  detailDecx = decx;
-                                  if (statlist != []) {
-                                    // print("널이 아닐때1$statlist");
+                        return Column(
+                          children: [
+                            Card(
+                              color: Colors.white10,
+                              child: ListTile(
+                                leading: Text("도감 디테일 한국어 보기"),
+                                trailing: IconButton(
+                                  onPressed: () {
+                                    detailDecx = decx;
+                                    if (statlist != []) {
+                                      statlist = [];
+                                      statbase = [];
+                                      statname = [];
+                                    } else {
+                                      statlist = [];
+                                      statbase = [];
+                                      statname = [];
+                                    }
 
-                                    statlist = [];
-                                  } else {
-                                    statlist = [];
-                                    // print(statlist);
-                                  }
-
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Listdetail()),
-                                  );
-                                },
-                                icon: Icon(Icons.home),
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Listdetail()),
+                                    );
+                                  },
+                                  icon: Icon(Icons.home),
+                                ),
                               ),
                             ),
-                          ),
-                          Card(
-                            child: ListTile(
-                              leading: Text("エントリーを日本語で見にいく"),
-                              trailing: IconButton(
-                                onPressed: () {
-                                  detailDecx = decx;
-                                  if (statlistjp != []) {
-                                    print("널이 아닐때2$statlistjp");
-                                    statlistjp = [];
-                                  } else {
-                                    statlistjp = [];
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Card(
+                              color: Colors.white10,
+                              child: ListTile(
+                                leading: Text("エントリーを日本語で見にいく"),
+                                trailing: IconButton(
+                                  onPressed: () {
+                                    detailDecx = decx;
+                                    if (statlistjp != []) {
+                                      statlist = [];
+                                      statbase = [];
+                                      statname = [];
+                                    } else {
+                                      statlist = [];
+                                      statbase = [];
+                                      statname = [];
+                                    }
 
-                                    print(statlistjp);
-                                  }
-
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Listdetailjp()),
-                                  );
-                                },
-                                icon: Icon(Icons.home),
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Listdetailjp()),
+                                    );
+                                  },
+                                  icon: Icon(Icons.home),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      );
-                    }));
-              } else if (snapshot.hasError) {
-                return Text('${snapshot.error}');
-              }
+                          ],
+                        );
+                      }));
+                } else if (snapshot.hasError) {
+                  return Text('${snapshot.error}');
+                }
 
-              // By default, show a loading spinner.
-              return Center(child: CircularProgressIndicator());
-            },
+                // By default, show a loading spinner.
+                return Center(child: CircularProgressIndicator());
+              },
+            ),
           ),
         ),
       ),
