@@ -308,6 +308,11 @@ class _PoketListState extends State<PoketList> {
                             },
                             icon: Icon(Icons.search),
                           ),
+                          SizedBox(
+                            width: 50,
+                          ),
+                          Text("2세대"),
+                          Icon(Icons.arrow_right),
                         ],
                       ),
                     ),
@@ -406,14 +411,15 @@ class _PoketListState extends State<PoketList> {
                       width: double.infinity,
                       height: MediaQuery.of(context).size.height * 0.1,
                       decoration: BoxDecoration(
-                        color: Colors.black54,
+                        color: Colors.transparent,
                       ),
                       child: Row(
                         children: [
                           SizedBox(
                             width: 50,
                           ),
-                          Text("검색하기"),
+                          Text("2세대 검색하기"),
+                          Icon(Icons.arrow_right),
                           IconButton(
                             onPressed: () {
                               Navigator.push(
@@ -522,14 +528,15 @@ class _PoketListState extends State<PoketList> {
                       width: double.infinity,
                       height: MediaQuery.of(context).size.height * 0.1,
                       decoration: BoxDecoration(
-                        color: Colors.black54,
+                        color: Colors.transparent,
                       ),
                       child: Row(
                         children: [
                           SizedBox(
                             width: 50,
                           ),
-                          Text("검색하기"),
+                          Text("3세대 검색하기"),
+                          Icon(Icons.arrow_right),
                           IconButton(
                             onPressed: () {
                               Navigator.push(
@@ -638,14 +645,15 @@ class _PoketListState extends State<PoketList> {
                       width: double.infinity,
                       height: MediaQuery.of(context).size.height * 0.1,
                       decoration: BoxDecoration(
-                        color: Colors.black54,
+                        color: Colors.transparent,
                       ),
                       child: Row(
                         children: [
                           SizedBox(
                             width: 50,
                           ),
-                          Text("검색하기"),
+                          Text("4세대 검색하기"),
+                          Icon(Icons.arrow_right),
                           IconButton(
                             onPressed: () {
                               Navigator.push(
@@ -754,14 +762,15 @@ class _PoketListState extends State<PoketList> {
                       width: double.infinity,
                       height: MediaQuery.of(context).size.height * 0.1,
                       decoration: BoxDecoration(
-                        color: Colors.black54,
+                        color: Colors.transparent,
                       ),
                       child: Row(
                         children: [
                           SizedBox(
                             width: 50,
                           ),
-                          Text("검색하기"),
+                          Text("5세대 검색하기"),
+                          Icon(Icons.arrow_right),
                           IconButton(
                             onPressed: () {
                               Navigator.push(
@@ -774,21 +783,6 @@ class _PoketListState extends State<PoketList> {
                           ),
                         ],
                       ),
-                      // child: Center(
-                      //   child: TextField(
-                      //     // onChanged: (value) => updateList(value),
-                      //     decoration: InputDecoration(
-                      //       hintText: '   探す1세대',
-                      //       prefixIcon: Icon(Icons.search),
-                      //       prefixIconColor: Colors.white,
-                      //       filled: true,
-                      //       fillColor: Color.fromARGB(255, 41, 40, 44),
-                      //       border: OutlineInputBorder(
-                      //           borderRadius: BorderRadius.circular(40.0),
-                      //           borderSide: BorderSide.none),
-                      //     ),
-                      //   ),
-                      // ),
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.9,
@@ -885,14 +879,15 @@ class _PoketListState extends State<PoketList> {
                       width: double.infinity,
                       height: MediaQuery.of(context).size.height * 0.1,
                       decoration: BoxDecoration(
-                        color: Colors.black54,
+                        color: Colors.transparent,
                       ),
                       child: Row(
                         children: [
                           SizedBox(
                             width: 50,
                           ),
-                          Text("검색하기"),
+                          Text("6세대 검색하기"),
+                          Icon(Icons.arrow_right),
                           IconButton(
                             onPressed: () {
                               Navigator.push(
@@ -905,21 +900,6 @@ class _PoketListState extends State<PoketList> {
                           ),
                         ],
                       ),
-                      // child: Center(
-                      //   child: TextField(
-                      //     // onChanged: (value) => updateList(value),
-                      //     decoration: InputDecoration(
-                      //       hintText: '   探す1세대',
-                      //       prefixIcon: Icon(Icons.search),
-                      //       prefixIconColor: Colors.white,
-                      //       filled: true,
-                      //       fillColor: Color.fromARGB(255, 41, 40, 44),
-                      //       border: OutlineInputBorder(
-                      //           borderRadius: BorderRadius.circular(40.0),
-                      //           borderSide: BorderSide.none),
-                      //     ),
-                      //   ),
-                      // ),
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.9,
@@ -1016,14 +996,15 @@ class _PoketListState extends State<PoketList> {
                       width: double.infinity,
                       height: MediaQuery.of(context).size.height * 0.1,
                       decoration: BoxDecoration(
-                        color: Colors.black54,
+                        color: Colors.transparent,
                       ),
                       child: Row(
                         children: [
                           SizedBox(
                             width: 50,
                           ),
-                          Text("검색하기"),
+                          Text("7세대 검색하기"),
+                          Icon(Icons.arrow_right),
                           IconButton(
                             onPressed: () {
                               Navigator.push(
@@ -1036,21 +1017,6 @@ class _PoketListState extends State<PoketList> {
                           ),
                         ],
                       ),
-                      // child: Center(
-                      //   child: TextField(
-                      //     // onChanged: (value) => updateList(value),
-                      //     decoration: InputDecoration(
-                      //       hintText: '   探す1세대',
-                      //       prefixIcon: Icon(Icons.search),
-                      //       prefixIconColor: Colors.white,
-                      //       filled: true,
-                      //       fillColor: Color.fromARGB(255, 41, 40, 44),
-                      //       border: OutlineInputBorder(
-                      //           borderRadius: BorderRadius.circular(40.0),
-                      //           borderSide: BorderSide.none),
-                      //     ),
-                      //   ),
-                      // ),
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.9,
@@ -1147,14 +1113,15 @@ class _PoketListState extends State<PoketList> {
                       width: double.infinity,
                       height: MediaQuery.of(context).size.height * 0.1,
                       decoration: BoxDecoration(
-                        color: Colors.black54,
+                        color: Colors.transparent,
                       ),
                       child: Row(
                         children: [
                           SizedBox(
                             width: 50,
                           ),
-                          Text("검색하기"),
+                          Text("8세대 검색하기"),
+                          Icon(Icons.arrow_right),
                           IconButton(
                             onPressed: () {
                               Navigator.push(
@@ -1167,21 +1134,6 @@ class _PoketListState extends State<PoketList> {
                           ),
                         ],
                       ),
-                      // child: Center(
-                      //   child: TextField(
-                      //     // onChanged: (value) => updateList(value),
-                      //     decoration: InputDecoration(
-                      //       hintText: '   探す1세대',
-                      //       prefixIcon: Icon(Icons.search),
-                      //       prefixIconColor: Colors.white,
-                      //       filled: true,
-                      //       fillColor: Color.fromARGB(255, 41, 40, 44),
-                      //       border: OutlineInputBorder(
-                      //           borderRadius: BorderRadius.circular(40.0),
-                      //           borderSide: BorderSide.none),
-                      //     ),
-                      //   ),
-                      // ),
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.9,

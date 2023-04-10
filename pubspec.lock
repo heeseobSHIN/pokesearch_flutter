@@ -326,6 +326,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
+  flutter_localization:
+    dependency: "direct main"
+    description:
+      name: flutter_localization
+      sha256: "331698b371173f5e49812d5b3829a73b5a0b8d22c5fdd1270c8bd6d03d653716"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.10"
   flutter_localizations:
     dependency: transitive
     description: flutter
@@ -422,7 +430,7 @@ packages:
     source: hosted
     version: "4.0.15"
   intl:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: intl
       sha256: "910f85bce16fb5c6f614e117efa303e85a1731bb0081edf3604a2ae6e9a3cc91"
@@ -598,7 +606,7 @@ packages:
     source: hosted
     version: "2.3.2"
   shared_preferences:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: shared_preferences
       sha256: "858aaa72d8f61637d64e776aca82e1c67e6d9ee07979123c5d17115031c1b13b"

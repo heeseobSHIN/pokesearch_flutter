@@ -24,16 +24,16 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Homes extends StatefulWidget {
-  const Homes({super.key});
+// class Homes extends StatefulWidget {
+//   const Homes({super.key});
 
-  @override
-  State<Homes> createState() => _HomesState();
-}
+//   @override
+//   State<Homes> createState() => _HomesState();
+// }
 
-class _HomesState extends State<Homes> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold();
-  }
-}
+// class _HomesState extends State<Homes> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold();
+//   }
+// }
